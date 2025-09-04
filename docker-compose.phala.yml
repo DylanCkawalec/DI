@@ -2,8 +2,8 @@ version: '3.8'
 
 services:
   app:
-    image: dylanckawalec/erc8004-a2a:production
-    container_name: erc8004-a2a-phala
+    image: dylanckawalec/trustless-ai-erc-8004:latest
+    container_name: trustless-ai-erc-8004
 
     environment:
       NODE_ENV: production
