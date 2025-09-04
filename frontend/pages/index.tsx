@@ -29,6 +29,9 @@ import UserDeploymentPanel from '../components/UserDeploymentPanel';
 import SessionHistory from '../components/SessionHistory';
 import LauncherModal from '../components/LauncherModal';
 import RevenueExplanation from '../components/RevenueExplanation';
+import RealTimeProgress from '../components/RealTimeProgress';
+import TransactionTracker from '../components/TransactionTracker';
+import AIStatusBanner from '../components/AIStatusBanner';
 
 interface ReviewData {
   review_id: string;
@@ -97,6 +100,9 @@ export default function Home() {
   const [userConfig, setUserConfig] = useState<any>(null);
   const [debugMode, setDebugMode] = useState(false);
   const [showLauncher, setShowLauncher] = useState(false);
+  const [currentProgressStep, setCurrentProgressStep] = useState('');
+  const [showProgress, setShowProgress] = useState(false);
+  const [currentAIAgent, setCurrentAIAgent] = useState('');
 
   const sampleCode = `import os
 import subprocess
@@ -245,6 +251,8 @@ if __name__ == '__main__':
 
     setIsReviewing(true);
     setStep(2);
+    setShowProgress(true);
+    setCurrentProgressStep('session_create');
     
     try {
       console.log('📝 Starting professional code review...');
@@ -425,6 +433,8 @@ if __name__ == '__main__':
   const performRealAIAnalysis = async (code: string, language: string, txHash: string): Promise<ReviewData> => {
     try {
       console.log('🧠 Starting REAL AI analysis via A2A API...');
+      setCurrentAIAgent('🧠 Grok AI (Primary Analysis Engine)');
+      setCurrentProgressStep('ai_analysis');
       
       // Create A2A session for real AI analysis
       const headers: Record<string, string> = {
@@ -726,6 +736,8 @@ if __name__ == '__main__':
   const performRealAIValidation = async (originalReview: ReviewData, txHash: string): Promise<ValidationData> => {
     try {
       console.log('🛡️ Starting REAL AI validation via validator agent...');
+      setCurrentAIAgent('🛡️ Claude AI (Validator Agent)');
+      setCurrentProgressStep('validator_ai');
       
       // Create validation request for real validator agent
       const validationResponse = await fetch('http://localhost:8081/validate', {
@@ -1200,6 +1212,10 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
     setReviewData(null);
     setValidationData(null);
     setCode(sampleCode);
+    setShowProgress(false);
+    setCurrentProgressStep('');
+    setCurrentAIAgent('');
+    console.log('🔄 Demo reset - ready for new analysis');
   };
 
   return (
@@ -1444,40 +1460,31 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                                 <div className="animate-spin h-4 w-4 border-2 border-white/30 border-t-white rounded-full" />
                                 <span>Validating Quality...</span>
                               </>
-                            ) : step === 1 ? (
-                              <>
-                                <PlayIcon className="h-4 w-4" />
-                                <span>
-                                  {isWalletConnected 
-                                    ? 'Start Premium AI Review' 
-                                    : 'Start Free AI Review'}
-                                </span>
-                                {isWalletConnected && estimatedCost > 0 && (
-                                  <span className="text-xs opacity-75">
-                                    (~${(estimatedCost * 3000).toFixed(3)})
-                                  </span>
-                                )}
-                                {!isWalletConnected && (
-                                  <span className="text-xs opacity-75">
-                                    (FREE)
-                                  </span>
-                                )}
-                              </>
-                            ) : step === 3 ? (
-                              <>
-                                <ShieldCheckIcon className="h-4 w-4" />
-                                <span>
-                                  {isWalletConnected 
-                                    ? 'Request Blockchain Validation' 
-                                    : 'Get Local Validation'}
-                                </span>
-                                {isWalletConnected && estimatedCost > 0 && (
-                                  <span className="text-xs opacity-75">
-                                    (~${(estimatedCost * 3000).toFixed(3)})
-                                  </span>
-                                )}
-                              </>
-                            ) : (
+                                        ) : step === 1 ? (
+              <>
+                <PlayIcon className="h-4 w-4" />
+                <span>
+                  {isWalletConnected 
+                    ? 'Start Premium AI Review' 
+                    : 'Start Free AI Review'}
+                </span>
+                <div className="text-xs opacity-75">
+                  {isWalletConnected ? '(Grok→Claude→Etherscan)' : '(FREE)'}
+                </div>
+              </>
+            ) : step === 3 ? (
+                                            <>
+                <ShieldCheckIcon className="h-4 w-4" />
+                <span>
+                  {isWalletConnected 
+                    ? 'Request AI Validation' 
+                    : 'Get Local Validation'}
+                </span>
+                <div className="text-xs opacity-75">
+                  {isWalletConnected ? '(Claude AI→Etherscan)' : '(Local)'}
+                </div>
+              </>
+            ) : (
                               <span>Processing...</span>
                             )}
                           </button>
@@ -1494,6 +1501,24 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
+                  {/* Real-Time Progress */}
+                  {showProgress && (
+                    <RealTimeProgress
+                      isActive={isReviewing || isValidating}
+                      currentStep={currentProgressStep}
+                      onStepUpdate={(step) => console.log('Progress update:', step)}
+                      etherscanApiKey="EF32MAFD3I58N92X1DP2637731ZANQ2ADG"
+                    />
+                  )}
+
+                  {/* Transaction Tracker */}
+                  {isWalletConnected && (
+                    <TransactionTracker
+                      walletAddress={walletAddress}
+                      etherscanApiKey="EF32MAFD3I58N92X1DP2637731ZANQ2ADG"
+                    />
+                  )}
+
                   {/* Revenue Model Explanation */}
                   <RevenueExplanation 
                     userConfig={userConfig}
@@ -1648,6 +1673,18 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
           </main>
         </div>
         
+        {/* AI Status Banner */}
+        <AIStatusBanner
+          currentAI={currentAIAgent}
+          isProcessing={isReviewing || isValidating}
+          step={step}
+          estimatedTime={
+            step === 2 ? '20-30s' : 
+            step === 4 ? '10-15s' : 
+            undefined
+          }
+        />
+
         {/* Launcher Modal */}
         <LauncherModal 
           isOpen={showLauncher}
