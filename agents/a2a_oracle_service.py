@@ -79,9 +79,30 @@ class A2AOracleService:
         self.agent_account = Account.from_key(agent_private_key)
         self.sessions: Dict[str, A2ASession] = {}
         
-        # Initialize Web3 with DRPC
+        # Initialize Web3 with DRPC (with offline mode fallback)
         rpc_url = os.getenv('RPC_URL', 'http://127.0.0.1:8545')
-        self.w3 = Web3(Web3.HTTPProvider(rpc_url))
+        
+        try:
+            self.w3 = Web3(Web3.HTTPProvider(rpc_url))
+            
+            # Test connection
+            if not self.w3.is_connected():
+                print(f"⚠️ Web3 connection failed to {rpc_url}, running in offline mode")
+                self.offline_mode = True
+            else:
+                # Test blockchain access
+                try:
+                    latest_block = self.w3.eth.get_block('latest')
+                    print(f"✅ Web3 connected to {rpc_url} - Block #{latest_block.number}")
+                    self.offline_mode = False
+                except Exception as e:
+                    print(f"⚠️ Blockchain access failed: {e}, running in offline mode")
+                    self.offline_mode = True
+                    
+        except Exception as e:
+            print(f"⚠️ Web3 initialization failed: {e}, running in offline mode")
+            self.w3 = self._create_offline_web3()
+            self.offline_mode = True
         
         # Session storage
         self.session_storage = Path("data/sessions")
@@ -98,6 +119,31 @@ class A2AOracleService:
         print(f"   Agent Address: {self.agent_account.address}")
         print(f"   RPC URL: {rpc_url}")
         print(f"   Session Storage: {self.session_storage}")
+        print(f"   Mode: {'Offline' if self.offline_mode else 'Online'}")
+
+    def _create_offline_web3(self):
+        """Create offline Web3 instance for oracle functionality without blockchain"""
+        class OfflineWeb3:
+            def __init__(self):
+                self.eth = OfflineEth()
+                
+            def is_connected(self):
+                return False
+                
+            def to_checksum_address(self, addr):
+                return addr
+                
+            def to_wei(self, amount, unit):
+                return int(amount * (10 ** 18))  # Convert to wei
+                
+        class OfflineEth:
+            def __init__(self):
+                self.chain_id = 84532  # Base Sepolia
+                
+            def get_block(self, block_identifier):
+                return {"number": 12345, "timestamp": int(time.time())}
+                
+        return OfflineWeb3()
 
     def _init_encryption(self):
         """Initialize encryption system for payloads"""
@@ -279,6 +325,10 @@ class A2AOracleService:
 
     async def _submit_to_blockchain(self, session: A2ASession, payload_data: Dict[str, Any]) -> str:
         """Submit session data to blockchain via ERC-8004 contracts"""
+        if self.offline_mode:
+            print("⚠️ Offline mode: Cannot submit to blockchain, using mock transaction hash")
+            return f"offline_tx_{session.session_id}_{int(time.time())}"
+            
         try:
             # Load deployed contract addresses
             with open('deployed_contracts.json', 'r') as f:
@@ -416,7 +466,21 @@ class A2AOracleService:
         """Continuously poll blockchain for session updates via DRPC"""
         while True:
             try:
-                # Check blockchain status
+                if self.offline_mode:
+                    # Offline mode - just update session statuses locally
+                    for session_id, session in self.sessions.items():
+                        if session.status == "processing":
+                            # Auto-complete sessions in offline mode after 10 seconds
+                            if (datetime.now() - session.updated_at).seconds > 10:
+                                session.status = "completed"
+                                session.updated_at = datetime.now()
+                                self._save_session(session)
+                    
+                    logger.info(f"Offline mode poll: Sessions: {len(self.sessions)}")
+                    await asyncio.sleep(15)
+                    continue
+                    
+                # Online mode - check blockchain status
                 latest_block = self.w3.eth.get_block('latest')
                 
                 # Update session statuses based on blockchain data
@@ -540,6 +604,17 @@ class A2AOracleService:
 
     def get_blockchain_stats(self) -> Dict[str, Any]:
         """Get current blockchain statistics via DRPC"""
+        if self.offline_mode:
+            return {
+                'block_number': 12345,
+                'block_timestamp': int(time.time()),
+                'gas_price_gwei': 0.001,
+                'network_id': 84532,
+                'is_connected': False,
+                'last_updated': datetime.now().isoformat(),
+                'mode': 'offline'
+            }
+            
         try:
             latest_block = self.w3.eth.get_block('latest')
             gas_price = self.w3.eth.gas_price
