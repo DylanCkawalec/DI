@@ -22,8 +22,8 @@ export default function PhalaKMSBanner() {
           <ShieldCheckIcon className="h-6 w-6 text-purple-400" />
         </div>
         <div>
-          <h3 className="text-xl font-bold text-white">Phala Cloud Decentralized KMS</h3>
-          <p className="text-purple-200 text-sm">Trusted Execution Environment for AI Agents</p>
+          <h3 className="text-xl font-bold text-white">Trustless AI on Phala TEE</h3>
+          <p className="text-purple-200 text-sm">Deployable A2A contract and agent framework</p>
         </div>
       </div>
 
@@ -62,23 +62,23 @@ export default function PhalaKMSBanner() {
 
       {/* TEE Security Benefits */}
       <div className="space-y-3">
-        <h4 className="text-purple-300 font-medium">🛡️ Decentralized Security Guarantees:</h4>
+        <h4 className="text-purple-300 font-medium">🛡️ What this template provides:</h4>
         <div className="grid grid-cols-2 gap-3 text-sm">
           <div className="flex items-center space-x-2">
             <LockClosedIcon className="h-4 w-4 text-green-400" />
-            <span className="text-green-200">Hardware-level encryption</span>
+            <span className="text-green-200">TEE-protected execution</span>
           </div>
           <div className="flex items-center space-x-2">
             <GlobeAltIcon className="h-4 w-4 text-blue-400" />
-            <span className="text-blue-200">Distributed execution</span>
+            <span className="text-blue-200">Users pay with MetaMask</span>
           </div>
           <div className="flex items-center space-x-2">
             <CheckBadgeIcon className="h-4 w-4 text-purple-400" />
-            <span className="text-purple-200">Verifiable computations</span>
+            <span className="text-purple-200">On-chain verification (ERC-8004)</span>
           </div>
           <div className="flex items-center space-x-2">
             <ShieldCheckIcon className="h-4 w-4 text-yellow-400" />
-            <span className="text-yellow-200">Zero-trust architecture</span>
+            <span className="text-yellow-200">Trustless A2A protocol loop</span>
           </div>
         </div>
       </div>
@@ -87,10 +87,8 @@ export default function PhalaKMSBanner() {
       <div className="mt-6 p-4 bg-purple-500/10 border border-purple-500/30 rounded-xl">
         <div className="flex items-center justify-between">
           <div>
-            <h4 className="text-purple-300 font-medium">Phala Cloud TEE Status</h4>
-            <p className="text-purple-200 text-sm">
-              ERC-8004 A2A agents running in secure Phala enclaves
-            </p>
+            <h4 className="text-purple-300 font-medium">Trustless AI Status</h4>
+            <p className="text-purple-200 text-sm">Agents deployed in Phala secure enclaves</p>
           </div>
           <div className="text-right">
             <div className="text-green-400 font-bold">ACTIVE</div>

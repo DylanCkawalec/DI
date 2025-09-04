@@ -46,8 +46,8 @@ export default function TransactionStatus({
     
     while (attempts < maxAttempts) {
       try {
-        // Use our secure API proxy to check transaction status
-        const response = await fetch(`/api/etherscan-proxy?address=${txHash}&module=proxy&action=eth_getTransactionReceipt`);
+        // Prefer secure proxy calling Etherscan's proxy API (correct param: txhash)
+        const response = await fetch(`/api/etherscan-proxy?module=proxy&action=eth_getTransactionReceipt&txhash=${txHash}`);
         
         if (response.ok) {
           const data = await response.json();
@@ -77,6 +77,28 @@ export default function TransactionStatus({
               setIsTracking(false);
               return;
             }
+          }
+        }
+
+        // Provider fallback (in case proxy rate-limits or lags)
+        if (typeof (window as any).ethereum !== 'undefined') {
+          try {
+            const providerReceipt = await (window as any).ethereum.request({
+              method: 'eth_getTransactionReceipt',
+              params: [txHash]
+            });
+            if (providerReceipt && providerReceipt.blockNumber) {
+              if (providerReceipt.status === '0x1' || providerReceipt.status === 1) {
+                setStatus('confirmed');
+                setBlockNumber(parseInt(providerReceipt.blockNumber, 16));
+                setGasUsed(parseInt(providerReceipt.gasUsed, 16).toString());
+                if (onConfirmed) onConfirmed(providerReceipt);
+                setIsTracking(false);
+                return;
+              }
+            }
+          } catch (e) {
+            // ignore provider fallback errors and continue polling
           }
         }
         

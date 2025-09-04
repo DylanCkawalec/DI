@@ -1382,16 +1382,17 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-5xl font-bold text-white mb-6">
-                  Decentralized KMS
-                  <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"> AI Code Review</span>
+                  Trustless AI
+                  <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"> Code Review</span>
                 </h2>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  Experience secure AI code analysis with remote attestation and decentralized key management.
-                  Powered by Phala Cloud TEE and the ERC-8004 standard for verifiable AI interactions.
+                  A production-ready ERC-8004 template that deploys a Trustless Agent-to-Agent (A2A) protocol.
+                  Your agents run inside Phala TEE for verifiable execution, while users connect with MetaMask
+                  and pay per analysis. Replace contract addresses and API keys to own your protocol instance.
                 </p>
               </motion.div>
 
-              {/* Phala KMS Banner */}
+              {/* Trustless AI Banner */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
