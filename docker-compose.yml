@@ -1,79 +1,103 @@
+# 🚀 ERC-8004 Trustless AI - Final Docker Compose for Phala TEE
+# =============================================================
+# Complete production deployment with Phala Cloud integration
+#
+# REQUIRED: Create .env file with these variables:
+# - RPC_URL (Base Sepolia RPC endpoint)
+# - PRIVATE_KEY (Your deployment wallet)
+# - PHALA_API_KEY (Your Phala TEE API key)
+# - GROK_API_KEY, OPENAI_API_KEY, ANTHROPIC_API_KEY
+# - IDENTITY_REGISTRY_ADDRESS, REPUTATION_REGISTRY_ADDRESS, VALIDATION_REGISTRY_ADDRESS
+# - ETHERSCAN_API_KEY, NEXT_PUBLIC_* variables
+#
+# Usage: cp env.production.template .env && docker-compose up -d
+
 version: '3.8'
 
 services:
-  # Complete ERC-8004 A2A System with PHALA TEE Integration
-  erc8004-complete:
+  # Main ERC-8004 A2A Application
+  erc8004-trustless-ai:
     build:
       context: .
-      dockerfile: Dockerfile.production
-    image: erc8004-a2a:production
-    container_name: erc8004-complete-system
+      dockerfile: Dockerfile
+    image: erc8004-trustless-ai:latest
+    container_name: erc8004-complete
     
+    # Environment configuration
     environment:
-      # Complete System Configuration
+      # Production settings
       - NODE_ENV=production
       - TEE_MODE=production
       - PHALA_DEPLOYMENT=true
-      - GRANT_SUDO=yes
       
-      # Blockchain Configuration  
-      - RPC_URL=${RPC_URL:-https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IileqhnKxixj}
+      # Blockchain configuration
+      - RPC_URL=${RPC_URL}
       - PRIVATE_KEY=${PRIVATE_KEY}
       - CHAIN_ID=${CHAIN_ID:-84532}
       
-      # ERC-8004 Contract Addresses
-      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS:-0x35656CaD817aD468260dE1bA029fF919E5a40f75}
-      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS:-0x5796Cf09CF7E0F27A6Fb1489a7e5f9414f95F17B}
-      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS:-0x6731b3be764B33a4E94D148410f1f551CE91dA61}
+      # ERC-8004 contract addresses
+      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
+      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
+      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
       
-      # AI Configuration
+      # AI model configuration
       - GROK_API_KEY=${GROK_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       
-      # Etherscan Integration
-      - NEXT_PUBLIC_ETHERSCAN_API_KEY=EF32MAFD3I58N92X1DP2637731ZANQ2ADG
-      - ETHERSCAN_API_KEY=EF32MAFD3I58N92X1DP2637731ZANQ2ADG
-      
-      # Frontend Configuration
-      - NEXT_PUBLIC_API_URL=http://localhost:8080
-      - NEXT_PUBLIC_VALIDATOR_URL=http://localhost:8081
-      - NEXT_PUBLIC_RPC_URL=${RPC_URL:-https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IileqhnKxixj}
-      - NEXT_PUBLIC_CHAIN_ID=${CHAIN_ID:-84532}
-      - NEXT_PUBLIC_IDENTITY_REGISTRY=${IDENTITY_REGISTRY_ADDRESS:-0x35656CaD817aD468260dE1bA029fF919E5a40f75}
-      - NEXT_PUBLIC_VALIDATION_REGISTRY=${VALIDATION_REGISTRY_ADDRESS:-0x6731b3be764B33a4E94D148410f1f551CE91dA61}
-      
-      # PHALA TEE Configuration
-      - PHALA_API_KEY=${PHALA_API_KEY:-phak_AITHmEg1_xqgbIHi-qqxxGBkyEBWfzfauJJOnnX_MRY}
+      # Phala TEE configuration
+      - PHALA_API_KEY=${PHALA_API_KEY}
       - TEE_ATTESTATION_ENABLED=true
       - PHALA_ENDPOINT=https://api.phala.network
-      - DSTACK_SIMULATOR_ENDPOINT=https://phat-cluster-api.phala.network
+      - DSTACK_SIMULATOR_ENDPOINT=http://phala-tee:8090
+      
+      # Frontend configuration
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+      - NEXT_PUBLIC_VALIDATOR_URL=http://localhost:8081
+      - NEXT_PUBLIC_RPC_URL=${NEXT_PUBLIC_RPC_URL}
+      - NEXT_PUBLIC_CHAIN_ID=${NEXT_PUBLIC_CHAIN_ID:-84532}
+      - NEXT_PUBLIC_IDENTITY_REGISTRY=${NEXT_PUBLIC_IDENTITY_REGISTRY}
+      - NEXT_PUBLIC_VALIDATION_REGISTRY=${NEXT_PUBLIC_VALIDATION_REGISTRY}
+      - NEXT_PUBLIC_ETHERSCAN_API_KEY=${NEXT_PUBLIC_ETHERSCAN_API_KEY}
+      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
     
-    # PHALA TEE and application volumes
+    # Port mapping
+    ports:
+      - "3000:3000"    # Frontend
+      - "8080:8080"    # A2A API Server
+      - "8081:8081"    # Validator Agent
+    
+    # Volume mounts
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - /var/run/dstack.sock:/var/run/dstack.sock
       - ./data:/app/data
       - ./logs:/app/logs
       - ./sessions:/app/sessions
       - ./validations:/app/validations
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     
-    # Network configuration - expose all ports
-    ports:
-      - "3000:3000"    # Frontend Application
-      - "8080:8080"    # A2A API Server
-      - "8081:8081"    # Validator Agent
+    # Network configuration
+    networks:
+      - erc8004-network
     
-    # Run as root for TEE and Docker access
-    user: root
-    
-    # Production startup command
-    command: ["./quick_launch.sh"]
+    # Dependencies
+    depends_on:
+      phala-tee:
+        condition: service_healthy
     
     # Restart policy
     restart: unless-stopped
     
-    # Enhanced health check for complete system
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '4.0'
+          memory: 8G
+        reservations:
+          cpus: '2.0'
+          memory: 4G
+    
+    # Health check
     healthcheck:
       test: |
         curl -f http://localhost:8080/api/health &&
@@ -83,33 +107,27 @@ services:
       timeout: 15s
       retries: 5
       start_period: 120s
-    
-    # Resource limits for complete system
-    deploy:
-      resources:
-        limits:
-          cpus: '4'
-          memory: 8G
-        reservations:
-          cpus: '2'
-          memory: 4G
 
-  # PHALA TEE Integration Service
+  # Phala TEE Integration Service
   phala-tee:
     image: phalanetwork/dstack-simulator:latest
     container_name: erc8004-phala-tee
     
     environment:
-      - PHALA_API_KEY=${PHALA_API_KEY:-phak_AITHmEg1_xqgbIHi-qqxxGBkyEBWfzfauJJOnnX_MRY}
+      - PHALA_API_KEY=${PHALA_API_KEY}
       - TEE_MODE=production
       - DSTACK_SIMULATOR_PORT=8090
+      - RUST_LOG=info
     
     ports:
-      - "8090:8090"  # PHALA TEE Simulator
+      - "8090:8090"
     
     volumes:
-      - /var/run/dstack.sock:/var/run/dstack.sock
       - phala_data:/app/data
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    
+    networks:
+      - erc8004-network
     
     restart: unless-stopped
     
@@ -118,17 +136,25 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+      start_period: 60s
 
-
+# Named volumes
 volumes:
   phala_data:
     driver: local
-  app_data:
-    driver: local
-  session_data:
-    driver: local
+    labels:
+      description: "Phala TEE data storage"
 
+# Network configuration
 networks:
-  default:
-    name: erc8004-network
+  erc8004-network:
     driver: bridge
+    labels:
+      description: "ERC-8004 A2A Network"
+
+# Labels for Phala CLI integration
+labels:
+  - "phala.enabled=true"
+  - "phala.tee=required"
+  - "phala.project=erc8004-trustless-ai"
+  - "phala.version=1.0.0"
