@@ -92,13 +92,19 @@ contracts/lib/
 deployed_contracts.json
 *.log
 
-# AI/ML
+# AI/ML & Runtime Data
 *.model
 *.pkl
 *.joblib
 data/
 validations/
 logs/
+sessions/
+*.log
+
+# Development Test Files
+test_results/
+validator_agent.log
 
 # Node.js/Frontend
 node_modules/
