@@ -1,1 +1,1 @@
-self.__REACT_LOADABLE_MANIFEST="{\"components/WalletConnect.tsx -> web3\":{\"id\":\"components/WalletConnect.tsx -> web3\",\"files\":[\"static/chunks/node_modules_web3_lib_esm_index_js.js\"]}}"
+self.__REACT_LOADABLE_MANIFEST="{}"

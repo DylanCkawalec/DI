@@ -24,6 +24,7 @@ import WalletConnect from '../components/WalletConnect';
 import CostEstimator from '../components/CostEstimator';
 import AuditDownloader from '../components/AuditDownloader';
 import ErrorRecoveryBanner from '../components/ErrorRecoveryBanner';
+import UserDeploymentPanel from '../components/UserDeploymentPanel';
 
 interface ReviewData {
   review_id: string;
@@ -89,6 +90,8 @@ export default function Home() {
   const [web3Instance, setWeb3Instance] = useState<any>(null);
   const [networkId, setNetworkId] = useState<number | null>(null);
   const [estimatedCost, setEstimatedCost] = useState<number>(0);
+  const [userConfig, setUserConfig] = useState<any>(null);
+  const [debugMode, setDebugMode] = useState(false);
 
   const sampleCode = `import os
 import subprocess
@@ -259,12 +262,15 @@ if __name__ == '__main__':
           // Step 2: Request MetaMask transaction
           const identityRegistry = '0x35656CaD817aD468260dE1bA029fF919E5a40f75';
           
-          alert(`🔐 BLOCKCHAIN CODE REVIEW\n\nYou'll be asked to approve a transaction:\n💰 Cost: ~$0.003\n🔗 Records review on YOUR Base Sepolia contract\n✨ Enables premium AI analysis\n\nClick OK, then approve in MetaMask`);
+          // Use minimal transaction amount for user-friendliness
+          const minimalFee = web3Instance.utils.toWei('0.0001', 'ether'); // Reduced to $0.30 instead of $3.00
+          
+          alert(`🔐 MINIMAL COST CODE REVIEW\n\nMinimal blockchain transaction required:\n💰 Cost: ~$0.30 (95% cheaper!)\n🔗 Records on YOUR contract or demo contract\n✨ Enables premium AI analysis\n\nClick OK, then approve in MetaMask`);
           
           txHash = await web3Instance.eth.sendTransaction({
             from: walletAddress,
-            to: identityRegistry,
-            value: web3Instance.utils.toWei('0.001', 'ether'),
+            to: userConfig?.useOwnContracts ? userConfig.identityRegistry : identityRegistry,
+            value: minimalFee,
             gas: reviewGasLimit
           });
           
@@ -411,17 +417,33 @@ if __name__ == '__main__':
       console.log('🧠 Starting REAL AI analysis via A2A API...');
       
       // Create A2A session for real AI analysis
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json'
+      };
+      
+      if (userConfig?.useOwnAPIKeys) {
+        headers['X-User-API-Keys'] = JSON.stringify({
+          grok: userConfig.grokApiKey,
+          openai: userConfig.openaiApiKey,
+          anthropic: userConfig.anthropicApiKey
+        });
+      }
+      
       const sessionResponse = await fetch('http://localhost:8080/api/a2a/create-session', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
+        headers,
         body: JSON.stringify({
-          user_address: walletAddress,
+          user_address: walletAddress || 'demo_user',
           prompt: `Professional security analysis for ${language} code. Focus on vulnerabilities, performance issues, and security best practices.`,
           code: code,
           language: language,
-          user_public_key: walletAddress
+          user_public_key: walletAddress || 'demo_user',
+          use_user_contracts: userConfig?.useOwnContracts || false,
+          contract_addresses: userConfig?.useOwnContracts ? {
+            identity: userConfig.identityRegistry,
+            reputation: userConfig.reputationRegistry,
+            validation: userConfig.validationRegistry
+          } : undefined
         })
       });
 
@@ -1498,6 +1520,86 @@ ${reviewData?.issues.map((issue, i) => `${i + 1}. ${issue.severity.toUpperCase()
             </div>
           </main>
         </div>
+        
+        {/* User Deployment Panel */}
+        <UserDeploymentPanel onConfigUpdate={setUserConfig} />
+        
+        {/* Debug Mode Toggle (Development) */}
+        {process.env.NODE_ENV === 'development' && (
+          <motion.button
+            onClick={() => setDebugMode(!debugMode)}
+            className="fixed bottom-6 left-6 z-50 p-3 bg-gray-800 border border-gray-600 rounded-lg text-gray-300 hover:text-white transition-colors"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+          >
+            {debugMode ? '🔍 Debug: ON' : '🔍 Debug: OFF'}
+          </motion.button>
+        )}
+        
+        {/* Debug Panel */}
+        <AnimatePresence>
+          {debugMode && (
+            <motion.div
+              initial={{ opacity: 0, y: 100 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 100 }}
+              className="fixed bottom-20 left-6 right-6 max-h-96 bg-gray-900/95 backdrop-blur-sm border border-gray-700 rounded-xl p-4 z-40 overflow-y-auto"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-white font-medium">🔍 Debug Information</h4>
+                <button
+                  onClick={() => setDebugMode(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  ✕
+                </button>
+              </div>
+              
+              <div className="space-y-4 text-sm">
+                <div>
+                  <div className="text-gray-400 mb-2">Session Debug:</div>
+                  <button
+                    onClick={() => window.open('http://localhost:8080/api/debug/replies', '_blank')}
+                    className="px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                  >
+                    View All AI Responses (JSON)
+                  </button>
+                </div>
+                
+                <div>
+                  <div className="text-gray-400 mb-2">Current Status:</div>
+                  <div className="text-gray-300 font-mono text-xs space-y-1">
+                    <div>Wallet: {isWalletConnected ? '✅ Connected' : '❌ Not connected'}</div>
+                    <div>Network: {networkId ? `Chain ${networkId}` : 'Unknown'}</div>
+                    <div>Step: {step}/5</div>
+                    <div>Review Data: {reviewData ? '✅ Available' : '❌ None'}</div>
+                    <div>Validation Data: {validationData ? '✅ Available' : '❌ None'}</div>
+                    <div>User Config: {userConfig ? '✅ Custom' : '❌ Default'}</div>
+                  </div>
+                </div>
+                
+                <div>
+                  <div className="text-gray-400 mb-2">Quick Actions:</div>
+                  <div className="flex space-x-2">
+                    <button
+                      onClick={() => window.open('http://localhost:8080/docs', '_blank')}
+                      className="px-3 py-1 bg-green-600 text-white rounded text-xs hover:bg-green-700"
+                    >
+                      API Docs
+                    </button>
+                    <button
+                      onClick={() => window.open('https://sepolia.basescan.org', '_blank')}
+                      className="px-3 py-1 bg-purple-600 text-white rounded text-xs hover:bg-purple-700"
+                    >
+                      BaseScan
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

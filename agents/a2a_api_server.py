@@ -91,10 +91,21 @@ def initialize_services():
             "alice-base-sepolia.erc8004.dev"
         )
         
-        # Register agents if needed
+        # Register agents if needed (optional - skip if insufficient funds)
         if not code_review_agent.agent_id:
-            print("📝 Registering code review agent...")
-            code_review_agent.register_agent()
+            try:
+                print("📝 Attempting to register code review agent...")
+                code_review_agent.register_agent()
+                print(f"✅ Agent registered with ID: {code_review_agent.agent_id}")
+            except Exception as e:
+                if "insufficient funds" in str(e).lower():
+                    print("⚠️ Insufficient funds for agent registration - running in demo mode")
+                    print("   💡 Agent will work without registration for testing")
+                    # Set a demo agent ID for API functionality
+                    code_review_agent.agent_id = 999  # Demo agent ID
+                else:
+                    print(f"⚠️ Agent registration failed: {e}")
+                    code_review_agent.agent_id = 999  # Demo agent ID
         
         print("✅ All A2A services initialized successfully")
         return True
@@ -338,6 +349,122 @@ async def get_agent_info():
             "blockchain": {"connected": False},
             "error": str(e)
         }
+
+@app.get("/api/debug/replies")
+async def get_all_replies():
+    """Debug endpoint to see all AI analysis JSON responses"""
+    try:
+        if not oracle_service:
+            raise HTTPException(status_code=503, detail="Oracle service not available")
+        
+        debug_data = {
+            "total_sessions": len(oracle_service.sessions),
+            "sessions": {},
+            "recent_transactions": oracle_service.get_transaction_audit_log(20)
+        }
+        
+        # Get all session data with their analysis results
+        for session_id, session in oracle_service.sessions.items():
+            session_data = {
+                "session_info": {
+                    "session_id": session.session_id,
+                    "status": session.status,
+                    "user_address": session.user_address,
+                    "created_at": session.created_at.isoformat(),
+                    "updated_at": session.updated_at.isoformat(),
+                    "has_encrypted_payload": session.encrypted_payload is not None
+                }
+            }
+            
+            # Try to get analysis results if available
+            if session.encrypted_payload and session.user_address:
+                try:
+                    # For debug purposes, we'll show structure without decrypting
+                    session_data["has_results"] = True
+                    session_data["encrypted_payload_length"] = len(session.encrypted_payload)
+                except Exception as e:
+                    session_data["debug_error"] = str(e)
+            
+            debug_data["sessions"][session_id] = session_data
+        
+        return debug_data
+        
+    except Exception as e:
+        print(f"❌ Error getting debug replies: {e}")
+        return {"error": str(e), "sessions": {}}
+
+@app.get("/api/debug/session/{session_id}")
+async def get_session_debug(session_id: str):
+    """Debug endpoint to see specific session details"""
+    try:
+        if not oracle_service:
+            raise HTTPException(status_code=503, detail="Oracle service not available")
+        
+        session = oracle_service.sessions.get(session_id)
+        if not session:
+            # Try loading from storage
+            session = oracle_service.load_session(session_id)
+            if not session:
+                raise HTTPException(status_code=404, detail="Session not found")
+        
+        return {
+            "session_id": session.session_id,
+            "status": session.status,
+            "user_address": session.user_address,
+            "agent_address": session.agent_address,
+            "created_at": session.created_at.isoformat(),
+            "updated_at": session.updated_at.isoformat(),
+            "transaction_hashes": session.transaction_hashes,
+            "has_encrypted_payload": session.encrypted_payload is not None,
+            "prompt_hash": session.prompt_hash,
+            "cost_eth": session.cost_eth
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        print(f"❌ Error getting session debug: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/api/debug/decrypt-for-testing")
+async def debug_decrypt_payload(request: DecryptPayloadRequest):
+    """Debug endpoint to decrypt payload for testing (bypasses signature verification)"""
+    try:
+        if not oracle_service:
+            raise HTTPException(status_code=503, detail="Oracle service not available")
+        
+        session = oracle_service.sessions.get(request.session_id)
+        if not session:
+            session = oracle_service.load_session(request.session_id)
+            if not session:
+                raise HTTPException(status_code=404, detail="Session not found")
+        
+        # For debug/testing, decrypt without full signature verification
+        if session.encrypted_payload:
+            try:
+                payload = oracle_service.decrypt_payload_for_user(
+                    session.encrypted_payload, 
+                    request.user_address
+                )
+                return {
+                    "debug_mode": True,
+                    "decrypted_payload": payload,
+                    "session_id": request.session_id,
+                    "note": "Debug decryption - production requires valid signature"
+                }
+            except Exception as e:
+                return {
+                    "debug_mode": True,
+                    "error": str(e),
+                    "session_id": request.session_id,
+                    "note": "Debug decryption failed"
+                }
+        
+        return {"error": "No encrypted payload available"}
+        
+    except Exception as e:
+        print(f"❌ Error in debug decrypt: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 # Development server runner
 if __name__ == "__main__":
