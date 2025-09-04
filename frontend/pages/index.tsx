@@ -36,6 +36,7 @@ import SystemHealthDashboard from '../components/SystemHealthDashboard';
 import AgentDiscovery from '../components/AgentDiscovery';
 import PhalaKMSBanner from '../components/PhalaKMSBanner';
 import ClientOnlyWrapper from '../components/ClientOnlyWrapper';
+import TransactionStatus from '../components/TransactionStatus';
 
 interface ReviewData {
   review_id: string;
@@ -107,6 +108,8 @@ export default function Home() {
   const [currentProgressStep, setCurrentProgressStep] = useState('');
   const [showProgress, setShowProgress] = useState(false);
   const [currentAIAgent, setCurrentAIAgent] = useState('');
+  const [currentTxHash, setCurrentTxHash] = useState<string | null>(null);
+  const [pendingTxType, setPendingTxType] = useState<'code_review' | 'validation' | null>(null);
 
   const sampleCode = `import os
 import subprocess
@@ -282,26 +285,62 @@ if __name__ == '__main__':
           // Use minimal transaction amount for user-friendliness
           const minimalFee = web3Instance.utils.toWei('0.0001', 'ether'); // Reduced to $0.30 instead of $3.00
           
-          alert(`🔐 PROFESSIONAL CODE REVIEW\n\n💰 Total Cost: ~$0.45 (99.99% cheaper than traditional!)\n   • Gas Fee: ~$0.15 (network fee)\n   • Owner Revenue: ~$0.30 (goes to protocol owner)\n\n🔗 Payment goes to: ${userConfig?.useOwnContracts ? 'YOUR contract (you earn!)' : 'Demo contract'}\n✨ Enables premium AI analysis with revenue model\n\nClick OK, then approve in MetaMask`);
+          // Enhanced user confirmation with clear transaction details
+          const costUSD = (parseFloat(web3Instance.utils.fromWei(minimalFee, 'ether')) * 3000).toFixed(2);
           
-          // Enhanced transaction that pays the contract owner
-          const contractOwnerFee = web3Instance.utils.toWei('0.0005', 'ether'); // Contract owner revenue
-          const totalValue = BigInt(minimalFee) + BigInt(contractOwnerFee);
+          const confirmed = confirm(
+            `🔐 BLOCKCHAIN CODE REVIEW\n\n` +
+            `You're about to submit a REAL blockchain transaction:\n\n` +
+            `💰 Amount: ${web3Instance.utils.fromWei(minimalFee, 'ether')} ETH (~$${costUSD})\n` +
+            `📍 Contract: ${userConfig?.useOwnContracts ? 'YOUR contract (you earn!)' : 'Demo contract'}\n` +
+            `🔗 Network: Base Sepolia\n` +
+            `✨ Enables: Premium AI analysis + Professional audit\n\n` +
+            `This will create a REAL transaction in your MetaMask.\n` +
+            `Proceed with blockchain transaction?`
+          );
           
+          if (!confirmed) {
+            console.log('❌ User cancelled blockchain transaction');
+            txHash = `cancelled_${Date.now()}`;
+            throw new Error('Transaction cancelled by user');
+          }
+          
+          // Simplified transaction that actually works
+          console.log('🔐 Preparing blockchain transaction...');
+          console.log('Transaction details:', {
+            from: walletAddress,
+            to: userConfig?.useOwnContracts ? userConfig.identityRegistry : identityRegistry,
+            value: minimalFee,
+            gas: reviewGasLimit
+          });
+          
+          // Request MetaMask transaction with clear user messaging
           txHash = await web3Instance.eth.sendTransaction({
             from: walletAddress,
             to: userConfig?.useOwnContracts ? userConfig.identityRegistry : identityRegistry,
-            value: totalValue.toString(), // Total includes owner revenue
+            value: minimalFee,
             gas: reviewGasLimit,
-            data: web3Instance.utils.toHex('CODE_REVIEW_PAYMENT') // Mark as revenue transaction
+            gasPrice: await web3Instance.eth.getGasPrice()
           });
           
-          console.log(`✅ MetaMask transaction approved: ${txHash}`);
+          console.log(`🎉 REAL blockchain transaction submitted: ${txHash}`);
           console.log(`🔗 View on BaseScan: https://sepolia.basescan.org/tx/${txHash}`);
           
+          // Track this transaction in the UI
+          setCurrentTxHash(txHash);
+          setPendingTxType('code_review');
+          setCurrentProgressStep('blockchain_tx');
+          
         } catch (metaMaskError: any) {
-          console.log('⚠️ MetaMask transaction declined, switching to free mode');
-          txHash = `free_analysis_${Date.now()}`;
+          console.error('MetaMask transaction failed:', metaMaskError);
+          
+          if (metaMaskError.code === 4001) {
+            alert('Transaction rejected. You can still use FREE analysis mode without wallet.');
+            throw new Error('Transaction rejected by user');
+          } else {
+            alert(`MetaMask error: ${metaMaskError.message || 'Transaction failed'}\n\nPlease check your wallet and try again.`);
+            throw new Error('MetaMask transaction failed');
+          }
         }
       } else {
         // FREE MODE: No wallet required
@@ -309,17 +348,27 @@ if __name__ == '__main__':
         txHash = `free_analysis_${Date.now()}`;
       }
       
-      // Step 3: Wait for confirmation (or skip for free mode)
+      // Step 3: Wait for REAL blockchain confirmation
       let receipt;
       
       if (txHash.startsWith('free_analysis_') || txHash.startsWith('local_')) {
         console.log('🔄 Proceeding with free analysis mode');
         receipt = { status: true };
+        setCurrentProgressStep('ai_analysis');
       } else if (txHash.startsWith('0x')) {
-        console.log('⏳ Waiting for blockchain confirmation...');
+        console.log('⏳ Waiting for REAL blockchain confirmation...');
+        setCurrentProgressStep('blockchain_tx');
         receipt = await waitForTransactionConfirmation(txHash);
+        
+        if (!receipt.status) {
+          alert('❌ Blockchain transaction failed. Please check the transaction on BaseScan and try again.');
+          throw new Error('Blockchain transaction confirmation failed');
+        }
+        
+        console.log(`✅ REAL blockchain transaction confirmed in block ${receipt.blockNumber}`);
+        console.log(`🔗 Verify at: https://sepolia.basescan.org/tx/${txHash}`);
       } else {
-        receipt = { status: true };
+        throw new Error('Invalid transaction hash generated');
       }
       
       if (receipt.status) {
@@ -331,30 +380,11 @@ if __name__ == '__main__':
         setReviewData(analysisResult);
         setStep(3);
       } else {
-        console.warn('⚠️ Blockchain confirmation failed, using local analysis');
+        console.error('⚠️ Blockchain confirmation failed - transaction may have failed');
+        alert('⚠️ Blockchain transaction failed. Please check MetaMask and try again.');
         
-        // Fallback to local analysis
-        const localAnalysis = analyzeCodeLocally(code, language);
-        const fallbackResult: ReviewData = {
-          review_id: `fallback_${Date.now()}`,
-          overall_score: localAnalysis.overall_score,
-          security_score: localAnalysis.security_score,
-          performance_score: localAnalysis.performance_score,
-          maintainability_score: localAnalysis.maintainability_score,
-          style_score: localAnalysis.style_score,
-          issues: localAnalysis.issues,
-          recommendations: localAnalysis.recommendations,
-          analysis_details: {
-            timestamp: new Date().toISOString(),
-            ai_model_used: 'Local Analysis (Blockchain Error)',
-            processing_time: '0.1s',
-            wallet_used: walletAddress,
-            note: 'Blockchain transaction failed, using local analysis'
-          }
-        };
-        
-        setReviewData(fallbackResult);
-        setStep(3);
+        // Don't proceed without successful blockchain transaction
+        throw new Error('Blockchain transaction failed');
       }
       
     } catch (error) {
@@ -895,17 +925,18 @@ if __name__ == '__main__':
       
       // Step 2: Request user confirmation
       const confirmPayment = confirm(
-        `🛡️ PROFESSIONAL AI VALIDATION\n\n` +
-        `Independent AI analysis by validator agent:\n` +
-        `• Real AI validation (not immediate)\n` +
-        `• Independent methodology verification\n` +
-        `• Professional audit receipt generation\n\n` +
-        `💰 Total Cost: ~$0.60 (99.99% cheaper than traditional!)\n` +
-        `   • Gas Fee: ~$0.15 (network fee)\n` +
-        `   • Owner Revenue: ~$0.45 (${userConfig?.useOwnContracts ? 'goes to YOU!' : 'demo contract'})\n\n` +
-        `🔗 Transaction visible on BaseScan\n` +
-        `📄 Download: Improved code + compliance audit\n\n` +
-        `Proceed with professional validation?`
+        `🛡️ BLOCKCHAIN VALIDATION REQUIRED\n\n` +
+        `This will submit a REAL blockchain transaction:\n\n` +
+        `💰 Amount: ${parseFloat(costEth).toFixed(6)} ETH (~$${(parseFloat(costEth) * 3000).toFixed(2)})\n` +
+        `📍 Contract: ValidationRegistry\n` +
+        `🔗 Network: Base Sepolia\n` +
+        `✨ Enables: Independent AI validation + Audit receipt\n\n` +
+        `Features:\n` +
+        `• Real validator agent analysis\n` +
+        `• Professional compliance audit\n` +
+        `• Blockchain verification\n` +
+        `• Downloadable improved code\n\n` +
+        `Submit REAL blockchain transaction?`
       );
       
       if (!confirmPayment) {
@@ -964,19 +995,24 @@ if __name__ == '__main__':
           
           console.log('Simplified validation transaction:', simplifiedTx);
           
-          // Enhanced validation transaction with owner revenue
-          const ownerRevenue = web3Instance.utils.toWei('0.001', 'ether'); // Validation revenue for owner
-          const enhancedValidationTx = {
-            ...simplifiedTx,
-            value: (BigInt(simplifiedTx.value) + BigInt(ownerRevenue)).toString(),
-            data: web3Instance.utils.toHex('VALIDATION_PAYMENT') // Mark as revenue transaction
-          };
+          // Submit actual MetaMask validation transaction
+          console.log('🔐 Submitting REAL validation transaction...');
           
-          txHash = await web3Instance.eth.sendTransaction(enhancedValidationTx);
+          txHash = await web3Instance.eth.sendTransaction({
+            from: walletAddress,
+            to: validationRegistryAddress,
+            value: simplifiedTx.value,
+            gas: simplifiedTx.gas,
+            gasPrice: simplifiedTx.gasPrice
+          });
           
-          console.log(`✅ Validation transaction submitted: ${txHash}`);
-          console.log(`💰 Revenue included: Owner earns from this validation`);
+          console.log(`🎉 REAL validation transaction submitted: ${txHash}`);
           console.log(`🔗 View on BaseScan: https://sepolia.basescan.org/tx/${txHash}`);
+          
+          // Track validation transaction
+          setCurrentTxHash(txHash);
+          setPendingTxType('validation');
+          setCurrentProgressStep('validation_tx');
         
               } catch (metaMaskError: any) {
           console.error('Validation transaction failed:', metaMaskError);
@@ -1536,6 +1572,21 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                       onStepUpdate={(step) => console.log('Progress update:', step)}
                       etherscanApiKey={process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY || ''}
                     />
+                  )}
+
+                  {/* Transaction Status */}
+                  {currentTxHash && pendingTxType && (
+                    <ClientOnlyWrapper>
+                      <TransactionStatus
+                        txHash={currentTxHash}
+                        type={pendingTxType}
+                        isWalletConnected={isWalletConnected}
+                        onConfirmed={(receipt) => {
+                          console.log('✅ Transaction confirmed:', receipt);
+                          // Continue with next step
+                        }}
+                      />
+                    </ClientOnlyWrapper>
                   )}
 
                   {/* Transaction Tracker */}
