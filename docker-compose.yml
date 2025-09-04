@@ -68,7 +68,7 @@ services:
     user: root
     
     # Production startup command
-    command: ["./prod.sh"]
+    command: ["./quick_launch.sh"]
     
     # Restart policy
     restart: unless-stopped
@@ -119,51 +119,8 @@ services:
       timeout: 10s
       retries: 3
 
-  # Redis for caching (optional)
-  redis:
-    image: redis:7-alpine
-    container_name: erc8004-redis
-    
-    ports:
-      - "6379:6379"
-    
-    volumes:
-      - redis_data:/data
-    
-    restart: unless-stopped
-    
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  # Monitoring and Logging
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: erc8004-prometheus
-    
-    ports:
-      - "9090:9090"
-    
-    volumes:
-      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
-    
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--web.enable-lifecycle'
-    
-    restart: unless-stopped
 
 volumes:
-  redis_data:
-    driver: local
-  prometheus_data:
-    driver: local
   phala_data:
     driver: local
   app_data:
