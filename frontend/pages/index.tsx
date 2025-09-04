@@ -33,6 +33,7 @@ import RealTimeProgress from '../components/RealTimeProgress';
 import TransactionTracker from '../components/TransactionTracker';
 import AIStatusBanner from '../components/AIStatusBanner';
 import SystemHealthDashboard from '../components/SystemHealthDashboard';
+import AgentDiscovery from '../components/AgentDiscovery';
 
 interface ReviewData {
   review_id: string;
@@ -1318,6 +1319,19 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                 <AgentStatus agents={agentStatuses} />
               </motion.div>
 
+              {/* Agent Discovery Panel */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="mb-12"
+              >
+                <AgentDiscovery 
+                  web3Instance={web3Instance}
+                  isWalletConnected={isWalletConnected}
+                />
+              </motion.div>
+
               {/* Progress Steps */}
               <motion.div 
                 className="mb-12"
@@ -1527,8 +1541,8 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                     isWalletConnected={isWalletConnected}
                   />
                   
-                  {/* System Health Dashboard */}
-                  <SystemHealthDashboard />
+                  {/* System Health Dashboard - Client Side Only */}
+                  {typeof window !== 'undefined' && <SystemHealthDashboard />}
 
                   {/* Cost Estimation */}
                   {isWalletConnected && (

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import dynamic from 'next/dynamic';
 import {
   CpuChipIcon,
   CheckCircleIcon,
@@ -38,6 +39,10 @@ export default function SystemHealthDashboard({
   const [systemUptime, setSystemUptime] = useState(0);
 
   useEffect(() => {
+    // Set client-side flag to avoid hydration issues
+    setIsClient(true);
+    setLastUpdate(new Date());
+    
     checkAllServices();
     
     const interval = setInterval(() => {
@@ -134,12 +139,14 @@ export default function SystemHealthDashboard({
         </div>
         
         <div className="flex items-center space-x-3">
-          <div className="text-right text-sm">
-            <div className="text-gray-400">Uptime</div>
-            <div className="text-blue-400 font-mono">
-              {Math.floor(systemUptime / 60)}m {Math.floor(systemUptime % 60)}s
+          {isClient && (
+            <div className="text-right text-sm">
+              <div className="text-gray-400">Uptime</div>
+              <div className="text-blue-400 font-mono">
+                {Math.floor(systemUptime / 60)}m {Math.floor(systemUptime % 60)}s
+              </div>
             </div>
-          </div>
+          )}
           
           <button
             onClick={checkAllServices}
