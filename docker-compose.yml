@@ -15,20 +15,24 @@
 version: '3.8'
 
 services:
-  # Main ERC-8004 A2A Application
-  erc8004-trustless-ai:
+  # ERC-8004 Trustless AI Agent - Main Application
+  app:
     build:
       context: .
       dockerfile: Dockerfile
-    image: erc8004-trustless-ai:latest
-    container_name: erc8004-complete
+    image: dylanckawalec/trustless-ai-erc-8004:latest
+    container_name: erc8004-trustless-agent
     
-    # Environment configuration
+    # Environment configuration for Phala Cloud TEE
     environment:
-      # Production settings
+      # Phala Cloud specific settings
+      - AGENT_TYPE=${AGENT_TYPE:-server}
+      - CONTAINER_MODE=true
       - NODE_ENV=production
       - TEE_MODE=production
       - PHALA_DEPLOYMENT=true
+      - GRANT_SUDO=yes
+      - HEALTHCHECK_INTERVAL=30000
       
       # Blockchain configuration
       - RPC_URL=${RPC_URL}
@@ -39,6 +43,7 @@ services:
       - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
       - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
       - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
+      - CONTRACT_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
       
       # AI model configuration
       - GROK_API_KEY=${GROK_API_KEY}
@@ -49,7 +54,14 @@ services:
       - PHALA_API_KEY=${PHALA_API_KEY}
       - TEE_ATTESTATION_ENABLED=true
       - PHALA_ENDPOINT=https://api.phala.network
-      - DSTACK_SIMULATOR_ENDPOINT=http://phala-tee:8090
+      
+      # A2A Agent Keys (for multi-agent deployment)
+      - SERVER_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
+      - VALIDATOR_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
+      - CLIENT_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
+      - SERVER_AGENT_SALT=${SERVER_AGENT_SALT:-server_salt_001}
+      - VALIDATOR_AGENT_SALT=${VALIDATOR_AGENT_SALT:-validator_salt_001}
+      - CLIENT_AGENT_SALT=${CLIENT_AGENT_SALT:-client_salt_001}
       
       # Frontend configuration
       - NEXT_PUBLIC_API_URL=http://localhost:8080
@@ -67,96 +79,87 @@ services:
       - "8080:8080"    # A2A API Server
       - "8081:8081"    # Validator Agent
     
-    # Volume mounts
+    # Critical Phala TEE volume mounts
     volumes:
+      - /var/run/dstack.sock:/var/run/dstack.sock   # Phala Cloud TEE socket (dstack v0.5.x)
+      - /var/run/tappd.sock:/var/run/tappd.sock     # Phala Cloud TEE socket (dstack < v0.5.x)
       - ./data:/app/data
       - ./logs:/app/logs
       - ./sessions:/app/sessions
       - ./validations:/app/validations
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      # Secure environment file mounting (optional - env vars preferred)
       - ./.env:/app/.env:ro
     
     # Network configuration
     networks:
       - erc8004-network
     
-    # Dependencies
-    depends_on:
-      phala-tee:
-        condition: service_healthy
+    # Run as root for Phala Cloud TEE access
+    user: root
+    
+    # Phala Cloud compatible command
+    command: ["./load_env.sh", "./quick_launch.sh"]
     
     # Restart policy
     restart: unless-stopped
     
-    # Resource limits
-    deploy:
-      resources:
-        limits:
-          cpus: '4.0'
-          memory: 8G
-        reservations:
-          cpus: '2.0'
-          memory: 4G
-    
-    # Health check
+    # Phala Cloud health check
     healthcheck:
-      test: |
-        curl -f http://localhost:8080/api/health &&
-        curl -f http://localhost:8081/health &&
-        curl -f http://localhost:3000
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
       interval: 30s
-      timeout: 15s
-      retries: 5
-      start_period: 120s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
-  # Phala TEE Integration Service
-  phala-tee:
-    image: phalanetwork/dstack-simulator:latest
-    container_name: erc8004-phala-tee
+  # A2A API Service for external access
+  api:
+    image: dylanckawalec/trustless-ai-erc-8004:latest
+    container_name: erc8004-api
     
     environment:
-      - PHALA_API_KEY=${PHALA_API_KEY}
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+      - USE_TEE_AUTH=${USE_TEE_AUTH:-false}
+      - API_TOKEN=${API_TOKEN:-demo_token}
+      - RPC_URL=${RPC_URL}
+      - CONTAINER_MODE=true
       - TEE_MODE=production
-      - DSTACK_SIMULATOR_PORT=8090
-      - RUST_LOG=info
+      
+      # Agent configuration
+      - SERVER_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
+      - VALIDATOR_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
+      - CLIENT_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
+      - SERVER_AGENT_SALT=${SERVER_AGENT_SALT:-server_salt_001}
+      - VALIDATOR_AGENT_SALT=${VALIDATOR_AGENT_SALT:-validator_salt_001}
+      - CLIENT_AGENT_SALT=${CLIENT_AGENT_SALT:-client_salt_001}
+      
+      # AI API keys
+      - GROK_API_KEY=${GROK_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+    
+    # Phala TEE socket mounting
+    volumes:
+      - /var/run/dstack.sock:/var/run/dstack.sock
+      - /var/run/tappd.sock:/var/run/tappd.sock
     
     ports:
-      - "8090:8090"
-    
-    volumes:
-      - phala_data:/app/data
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - "8000:8000"    # API endpoint
     
     networks:
       - erc8004-network
     
+    command: ["python", "-m", "agents.a2a_api_server"]
+    
     restart: unless-stopped
     
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
+      start_period: 40s
 
-# Named volumes
-volumes:
-  phala_data:
-    driver: local
-    labels:
-      description: "Phala TEE data storage"
-
-# Network configuration
+# Network configuration for Phala Cloud
 networks:
   erc8004-network:
     driver: bridge
-    labels:
-      description: "ERC-8004 A2A Network"
-
-# Labels for Phala CLI integration
-labels:
-  - "phala.enabled=true"
-  - "phala.tee=required"
-  - "phala.project=erc8004-trustless-ai"
-  - "phala.version=1.0.0"

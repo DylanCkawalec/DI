@@ -1,9 +1,10 @@
-# 🚀 ERC-8004 Trustless AI - Final Production Dockerfile
-# ====================================================
-# Complete A2A protocol deployment for Phala Cloud TEE
+# 🚀 ERC-8004 Trustless AI - Phala Cloud TEE Dockerfile
+# ======================================================
+# Multi-platform build for Phala Cloud TEE deployment
+# Supports: linux/amd64, linux/arm64
 
 # Multi-stage build: Frontend compilation
-FROM node:22-alpine AS frontend-builder
+FROM --platform=$BUILDPLATFORM node:22-alpine AS frontend-builder
 
 WORKDIR /app/frontend
 COPY frontend/package*.json ./
@@ -11,8 +12,8 @@ RUN apk add --no-cache python3 make g++ && npm ci --omit=dev
 COPY frontend/ ./
 RUN npm run build
 
-# Production image with Python + Node.js + Phala TEE support
-FROM python:3.11-slim AS production
+# Production image optimized for Phala Cloud TEE
+FROM --platform=$TARGETPLATFORM python:3.11-slim AS production
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -82,30 +83,29 @@ RUN echo '#!/bin/bash' > /app/load_env.sh && \
 # Create required directories
 RUN mkdir -p data validations logs sessions
 
-# Set base environment variables
+# Set environment variables for Phala TEE
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 ENV NODE_ENV=production
 ENV TEE_MODE=production
 ENV PHALA_DEPLOYMENT=true
-
-# Environment file will be loaded at runtime for security
+ENV CONTAINER_MODE=true
+ENV GRANT_SUDO=yes
+ENV HEALTHCHECK_INTERVAL=30000
 
 # Create production user
 RUN groupadd -r erc8004 && useradd -r -g erc8004 erc8004
 RUN chown -R erc8004:erc8004 /app
 
-# Expose application ports
-EXPOSE 3000 8080 8081
+# Expose application ports for Phala Cloud
+EXPOSE 3000 8080 8081 8000
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:8080/api/health && \
-        curl -f http://localhost:8081/health && \
-        curl -f http://localhost:3000 || exit 1
+# Phala Cloud compatible health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD curl -f http://localhost:8080/api/health || exit 1
 
-# Run as production user (Phala TEE will override if needed)
-USER erc8004
+# Run as root for Phala Cloud TEE access (standard for TEE)
+USER root
 
-# Default command with secure environment loading
+# Default command with environment loading for Phala deployment  
 CMD ["./load_env.sh", "./quick_launch.sh"]
