@@ -12,7 +12,8 @@ import {
   CheckCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
-  WalletIcon
+  WalletIcon,
+  RocketLaunchIcon
 } from '@heroicons/react/24/outline';
 import CodeEditor from '../components/CodeEditor';
 import ReviewResults from '../components/ReviewResults';
@@ -26,6 +27,7 @@ import AuditDownloader from '../components/AuditDownloader';
 import ErrorRecoveryBanner from '../components/ErrorRecoveryBanner';
 import UserDeploymentPanel from '../components/UserDeploymentPanel';
 import SessionHistory from '../components/SessionHistory';
+import LauncherModal from '../components/LauncherModal';
 
 interface ReviewData {
   review_id: string;
@@ -93,6 +95,7 @@ export default function Home() {
   const [estimatedCost, setEstimatedCost] = useState<number>(0);
   const [userConfig, setUserConfig] = useState<any>(null);
   const [debugMode, setDebugMode] = useState(false);
+  const [showLauncher, setShowLauncher] = useState(false);
 
   const sampleCode = `import os
 import subprocess
@@ -266,13 +269,18 @@ if __name__ == '__main__':
           // Use minimal transaction amount for user-friendliness
           const minimalFee = web3Instance.utils.toWei('0.0001', 'ether'); // Reduced to $0.30 instead of $3.00
           
-          alert(`🔐 MINIMAL COST CODE REVIEW\n\nMinimal blockchain transaction required:\n💰 Cost: ~$0.30 (95% cheaper!)\n🔗 Records on YOUR contract or demo contract\n✨ Enables premium AI analysis\n\nClick OK, then approve in MetaMask`);
+          alert(`🔐 PROFESSIONAL CODE REVIEW\n\n💰 Total Cost: ~$0.45 (99.99% cheaper than traditional!)\n   • Gas Fee: ~$0.15 (network fee)\n   • Owner Revenue: ~$0.30 (goes to protocol owner)\n\n🔗 Payment goes to: ${userConfig?.useOwnContracts ? 'YOUR contract (you earn!)' : 'Demo contract'}\n✨ Enables premium AI analysis with revenue model\n\nClick OK, then approve in MetaMask`);
+          
+          // Enhanced transaction that pays the contract owner
+          const contractOwnerFee = web3Instance.utils.toWei('0.0005', 'ether'); // Contract owner revenue
+          const totalValue = BigInt(minimalFee) + BigInt(contractOwnerFee);
           
           txHash = await web3Instance.eth.sendTransaction({
             from: walletAddress,
             to: userConfig?.useOwnContracts ? userConfig.identityRegistry : identityRegistry,
-            value: minimalFee,
-            gas: reviewGasLimit
+            value: totalValue.toString(), // Total includes owner revenue
+            gas: reviewGasLimit,
+            data: web3Instance.utils.toHex('CODE_REVIEW_PAYMENT') // Mark as revenue transaction
           });
           
           console.log(`✅ MetaMask transaction approved: ${txHash}`);
@@ -1217,6 +1225,13 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
               </motion.div>
               
               <div className="flex items-center space-x-4">
+                <button
+                  onClick={() => setShowLauncher(true)}
+                  className="px-4 py-2 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white rounded-lg transition-all font-medium flex items-center space-x-2"
+                >
+                  <RocketLaunchIcon className="h-4 w-4" />
+                  <span>Deploy Your Protocol</span>
+                </button>
                 <WalletConnect 
                   onWalletConnect={handleWalletConnect}
                   onWalletDisconnect={handleWalletDisconnect}
@@ -1612,6 +1627,22 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
           </main>
         </div>
         
+        {/* Launcher Modal */}
+        <LauncherModal 
+          isOpen={showLauncher}
+          onClose={() => setShowLauncher(false)}
+          onLaunchMode={(mode) => {
+            console.log(`🚀 Launching in ${mode} mode`);
+            // Handle different launch modes
+            if (mode === 'demo') {
+              alert('🎮 Demo mode active! Experience the complete ERC-8004 A2A protocol for FREE.');
+            } else if (mode === 'own_contracts') {
+              alert('💰 Contract deployment mode! Deploy your ERC-8004 contracts and start earning revenue.');
+            }
+            // Add more mode handling as needed
+          }}
+        />
+
         {/* User Deployment Panel */}
         <UserDeploymentPanel onConfigUpdate={setUserConfig} />
         

@@ -35,19 +35,30 @@ class ERC8004BaseAgent:
             self.w3 = Web3(Web3.HTTPProvider(rpc_url))
             
             if not self.w3.is_connected():
-                raise ConnectionError(f"Failed to connect to {rpc_url}")
-            
-            # Test the connection
-            latest_block = self.w3.eth.get_block('latest')
-            chain_id = self.w3.eth.chain_id
-            
-            print(f"✅ Web3 connected to {rpc_url}")
-            print(f"   Chain ID: {chain_id}")
-            print(f"   Latest Block: {latest_block.number}")
+                print(f"⚠️ Web3 connection failed to {rpc_url}, running in offline mode")
+                # Create mock Web3 instance for offline functionality
+                self.w3 = self._create_offline_web3()
+                self.offline_mode = True
+            else:
+                # Test the connection
+                try:
+                    latest_block = self.w3.eth.get_block('latest')
+                    chain_id = self.w3.eth.chain_id
+                    
+                    print(f"✅ Web3 connected to {rpc_url}")
+                    print(f"   Chain ID: {chain_id}")
+                    print(f"   Latest Block: {latest_block.number}")
+                    self.offline_mode = False
+                except Exception as e:
+                    print(f"⚠️ Web3 connected but blockchain access failed: {e}")
+                    print("   Running in limited connectivity mode")
+                    self.offline_mode = True
             
         except Exception as e:
-            print(f"❌ Web3 connection failed: {e}")
-            raise ConnectionError(f"Web3 connection failed: {e}")
+            print(f"⚠️ Web3 initialization failed: {e}")
+            print("   Creating offline mode for agent functionality")
+            self.w3 = self._create_offline_web3()
+            self.offline_mode = True
         
         # Load account from private key
         self.account = self.w3.eth.account.from_key(private_key)
@@ -106,6 +117,24 @@ class ERC8004BaseAgent:
             
         except Exception as e:
             raise Exception(f"Failed to load contract addresses: {e}")
+    
+    def _create_offline_web3(self):
+        """Create offline Web3 instance for agent functionality without blockchain"""
+        class OfflineWeb3:
+            def __init__(self):
+                self.eth = OfflineEth()
+                
+            def is_connected(self):
+                return False
+                
+            def to_checksum_address(self, addr):
+                return addr
+                
+        class OfflineEth:
+            def __init__(self):
+                self.chain_id = 84532  # Base Sepolia
+                
+        return OfflineWeb3()
     
     def _load_contract_abi(self, contract_name: str) -> list:
         """Load contract ABI from compiled artifacts"""
