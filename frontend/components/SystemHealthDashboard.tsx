@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import dynamic from 'next/dynamic';
 import {
   CpuChipIcon,
   CheckCircleIcon,
@@ -35,7 +34,8 @@ export default function SystemHealthDashboard({
   ]);
   
   const [isChecking, setIsChecking] = useState(false);
-  const [lastUpdate, setLastUpdate] = useState<Date>(new Date());
+  const [isClient, setIsClient] = useState(false);
+  const [lastUpdate, setLastUpdate] = useState<Date | null>(null);
   const [systemUptime, setSystemUptime] = useState(0);
 
   useEffect(() => {
@@ -54,6 +54,8 @@ export default function SystemHealthDashboard({
   }, [refreshInterval]);
 
   const checkAllServices = async () => {
+    if (!isClient) return; // Only run on client side
+    
     setIsChecking(true);
     
     const updatedServices = await Promise.all(
@@ -63,7 +65,7 @@ export default function SystemHealthDashboard({
         try {
           const response = await fetch(service.url, {
             method: 'GET',
-            signal: AbortSignal.timeout(5000) // 5 second timeout
+            signal: AbortSignal.timeout(5000)
           });
           
           const responseTime = Date.now() - startTime;
@@ -99,7 +101,7 @@ export default function SystemHealthDashboard({
     );
     
     setServices(updatedServices);
-    setLastUpdate(new Date());
+    if (isClient) setLastUpdate(new Date());
     setIsChecking(false);
   };
 
@@ -125,6 +127,18 @@ export default function SystemHealthDashboard({
   const totalServices = services.length;
   const systemHealth = (onlineServices / totalServices) * 100;
 
+  // Don't render until client-side
+  if (!isClient) {
+    return (
+      <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-6">
+        <div className="animate-pulse">
+          <div className="h-6 bg-gray-700 rounded mb-4"></div>
+          <div className="h-20 bg-gray-700 rounded"></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -135,18 +149,16 @@ export default function SystemHealthDashboard({
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <ChartBarIcon className="h-6 w-6 text-blue-400" />
-          <h3 className="text-xl font-semibold text-white">System Health</h3>
+          <h3 className="text-xl font-semibold text-white">Phala TEE Health</h3>
         </div>
         
         <div className="flex items-center space-x-3">
-          {isClient && (
-            <div className="text-right text-sm">
-              <div className="text-gray-400">Uptime</div>
-              <div className="text-blue-400 font-mono">
-                {Math.floor(systemUptime / 60)}m {Math.floor(systemUptime % 60)}s
-              </div>
+          <div className="text-right text-sm">
+            <div className="text-gray-400">TEE Uptime</div>
+            <div className="text-blue-400 font-mono">
+              {Math.floor(systemUptime / 60)}m {Math.floor(systemUptime % 60)}s
             </div>
-          )}
+          </div>
           
           <button
             onClick={checkAllServices}
@@ -161,7 +173,7 @@ export default function SystemHealthDashboard({
       {/* Overall Health Score */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-white font-medium">System Health Score</span>
+          <span className="text-white font-medium">TEE System Health</span>
           <span className={`text-2xl font-bold ${
             systemHealth === 100 ? 'text-green-400' :
             systemHealth >= 75 ? 'text-yellow-400' :
@@ -185,7 +197,7 @@ export default function SystemHealthDashboard({
         </div>
         
         <div className="mt-2 text-xs text-gray-400">
-          {onlineServices}/{totalServices} services online
+          {onlineServices}/{totalServices} TEE services operational
         </div>
       </div>
 
@@ -207,7 +219,7 @@ export default function SystemHealthDashboard({
                   <StatusIcon className="h-5 w-5" />
                   <div>
                     <div className="text-white font-medium">{service.name}</div>
-                    <div className="text-gray-400 text-sm">{service.url}</div>
+                    <div className="text-gray-400 text-sm">Phala TEE Enclave</div>
                   </div>
                 </div>
                 
@@ -222,16 +234,6 @@ export default function SystemHealthDashboard({
                   )}
                 </div>
               </div>
-              
-              {/* Additional Details */}
-              {service.details && (
-                <div className="mt-3 pt-3 border-t border-gray-600">
-                  <div className="text-xs text-gray-400">
-                    Sessions: {service.details.total_sessions || 0} | 
-                    AI Available: {service.details.services?.ai ? '✅' : '❌'}
-                  </div>
-                </div>
-              )}
             </motion.div>
           );
         })}
@@ -240,7 +242,7 @@ export default function SystemHealthDashboard({
       {/* Last Update Info */}
       <div className="mt-6 pt-4 border-t border-gray-700 flex items-center justify-between text-sm">
         <div className="text-gray-400">
-          Last updated: {lastUpdate.toLocaleTimeString()}
+          Last attestation: {lastUpdate ? lastUpdate.toLocaleTimeString() : 'Checking...'}
         </div>
         
         <div className={`flex items-center space-x-2 ${
@@ -248,31 +250,9 @@ export default function SystemHealthDashboard({
         }`}>
           <div className="w-2 h-2 rounded-full bg-current animate-pulse"></div>
           <span>
-            {systemHealth === 100 ? 'All Systems Operational' : 'Some Issues Detected'}
+            {systemHealth === 100 ? 'TEE Fully Operational' : 'Partial TEE Status'}
           </span>
         </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="mt-4 flex space-x-2">
-        <button
-          onClick={() => window.open('http://localhost:8080/docs', '_blank')}
-          className="px-3 py-1 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 transition-colors"
-        >
-          API Docs
-        </button>
-        <button
-          onClick={() => window.open('http://localhost:8081/docs', '_blank')}
-          className="px-3 py-1 bg-purple-600 text-white rounded text-sm hover:bg-purple-700 transition-colors"
-        >
-          Validator Docs
-        </button>
-        <button
-          onClick={() => window.open('https://sepolia.basescan.org', '_blank')}
-          className="px-3 py-1 bg-green-600 text-white rounded text-sm hover:bg-green-700 transition-colors"
-        >
-          BaseScan
-        </button>
       </div>
     </motion.div>
   );

@@ -34,6 +34,7 @@ import TransactionTracker from '../components/TransactionTracker';
 import AIStatusBanner from '../components/AIStatusBanner';
 import SystemHealthDashboard from '../components/SystemHealthDashboard';
 import AgentDiscovery from '../components/AgentDiscovery';
+import PhalaKMSBanner from '../components/PhalaKMSBanner';
 
 interface ReviewData {
   review_id: string;
@@ -1287,20 +1288,30 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                 transition={{ duration: 0.6 }}
               >
                 <h2 className="text-5xl font-bold text-white mb-6">
-                  Trustless AI
-                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent"> Code Review</span>
+                  Decentralized KMS
+                  <span className="bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent"> AI Code Review</span>
                 </h2>
                 <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                  Experience the future of code review with AI agents that work together trustlessly on the blockchain.
-                  Powered by the ERC-8004 standard for transparent, verifiable AI interactions.
+                  Experience secure AI code analysis with remote attestation and decentralized key management.
+                  Powered by Phala Cloud TEE and the ERC-8004 standard for verifiable AI interactions.
                 </p>
+              </motion.div>
+
+              {/* Phala KMS Banner */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mb-8"
+              >
+                <PhalaKMSBanner />
               </motion.div>
 
               {/* Error Recovery Banner */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
                 className="mb-8"
               >
                 <ErrorRecoveryBanner 
