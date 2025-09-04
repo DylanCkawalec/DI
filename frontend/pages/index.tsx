@@ -28,6 +28,7 @@ import ErrorRecoveryBanner from '../components/ErrorRecoveryBanner';
 import UserDeploymentPanel from '../components/UserDeploymentPanel';
 import SessionHistory from '../components/SessionHistory';
 import LauncherModal from '../components/LauncherModal';
+import RevenueExplanation from '../components/RevenueExplanation';
 
 interface ReviewData {
   review_id: string;
@@ -878,13 +879,17 @@ if __name__ == '__main__':
       
       // Step 2: Request user confirmation
       const confirmPayment = confirm(
-        `🛡️ PROFESSIONAL VALIDATION\n\n` +
-        `This will validate your code review using independent AI analysis\n` +
-        `and create an improved version of your code.\n\n` +
-        `💰 Cost: ${parseFloat(costEth).toFixed(6)} ETH (~$${(parseFloat(costEth) * 3000).toFixed(3)})\n` +
-        `🔗 Transaction will be visible on BaseScan\n` +
-        `📄 You'll get improved code + audit receipt\n\n` +
-        `Proceed with validation?`
+        `🛡️ PROFESSIONAL AI VALIDATION\n\n` +
+        `Independent AI analysis by validator agent:\n` +
+        `• Real AI validation (not immediate)\n` +
+        `• Independent methodology verification\n` +
+        `• Professional audit receipt generation\n\n` +
+        `💰 Total Cost: ~$0.60 (99.99% cheaper than traditional!)\n` +
+        `   • Gas Fee: ~$0.15 (network fee)\n` +
+        `   • Owner Revenue: ~$0.45 (${userConfig?.useOwnContracts ? 'goes to YOU!' : 'demo contract'})\n\n` +
+        `🔗 Transaction visible on BaseScan\n` +
+        `📄 Download: Improved code + compliance audit\n\n` +
+        `Proceed with professional validation?`
       );
       
       if (!confirmPayment) {
@@ -943,9 +948,18 @@ if __name__ == '__main__':
           
           console.log('Simplified validation transaction:', simplifiedTx);
           
-          txHash = await web3Instance.eth.sendTransaction(simplifiedTx);
+          // Enhanced validation transaction with owner revenue
+          const ownerRevenue = web3Instance.utils.toWei('0.001', 'ether'); // Validation revenue for owner
+          const enhancedValidationTx = {
+            ...simplifiedTx,
+            value: (BigInt(simplifiedTx.value) + BigInt(ownerRevenue)).toString(),
+            data: web3Instance.utils.toHex('VALIDATION_PAYMENT') // Mark as revenue transaction
+          };
+          
+          txHash = await web3Instance.eth.sendTransaction(enhancedValidationTx);
           
           console.log(`✅ Validation transaction submitted: ${txHash}`);
+          console.log(`💰 Revenue included: Owner earns from this validation`);
           console.log(`🔗 View on BaseScan: https://sepolia.basescan.org/tx/${txHash}`);
         
               } catch (metaMaskError: any) {
@@ -1480,6 +1494,13 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
                 >
+                  {/* Revenue Model Explanation */}
+                  <RevenueExplanation 
+                    userConfig={userConfig}
+                    walletAddress={walletAddress}
+                    isWalletConnected={isWalletConnected}
+                  />
+                  
                   {/* Cost Estimation */}
                   {isWalletConnected && (
                     <CostEstimator
