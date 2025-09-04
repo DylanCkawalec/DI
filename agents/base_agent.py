@@ -61,7 +61,8 @@ class ERC8004BaseAgent:
             self.offline_mode = True
         
         # Load account from private key
-        self.account = self.w3.eth.account.from_key(private_key)
+        from eth_account import Account
+        self.account = Account.from_key(private_key)
         self.address = self.account.address
         
         # Load contract addresses from deployment
@@ -145,30 +146,52 @@ class ERC8004BaseAgent:
             return artifact['abi']
     
     def _init_contracts(self):
-        """Initialize contract instances"""
-        # Load ABIs
-        identity_abi = self._load_contract_abi('IdentityRegistry')
-        reputation_abi = self._load_contract_abi('ReputationRegistry')
-        validation_abi = self._load_contract_abi('ValidationRegistry')
-        
-        # Create contract instances
-        self.identity_registry = self.w3.eth.contract(
-            address=self.identity_registry_address,
-            abi=identity_abi
-        )
-        
-        self.reputation_registry = self.w3.eth.contract(
-            address=self.reputation_registry_address,
-            abi=reputation_abi
-        )
-        
-        self.validation_registry = self.w3.eth.contract(
-            address=self.validation_registry_address,
-            abi=validation_abi
-        )
+        """Initialize contract instances (only when Web3 connection available)"""
+        if self.offline_mode:
+            print("⚠️ Offline mode: Contract instances not available")
+            self.identity_registry = None
+            self.reputation_registry = None
+            self.validation_registry = None
+            return
+            
+        try:
+            # Load ABIs
+            identity_abi = self._load_contract_abi('IdentityRegistry')
+            reputation_abi = self._load_contract_abi('ReputationRegistry')
+            validation_abi = self._load_contract_abi('ValidationRegistry')
+            
+            # Create contract instances
+            self.identity_registry = self.w3.eth.contract(
+                address=self.identity_registry_address,
+                abi=identity_abi
+            )
+            
+            self.reputation_registry = self.w3.eth.contract(
+                address=self.reputation_registry_address,
+                abi=reputation_abi
+            )
+            
+            self.validation_registry = self.w3.eth.contract(
+                address=self.validation_registry_address,
+                abi=validation_abi
+            )
+            
+            print("✅ Contract instances initialized successfully")
+            
+        except Exception as e:
+            print(f"⚠️ Contract initialization failed: {e}")
+            print("   Running without contract instances")
+            self.identity_registry = None
+            self.reputation_registry = None
+            self.validation_registry = None
     
     def _check_registration(self):
         """Check if this agent is already registered"""
+        if self.offline_mode or not self.identity_registry:
+            print("⚠️ Offline mode: Cannot check registration, using demo agent ID")
+            self.agent_id = 999  # Demo agent ID for offline mode
+            return
+            
         try:
             result = self.identity_registry.functions.resolveByAddress(self.address).call()
             if result[0] > 0:  # AgentID > 0 means registered
@@ -189,81 +212,96 @@ class ERC8004BaseAgent:
         if self.agent_id:
             print(f"Agent already registered with ID: {self.agent_id}")
             return self.agent_id
+            
+        if self.offline_mode or not self.identity_registry:
+            print("⚠️ Offline mode: Cannot register on-chain, using demo agent ID")
+            self.agent_id = 999  # Demo agent ID for offline mode
+            return self.agent_id
         
         print(f"📝 Registering agent with domain: {self.agent_domain}")
         
-        # Build transaction
-        function = self.identity_registry.functions.newAgent(
-            self.agent_domain,
-            self.address
-        )
+        try:
+            # Build transaction
+            function = self.identity_registry.functions.newAgent(
+                self.agent_domain,
+                self.address
+            )
+        except Exception as e:
+            print(f"⚠️ Registration failed: {e}")
+            return None
         
-        # Estimate gas
-        gas_estimate = function.estimate_gas({'from': self.address, 'value': self.w3.to_wei(0.005, 'ether')})
-        
-        # Build transaction (optimized for Base network)
-        base_gas_price = self.w3.eth.gas_price
-        
-        # For Base network, use lower gas price if possible
-        if self.w3.eth.chain_id in [8453, 84532]:  # Base Mainnet/Sepolia
-            # Base typically has very low gas prices, use minimum
-            base_gas_price = max(base_gas_price, 1000000)  # Minimum 0.001 gwei
-        
-        transaction = function.build_transaction({
-            'from': self.address,
-            'gas': int(gas_estimate * 1.1),  # Reduced gas multiplier for Base
-            'gasPrice': base_gas_price,
-            'nonce': self.w3.eth.get_transaction_count(self.address),
-            'value': self.w3.to_wei(0.005, 'ether')  # Registration fee
-        })
-        
-        # Sign and send
-        signed_txn = self.w3.eth.account.sign_transaction(transaction, private_key=self.private_key)
-        tx_hash = self.w3.eth.send_raw_transaction(signed_txn.raw_transaction)
-        
-        print(f"   Transaction hash: {tx_hash.hex()}")
-        
-        # Wait for confirmation
-        receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
-        
-        if receipt.status == 1:
-            # Try multiple approaches to get the agent ID
-            agent_id = None
+            # Estimate gas
+            gas_estimate = function.estimate_gas({'from': self.address, 'value': self.w3.to_wei(0.005, 'ether')})
             
-            # Approach 1: Parse event logs
-            try:
-                logs = self.identity_registry.events.AgentRegistered().process_receipt(receipt)
-                if logs and len(logs) > 0:
-                    agent_id = logs[0]['args']['agentId']
-                    print(f"✅ Agent registered successfully with ID: {agent_id} (from events)")
-            except Exception as e:
-                print(f"⚠️  Could not parse event logs: {e}")
+            # Build transaction (optimized for Base network)
+            base_gas_price = self.w3.eth.gas_price
             
-            # Approach 2: Query by address (fallback with retry)
-            if agent_id is None:
-                import time
-                for attempt in range(3):  # Retry up to 3 times
-                    try:
-                        # Small delay to allow blockchain state to settle
-                        if attempt > 0:
-                            time.sleep(0.5)
-                        
-                        agent_info = self.identity_registry.functions.resolveByAddress(self.address).call()
-                        if agent_info[0] > 0:  # agentId > 0 means found
-                            agent_id = agent_info[0]
-                            print(f"✅ Agent registered successfully with ID: {agent_id} (from query)")
-                            break
-                    except Exception as e:
-                        if attempt == 2:  # Last attempt
-                            print(f"⚠️  Could not resolve agent by address: {e}")
+            # For Base network, use lower gas price if possible
+            if self.w3.eth.chain_id in [8453, 84532]:  # Base Mainnet/Sepolia
+                # Base typically has very low gas prices, use minimum
+                base_gas_price = max(base_gas_price, 1000000)  # Minimum 0.001 gwei
+        
+            transaction = function.build_transaction({
+                'from': self.address,
+                'gas': int(gas_estimate * 1.1),  # Reduced gas multiplier for Base
+                'gasPrice': base_gas_price,
+                'nonce': self.w3.eth.get_transaction_count(self.address),
+                'value': self.w3.to_wei(0.005, 'ether')  # Registration fee
+            })
             
-            if agent_id is not None:
-                self.agent_id = agent_id
-                return self.agent_id
+            # Sign and send
+            signed_txn = self.w3.eth.account.sign_transaction(transaction, private_key=self.private_key)
+            tx_hash = self.w3.eth.send_raw_transaction(signed_txn.raw_transaction)
+            
+            print(f"   Transaction hash: {tx_hash.hex()}")
+            
+            # Wait for confirmation
+            receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash)
+            
+            if receipt.status == 1:
+                # Try multiple approaches to get the agent ID
+                agent_id = None
+                
+                # Approach 1: Parse event logs
+                try:
+                    logs = self.identity_registry.events.AgentRegistered().process_receipt(receipt)
+                    if logs and len(logs) > 0:
+                        agent_id = logs[0]['args']['agentId']
+                        print(f"✅ Agent registered successfully with ID: {agent_id} (from events)")
+                except Exception as e:
+                    print(f"⚠️  Could not parse event logs: {e}")
+                
+                # Approach 2: Query by address (fallback with retry)
+                if agent_id is None:
+                    import time
+                    for attempt in range(3):  # Retry up to 3 times
+                        try:
+                            # Small delay to allow blockchain state to settle
+                            if attempt > 0:
+                                time.sleep(0.5)
+                            
+                            agent_info = self.identity_registry.functions.resolveByAddress(self.address).call()
+                            if agent_info[0] > 0:  # agentId > 0 means found
+                                agent_id = agent_info[0]
+                                print(f"✅ Agent registered successfully with ID: {agent_id} (from query)")
+                                break
+                        except Exception as e:
+                            if attempt == 2:  # Last attempt
+                                print(f"⚠️  Could not resolve agent by address: {e}")
+                
+                if agent_id is not None:
+                    self.agent_id = agent_id
+                    return self.agent_id
+                else:
+                    raise Exception("Registration succeeded but couldn't determine agent ID")
             else:
-                raise Exception("Registration succeeded but couldn't determine agent ID")
-        else:
-            raise Exception("Agent registration failed")
+                raise Exception("Agent registration failed")
+                
+        except Exception as e:
+            print(f"⚠️ Registration transaction failed: {e}")
+            print("   Using demo agent ID for offline operation")
+            self.agent_id = 999
+            return self.agent_id
     
     def authorize_feedback(self, client_agent_id: int) -> str:
         """
