@@ -28,12 +28,26 @@ class ERC8004BaseAgent:
         self.agent_domain = agent_domain
         self.private_key = private_key
         
-        # Initialize Web3 connection
+        # Initialize Web3 connection with robust error handling
         rpc_url = os.getenv('RPC_URL', 'http://127.0.0.1:8545')
-        self.w3 = Web3(Web3.HTTPProvider(rpc_url))
         
-        if not self.w3.is_connected():
-            raise ConnectionError(f"Failed to connect to {rpc_url}")
+        try:
+            self.w3 = Web3(Web3.HTTPProvider(rpc_url))
+            
+            if not self.w3.is_connected():
+                raise ConnectionError(f"Failed to connect to {rpc_url}")
+            
+            # Test the connection
+            latest_block = self.w3.eth.get_block('latest')
+            chain_id = self.w3.eth.chain_id
+            
+            print(f"✅ Web3 connected to {rpc_url}")
+            print(f"   Chain ID: {chain_id}")
+            print(f"   Latest Block: {latest_block.number}")
+            
+        except Exception as e:
+            print(f"❌ Web3 connection failed: {e}")
+            raise ConnectionError(f"Web3 connection failed: {e}")
         
         # Load account from private key
         self.account = self.w3.eth.account.from_key(private_key)
@@ -50,8 +64,26 @@ class ERC8004BaseAgent:
         self._check_registration()
     
     def _load_contract_addresses(self):
-        """Load contract addresses from deployed_contracts.json"""
+        """Load contract addresses from deployed_contracts.json or environment"""
         try:
+            # Try environment variables first (for production)
+            identity_addr = os.getenv('IDENTITY_REGISTRY_ADDRESS')
+            reputation_addr = os.getenv('REPUTATION_REGISTRY_ADDRESS') 
+            validation_addr = os.getenv('VALIDATION_REGISTRY_ADDRESS')
+            
+            if identity_addr and reputation_addr and validation_addr:
+                print("📝 Using contract addresses from environment variables")
+                self.identity_registry_address = self.w3.to_checksum_address(identity_addr)
+                self.reputation_registry_address = self.w3.to_checksum_address(reputation_addr)
+                self.validation_registry_address = self.w3.to_checksum_address(validation_addr)
+                
+                print(f"   Identity Registry: {self.identity_registry_address}")
+                print(f"   Reputation Registry: {self.reputation_registry_address}")
+                print(f"   Validation Registry: {self.validation_registry_address}")
+                return
+            
+            # Fallback to deployed_contracts.json
+            print("📝 Loading contract addresses from deployed_contracts.json...")
             with open('deployed_contracts.json', 'r') as f:
                 deployment = json.load(f)
                 contracts = deployment['contracts']
@@ -60,10 +92,20 @@ class ERC8004BaseAgent:
                 self.identity_registry_address = self.w3.to_checksum_address(contracts['IdentityRegistry'])
                 self.reputation_registry_address = self.w3.to_checksum_address(contracts['ReputationRegistry'])
                 self.validation_registry_address = self.w3.to_checksum_address(contracts['ValidationRegistry'])
+                
+                print(f"   Identity Registry: {self.identity_registry_address}")
+                print(f"   Reputation Registry: {self.reputation_registry_address}")
+                print(f"   Validation Registry: {self.validation_registry_address}")
+                
         except FileNotFoundError:
-            raise FileNotFoundError(
-                "deployed_contracts.json not found. Please run 'forge script Deploy.s.sol' first."
-            )
+            # Last resort - use Base Sepolia addresses
+            print("⚠️ No contract deployment found, using Base Sepolia fallback addresses")
+            self.identity_registry_address = "0x35656CaD817aD468260dE1bA029fF919E5a40f75"
+            self.reputation_registry_address = "0x5796Cf09CF7E0F27A6Fb1489a7e5f9414f95F17B"
+            self.validation_registry_address = "0x6731b3be764B33a4E94D148410f1f551CE91dA61"
+            
+        except Exception as e:
+            raise Exception(f"Failed to load contract addresses: {e}")
     
     def _load_contract_abi(self, contract_name: str) -> list:
         """Load contract ABI from compiled artifacts"""

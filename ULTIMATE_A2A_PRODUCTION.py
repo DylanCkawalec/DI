@@ -264,39 +264,40 @@ class UltimateA2AProduction:
         finally:
             os.chdir(original_dir)
 
-    async def _validate_backend_protocol(self) -> bool:
-        """Quick backend protocol validation using real contracts"""
+    async def run_backend_validation(self) -> bool:
+        """Complete backend validation using real contracts and AI"""
+        print("🧪 COMPREHENSIVE BACKEND VALIDATION")
+        print("=" * 40)
+        
         try:
-            print("   🧪 Validating real Base Sepolia contracts...")
+            # Run the complete workflow test
+            print("   🔬 Running complete A2A workflow test...")
             
-            # Test connection to real contracts
-            from agents.base_agent import ERC8004BaseAgent
-            
-            agent = ERC8004BaseAgent(
-                "production-test.erc8004.dev",
-                os.getenv('PRIVATE_KEY')
+            result = subprocess.run(
+                ["python", "TEST_COMPLETE_A2A_WORKFLOW.py"], 
+                capture_output=True, text=True, timeout=120
             )
             
-            print(f"   ✅ Connected to real contracts")
-            print(f"   ✅ Network: {agent.w3.eth.chain_id}")
-            print(f"   ✅ Identity Registry: {agent.identity_registry_address}")
-            print(f"   ✅ Agent registered: ID {agent.agent_id}")
-            
-            # Test AI integration
-            from agents.code_review_server_agent import CodeReviewServerAgent, CodeReviewRequest
-            
-            ai_agent = CodeReviewServerAgent(
-                os.getenv('PRIVATE_KEY'),
-                "production-ai.erc8004.dev"
-            )
-            
-            print(f"   ✅ AI providers ready:")
-            print(f"      Grok: {'✅' if ai_agent.grok_client else '❌'}")
-            print(f"      Claude: {'✅' if ai_agent.anthropic_client else '❌'}")
-            print(f"      OpenAI: {'✅' if ai_agent.openai_client else '❌'}")
-            
-            return True
+            if result.returncode == 0 and "ALL TESTS PASSED" in result.stdout:
+                print("   🎉 BACKEND VALIDATION PERFECT!")
+                print("   ✅ All A2A protocol components working")
+                print("   ✅ Smart contracts operational")
+                print("   ✅ AI agents responding correctly")
+                print("   ✅ Oracle service managing sessions")
+                print("   ✅ API endpoints functional")
+                return True
+            else:
+                print("   ❌ Backend validation issues found:")
+                # Show key output lines
+                lines = (result.stdout + result.stderr).split('\n')
+                for line in lines:
+                    if any(marker in line for marker in ['❌', '⚠️', '✅', 'ERROR', 'FAIL']):
+                        print(f"      {line}")
+                return False
                 
+        except subprocess.TimeoutExpired:
+            print("   ❌ Backend validation timeout")
+            return False
         except Exception as e:
             print(f"   ❌ Backend validation error: {e}")
             return False
