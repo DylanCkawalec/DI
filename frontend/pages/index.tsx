@@ -32,6 +32,7 @@ import RevenueExplanation from '../components/RevenueExplanation';
 import RealTimeProgress from '../components/RealTimeProgress';
 import TransactionTracker from '../components/TransactionTracker';
 import AIStatusBanner from '../components/AIStatusBanner';
+import SystemHealthDashboard from '../components/SystemHealthDashboard';
 
 interface ReviewData {
   review_id: string;
@@ -1526,6 +1527,9 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                     isWalletConnected={isWalletConnected}
                   />
                   
+                  {/* System Health Dashboard */}
+                  <SystemHealthDashboard />
+
                   {/* Cost Estimation */}
                   {isWalletConnected && (
                     <CostEstimator

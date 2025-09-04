@@ -1,169 +1,123 @@
 version: '3.8'
 
 services:
-  # ERC-8004 AI Code Review Server Agent for Phala Cloud TEE
-  server-agent:
-    image: erc-8004-ai-review:phala-tee
-    container_name: erc8004-server-agent
+  # Complete ERC-8004 A2A System with PHALA TEE Integration
+  erc8004-complete:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    image: erc8004-a2a:production
+    container_name: erc8004-complete-system
     
     environment:
-      # Agent Configuration
-      - AGENT_TYPE=server
-      - AGENT_DOMAIN=alice-code-review.erc8004.dev
-      - CONTAINER_MODE=true
+      # Complete System Configuration
       - NODE_ENV=production
       - TEE_MODE=production
+      - PHALA_DEPLOYMENT=true
       - GRANT_SUDO=yes
       
-      # Blockchain Configuration
-      - RPC_URL=${RPC_URL}
+      # Blockchain Configuration  
+      - RPC_URL=${RPC_URL:-https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IileqhnKxixj}
       - PRIVATE_KEY=${PRIVATE_KEY}
       - CHAIN_ID=${CHAIN_ID:-84532}
       
-      # Contract Addresses
-      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
-      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
-      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
+      # ERC-8004 Contract Addresses
+      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS:-0x35656CaD817aD468260dE1bA029fF919E5a40f75}
+      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS:-0x5796Cf09CF7E0F27A6Fb1489a7e5f9414f95F17B}
+      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS:-0x6731b3be764B33a4E94D148410f1f551CE91dA61}
       
       # AI Configuration
+      - GROK_API_KEY=${GROK_API_KEY}
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       
-      # Phala TEE Configuration
-      - PHALA_API_KEY=${PHALA_API_KEY}
+      # Etherscan Integration
+      - NEXT_PUBLIC_ETHERSCAN_API_KEY=EF32MAFD3I58N92X1DP2637731ZANQ2ADG
+      - ETHERSCAN_API_KEY=EF32MAFD3I58N92X1DP2637731ZANQ2ADG
+      
+      # Frontend Configuration
+      - NEXT_PUBLIC_API_URL=http://localhost:8080
+      - NEXT_PUBLIC_VALIDATOR_URL=http://localhost:8081
+      - NEXT_PUBLIC_RPC_URL=${RPC_URL:-https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IileqhnKxixj}
+      - NEXT_PUBLIC_CHAIN_ID=${CHAIN_ID:-84532}
+      - NEXT_PUBLIC_IDENTITY_REGISTRY=${IDENTITY_REGISTRY_ADDRESS:-0x35656CaD817aD468260dE1bA029fF919E5a40f75}
+      - NEXT_PUBLIC_VALIDATION_REGISTRY=${VALIDATION_REGISTRY_ADDRESS:-0x6731b3be764B33a4E94D148410f1f551CE91dA61}
+      
+      # PHALA TEE Configuration
+      - PHALA_API_KEY=${PHALA_API_KEY:-phak_AITHmEg1_xqgbIHi-qqxxGBkyEBWfzfauJJOnnX_MRY}
       - TEE_ATTESTATION_ENABLED=true
-      - HEALTHCHECK_INTERVAL=30000
+      - PHALA_ENDPOINT=https://api.phala.network
+      - DSTACK_SIMULATOR_ENDPOINT=https://phat-cluster-api.phala.network
     
-    # TEE socket mounting for attestation
+    # PHALA TEE and application volumes
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/dstack.sock:/var/run/dstack.sock
       - ./data:/app/data
       - ./logs:/app/logs
+      - ./sessions:/app/sessions
+      - ./validations:/app/validations
     
-    # Network configuration
+    # Network configuration - expose all ports
     ports:
-      - "8080:8080"  # Server Agent API
+      - "3000:3000"    # Frontend Application
+      - "8080:8080"    # A2A API Server
+      - "8081:8081"    # Validator Agent
     
-    # Run as root for TEE access
+    # Run as root for TEE and Docker access
     user: root
     
-    # Start command
-    command: ["python", "-m", "agents.code_review_server_agent"]
+    # Production startup command
+    command: ["./prod.sh"]
     
     # Restart policy
     restart: unless-stopped
     
-    # Health check
+    # Enhanced health check for complete system
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/agent/info"]
+      test: |
+        curl -f http://localhost:8080/api/health &&
+        curl -f http://localhost:8081/health &&
+        curl -f http://localhost:3000
       interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 60s
+      timeout: 15s
+      retries: 5
+      start_period: 120s
     
-    # Resource limits
+    # Resource limits for complete system
     deploy:
       resources:
         limits:
+          cpus: '4'
+          memory: 8G
+        reservations:
           cpus: '2'
           memory: 4G
-        reservations:
-          cpus: '1'
-          memory: 2G
 
-  # ERC-8004 AI Code Review Validator Agent
-  validator-agent:
-    image: erc-8004-ai-review:phala-tee
-    container_name: erc8004-validator-agent
+  # PHALA TEE Integration Service
+  phala-tee:
+    image: phalanetwork/dstack-simulator:latest
+    container_name: erc8004-phala-tee
     
     environment:
-      # Agent Configuration
-      - AGENT_TYPE=validator
-      - AGENT_DOMAIN=bob-validator.erc8004.dev
-      - CONTAINER_MODE=true
-      - NODE_ENV=production
+      - PHALA_API_KEY=${PHALA_API_KEY:-phak_AITHmEg1_xqgbIHi-qqxxGBkyEBWfzfauJJOnnX_MRY}
       - TEE_MODE=production
-      - GRANT_SUDO=yes
-      
-      # Blockchain Configuration (using different private key)
-      - RPC_URL=${RPC_URL}
-      - PRIVATE_KEY=${VALIDATOR_PRIVATE_KEY}
-      - CHAIN_ID=${CHAIN_ID:-84532}
-      
-      # Contract Addresses
-      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
-      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
-      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
-      
-      # AI Configuration
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      
-      # Phala TEE Configuration
-      - PHALA_API_KEY=${PHALA_API_KEY}
-      - TEE_ATTESTATION_ENABLED=true
-      - HEALTHCHECK_INTERVAL=30000
+      - DSTACK_SIMULATOR_PORT=8090
+    
+    ports:
+      - "8090:8090"  # PHALA TEE Simulator
     
     volumes:
       - /var/run/dstack.sock:/var/run/dstack.sock
-      - ./validations:/app/validations
-      - ./logs:/app/logs
-    
-    ports:
-      - "8081:8081"  # Validator Agent API
-    
-    user: root
-    
-    command: ["python", "-m", "agents.code_review_validator_agent"]
+      - phala_data:/app/data
     
     restart: unless-stopped
     
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8081/agent/info"]
+      test: ["CMD", "curl", "-f", "http://localhost:8090/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-      start_period: 60s
-    
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 4G
-        reservations:
-          cpus: '1'
-          memory: 2G
-
-  # Frontend Application
-  frontend:
-    image: erc-8004-ai-review:frontend
-    container_name: erc8004-frontend
-    
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=http://server-agent:8080
-      - NEXT_PUBLIC_VALIDATOR_API_URL=http://validator-agent:8081
-      - NEXT_PUBLIC_RPC_URL=${RPC_URL}
-      - NEXT_PUBLIC_CHAIN_ID=${CHAIN_ID:-84532}
-      - NEXT_PUBLIC_IDENTITY_REGISTRY=${IDENTITY_REGISTRY_ADDRESS}
-      - NEXT_PUBLIC_REPUTATION_REGISTRY=${REPUTATION_REGISTRY_ADDRESS}
-      - NEXT_PUBLIC_VALIDATION_REGISTRY=${VALIDATION_REGISTRY_ADDRESS}
-    
-    ports:
-      - "3000:3000"  # Frontend
-    
-    depends_on:
-      - server-agent
-      - validator-agent
-    
-    restart: unless-stopped
-    
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
 
   # Redis for caching (optional)
   redis:
@@ -209,6 +163,12 @@ volumes:
   redis_data:
     driver: local
   prometheus_data:
+    driver: local
+  phala_data:
+    driver: local
+  app_data:
+    driver: local
+  session_data:
     driver: local
 
 networks:

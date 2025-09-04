@@ -1,0 +1,93 @@
+# 🚀 ERC-8004 A2A Production Dockerfile with PHALA TEE Integration
+FROM node:18-alpine AS frontend-builder
+
+# Build frontend
+WORKDIR /app/frontend
+COPY frontend/package*.json ./
+RUN npm ci --only=production
+COPY frontend/ ./
+RUN npm run build
+
+# Production Python environment with PHALA TEE support
+FROM python:3.11-slim AS production
+
+# Install system dependencies for PHALA TEE
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    ca-certificates \
+    gnupg \
+    lsb-release \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Docker for PHALA CLI
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update && apt-get install -y docker-ce-cli
+
+# Set working directory
+WORKDIR /app
+
+# Copy Python requirements and install
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional production packages
+RUN pip install --no-cache-dir \
+    gunicorn \
+    uvloop \
+    httptools
+
+# Copy application code
+COPY agents/ ./agents/
+COPY contracts/out/ ./contracts/out/
+COPY *.py ./
+COPY *.json ./
+COPY *.md ./
+
+# Copy built frontend
+COPY --from=frontend-builder /app/frontend/.next ./frontend/.next
+COPY --from=frontend-builder /app/frontend/public ./frontend/public
+COPY --from=frontend-builder /app/frontend/package.json ./frontend/
+COPY frontend/next.config.js ./frontend/
+
+# Create required directories
+RUN mkdir -p data validations logs sessions
+RUN mkdir -p frontend/node_modules
+
+# Install frontend production dependencies
+WORKDIR /app/frontend
+RUN npm ci --only=production
+WORKDIR /app
+
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV PYTHONUNBUFFERED=1
+ENV NODE_ENV=production
+ENV TEE_MODE=production
+
+# Create production user
+RUN groupadd -r erc8004 && useradd -r -g erc8004 erc8004
+RUN chown -R erc8004:erc8004 /app
+
+# Expose all ports
+EXPOSE 3000 8080 8081
+
+# Health check script
+COPY prod.sh /app/prod.sh
+RUN chmod +x /app/prod.sh
+
+# Production health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+    CMD curl -f http://localhost:8080/api/health && \
+        curl -f http://localhost:8081/health && \
+        curl -f http://localhost:3000 || exit 1
+
+# Switch to production user (will be overridden for TEE)
+USER erc8004
+
+# Default production command
+CMD ["./prod.sh"]
