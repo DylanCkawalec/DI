@@ -130,11 +130,18 @@ class ERC8004BaseAgent:
         # Estimate gas
         gas_estimate = function.estimate_gas({'from': self.address, 'value': self.w3.to_wei(0.005, 'ether')})
         
-        # Build transaction
+        # Build transaction (optimized for Base network)
+        base_gas_price = self.w3.eth.gas_price
+        
+        # For Base network, use lower gas price if possible
+        if self.w3.eth.chain_id in [8453, 84532]:  # Base Mainnet/Sepolia
+            # Base typically has very low gas prices, use minimum
+            base_gas_price = max(base_gas_price, 1000000)  # Minimum 0.001 gwei
+        
         transaction = function.build_transaction({
             'from': self.address,
-            'gas': int(gas_estimate * 1.2),
-            'gasPrice': self.w3.eth.gas_price,
+            'gas': int(gas_estimate * 1.1),  # Reduced gas multiplier for Base
+            'gasPrice': base_gas_price,
             'nonce': self.w3.eth.get_transaction_count(self.address),
             'value': self.w3.to_wei(0.005, 'ether')  # Registration fee
         })
