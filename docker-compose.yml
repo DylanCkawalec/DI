@@ -96,68 +96,33 @@ services:
     # Run as root for Phala Cloud TEE access
     user: root
     
-    # Phala Cloud compatible command
+    # Enhanced Phala Cloud startup command
     command: ["./load_env.sh", "./quick_launch.sh"]
     
-    # Restart policy
+    # Production restart policy
     restart: unless-stopped
     
-    # Phala Cloud health check
+    # Enhanced health check for complete system
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/api/health"]
+      test: |
+        curl -f http://localhost:8080/api/health &&
+        curl -f http://localhost:8081/health &&
+        curl -f http://localhost:3000
       interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+      timeout: 15s
+      retries: 5
+      start_period: 60s
+    
+    # Resource limits optimized for Phala TEE
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 4G
+        reservations:
+          cpus: '1.0'
+          memory: 2G
 
-  # A2A API Service for external access
-  api:
-    image: dylanckawalec/trustless-ai-erc-8004:latest
-    container_name: erc8004-api
-    
-    environment:
-      - API_HOST=0.0.0.0
-      - API_PORT=8000
-      - USE_TEE_AUTH=${USE_TEE_AUTH:-false}
-      - API_TOKEN=${API_TOKEN:-demo_token}
-      - RPC_URL=${RPC_URL}
-      - CONTAINER_MODE=true
-      - TEE_MODE=production
-      
-      # Agent configuration
-      - SERVER_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
-      - VALIDATOR_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
-      - CLIENT_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
-      - SERVER_AGENT_SALT=${SERVER_AGENT_SALT:-server_salt_001}
-      - VALIDATOR_AGENT_SALT=${VALIDATOR_AGENT_SALT:-validator_salt_001}
-      - CLIENT_AGENT_SALT=${CLIENT_AGENT_SALT:-client_salt_001}
-      
-      # AI API keys
-      - GROK_API_KEY=${GROK_API_KEY}
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-    
-    # Phala TEE socket mounting
-    volumes:
-      - /var/run/dstack.sock:/var/run/dstack.sock
-      - /var/run/tappd.sock:/var/run/tappd.sock
-    
-    ports:
-      - "8000:8000"    # API endpoint
-    
-    networks:
-      - erc8004-network
-    
-    command: ["python", "-m", "agents.a2a_api_server"]
-    
-    restart: unless-stopped
-    
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
 # Network configuration for Phala Cloud
 networks:
