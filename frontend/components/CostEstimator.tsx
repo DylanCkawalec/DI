@@ -54,19 +54,34 @@ export default function CostEstimator({
     setIsLoading(true);
     
     try {
-      // Get current gas price
-      const gasPriceWei = await web3Instance.eth.getGasPrice();
-      const gasPriceGwei = web3Instance.utils.fromWei(gasPriceWei, 'gwei');
-      setGasPrice(parseFloat(gasPriceGwei).toFixed(2));
+      // Get current gas price with error handling
+      let gasPriceWei;
+      try {
+        gasPriceWei = await web3Instance.eth.getGasPrice();
+      } catch (rpcError) {
+        console.warn('RPC gas price failed, using fallback');
+        gasPriceWei = '1000000000'; // 1 gwei fallback
+      }
       
-      // Calculate estimated cost
+      const gasPriceGwei = web3Instance.utils.fromWei(gasPriceWei.toString(), 'gwei');
+      setGasPrice(parseFloat(gasPriceGwei).toFixed(4));
+      
+      // Calculate estimated cost safely
       const gasLimit = gasEstimates[operationType];
-      const costWei = BigInt(gasPriceWei) * BigInt(gasLimit);
-      const costEth = web3Instance.utils.fromWei(costWei.toString(), 'ether');
+      let adjustedCost = 0;
       
-      // Apply network multiplier
-      const multiplier = networkMultipliers[networkId as keyof typeof networkMultipliers] || 1;
-      const adjustedCost = parseFloat(costEth) * multiplier;
+      try {
+        const costWei = BigInt(gasPriceWei.toString()) * BigInt(gasLimit);
+        const costEth = web3Instance.utils.fromWei(costWei.toString(), 'ether');
+        
+        // Apply network multiplier
+        const multiplier = networkMultipliers[networkId as keyof typeof networkMultipliers] || 1;
+        adjustedCost = parseFloat(costEth) * multiplier;
+        
+      } catch (calcError) {
+        console.warn('Cost calculation error, using estimate');
+        adjustedCost = 0.000001; // Small fallback cost
+      }
       
       setEstimatedCost(adjustedCost.toFixed(6));
       
