@@ -8,12 +8,25 @@
 .env.test
 .env.production
 *.env
+.env.*
 
-# API Keys and Private Keys
+# API Keys and Private Keys (COMPREHENSIVE PROTECTION)
 *api_key*
 *private_key*
 *secret*
 *token*
+*xai-*
+*sk-*
+*phak_*
+*ArTAkftTl*
+
+# Specific API Key Patterns
+*grok*api*
+*openai*api*
+*anthropic*api*
+*claude*api*
+*phala*api*
+*drpc*api*
 
 # Python
 __pycache__/

@@ -1,10 +1,13 @@
 {
-  "network": "anvil",
-  "chain_id": 31337,
+  "network": "Base Sepolia",
+  "chain_id": 84532,
+  "rpc_url": "https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IleqhnKxixj",
+  "deployer": "0xEAB8FD32c2D69867661518dD1CEbFFA6EF20ccAc",
   "timestamp": 1756959067.352373,
+  "total_cost_eth": 0.00000187318838456,
   "contracts": {
-    "IdentityRegistry": "0x5fbdb2315678afecb367f032d93f642f64180aa3",
-    "ReputationRegistry": "0xe7f1725e7734ce288f8367e1bb143e90bb3f0512",
-    "ValidationRegistry": "0x9fe46736679d2d9a65f0992f2272de9f3c7fa6e0"
+    "IdentityRegistry": "0x35656CaD817aD468260dE1bA029fF919E5a40f75",
+    "ReputationRegistry": "0x5796Cf09CF7E0F27A6Fb1489a7e5f9414f95F17B",
+    "ValidationRegistry": "0x6731b3be764B33a4E94D148410f1f551CE91dA61"
   }
 }
