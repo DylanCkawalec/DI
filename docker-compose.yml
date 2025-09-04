@@ -1,0 +1,217 @@
+version: '3.8'
+
+services:
+  # ERC-8004 AI Code Review Server Agent for Phala Cloud TEE
+  server-agent:
+    image: erc-8004-ai-review:phala-tee
+    container_name: erc8004-server-agent
+    
+    environment:
+      # Agent Configuration
+      - AGENT_TYPE=server
+      - AGENT_DOMAIN=alice-code-review.erc8004.dev
+      - CONTAINER_MODE=true
+      - NODE_ENV=production
+      - TEE_MODE=production
+      - GRANT_SUDO=yes
+      
+      # Blockchain Configuration
+      - RPC_URL=${RPC_URL}
+      - PRIVATE_KEY=${PRIVATE_KEY}
+      - CHAIN_ID=${CHAIN_ID:-84532}
+      
+      # Contract Addresses
+      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
+      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
+      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
+      
+      # AI Configuration
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      
+      # Phala TEE Configuration
+      - PHALA_API_KEY=${PHALA_API_KEY}
+      - TEE_ATTESTATION_ENABLED=true
+      - HEALTHCHECK_INTERVAL=30000
+    
+    # TEE socket mounting for attestation
+    volumes:
+      - /var/run/dstack.sock:/var/run/dstack.sock
+      - ./data:/app/data
+      - ./logs:/app/logs
+    
+    # Network configuration
+    ports:
+      - "8080:8080"  # Server Agent API
+    
+    # Run as root for TEE access
+    user: root
+    
+    # Start command
+    command: ["python", "-m", "agents.code_review_server_agent"]
+    
+    # Restart policy
+    restart: unless-stopped
+    
+    # Health check
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/agent/info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  # ERC-8004 AI Code Review Validator Agent
+  validator-agent:
+    image: erc-8004-ai-review:phala-tee
+    container_name: erc8004-validator-agent
+    
+    environment:
+      # Agent Configuration
+      - AGENT_TYPE=validator
+      - AGENT_DOMAIN=bob-validator.erc8004.dev
+      - CONTAINER_MODE=true
+      - NODE_ENV=production
+      - TEE_MODE=production
+      - GRANT_SUDO=yes
+      
+      # Blockchain Configuration (using different private key)
+      - RPC_URL=${RPC_URL}
+      - PRIVATE_KEY=${VALIDATOR_PRIVATE_KEY}
+      - CHAIN_ID=${CHAIN_ID:-84532}
+      
+      # Contract Addresses
+      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
+      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
+      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
+      
+      # AI Configuration
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      
+      # Phala TEE Configuration
+      - PHALA_API_KEY=${PHALA_API_KEY}
+      - TEE_ATTESTATION_ENABLED=true
+      - HEALTHCHECK_INTERVAL=30000
+    
+    volumes:
+      - /var/run/dstack.sock:/var/run/dstack.sock
+      - ./validations:/app/validations
+      - ./logs:/app/logs
+    
+    ports:
+      - "8081:8081"  # Validator Agent API
+    
+    user: root
+    
+    command: ["python", "-m", "agents.code_review_validator_agent"]
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8081/agent/info"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '1'
+          memory: 2G
+
+  # Frontend Application
+  frontend:
+    image: erc-8004-ai-review:frontend
+    container_name: erc8004-frontend
+    
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://server-agent:8080
+      - NEXT_PUBLIC_VALIDATOR_API_URL=http://validator-agent:8081
+      - NEXT_PUBLIC_RPC_URL=${RPC_URL}
+      - NEXT_PUBLIC_CHAIN_ID=${CHAIN_ID:-84532}
+      - NEXT_PUBLIC_IDENTITY_REGISTRY=${IDENTITY_REGISTRY_ADDRESS}
+      - NEXT_PUBLIC_REPUTATION_REGISTRY=${REPUTATION_REGISTRY_ADDRESS}
+      - NEXT_PUBLIC_VALIDATION_REGISTRY=${VALIDATION_REGISTRY_ADDRESS}
+    
+    ports:
+      - "3000:3000"  # Frontend
+    
+    depends_on:
+      - server-agent
+      - validator-agent
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # Redis for caching (optional)
+  redis:
+    image: redis:7-alpine
+    container_name: erc8004-redis
+    
+    ports:
+      - "6379:6379"
+    
+    volumes:
+      - redis_data:/data
+    
+    restart: unless-stopped
+    
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Monitoring and Logging
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: erc8004-prometheus
+    
+    ports:
+      - "9090:9090"
+    
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+    
+    restart: unless-stopped
+
+volumes:
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  default:
+    name: erc8004-network
+    driver: bridge

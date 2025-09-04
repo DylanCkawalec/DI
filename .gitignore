@@ -1,0 +1,213 @@
+# ERC-8004 AI Code Review Service - Git Ignore
+# =============================================
+
+# Environment and Secrets (CRITICAL - Never commit!)
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+*.env
+
+# API Keys and Private Keys
+*api_key*
+*private_key*
+*secret*
+*token*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.venv
+.env
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Testing
+.coverage
+.pytest_cache/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+htmlcov/
+.cache
+nosetests.xml
+test-results/
+test_report.json
+ai_test_results.json
+
+# Blockchain/Foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/lib/
+deployed_contracts.json
+*.log
+
+# AI/ML
+*.model
+*.pkl
+*.joblib
+data/
+validations/
+logs/
+
+# Node.js/Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Next.js
+.next/
+out/
+*.tsbuildinfo
+.vercel
+
+# Production Build
+build/
+dist/
+
+# Temporary Files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+
+# Runtime Data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage Directory
+coverage/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Microbundle cache
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# parcel-bundler cache
+.parcel-cache
+
+# Next.js build output
+.next/
+out/
+
+# Nuxt.js build / generate output
+.nuxt
+dist/
+
+# Storybook build outputs
+.out
+.storybook-out
+
+# rollup.js default build output
+dist/
+
+# Uncomment these if you have a monorepo
+# packages/*/lib
+# packages/*/build
+# packages/*/dist
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.swp
+*.swo
+
+# Docker
+.dockerignore
+
+# Terraform
+*.tfstate
+*.tfstate.*
+
+# Local configuration
+config.local.js
+config.local.json
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Zero-knowledge proofs
+*.zkey
+*.r1cs
+*.sym
+*.ptau
+
+# Solidity/Hardhat
+typechain/
+typechain-types/
+artifacts/
+cache/
