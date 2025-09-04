@@ -713,6 +713,121 @@ if __name__ == '__main__':
     };
   };
 
+  // Perform REAL AI validation via validator agent
+  const performRealAIValidation = async (originalReview: ReviewData, txHash: string): Promise<ValidationData> => {
+    try {
+      console.log('🛡️ Starting REAL AI validation via validator agent...');
+      
+      // Create validation request for real validator agent
+      const validationResponse = await fetch('http://localhost:8081/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          review_id: originalReview.review_id,
+          original_code: code,
+          original_response: originalReview,
+          server_agent_id: 999, // Demo agent ID
+          transaction_hash: txHash,
+          language: language
+        })
+      });
+      
+      if (validationResponse.ok) {
+        const realValidation = await validationResponse.json();
+        console.log('✅ REAL AI validation completed by validator agent');
+        
+        // Create improved code with real validation results
+        const improvedCode = await generateImprovedCode(code, originalReview.recommendations, language);
+        
+        // Generate professional audit receipt
+        const auditReceipt = {
+          validation_date: new Date().toISOString(),
+          validator: 'ERC-8004 AI Validator Agent',
+          original_score: originalReview.overall_score,
+          improved_score: realValidation.validation_score,
+          blockchain_proof: txHash,
+          contract_address: userConfig?.useOwnContracts ? userConfig.validationRegistry : '0x6731b3be764B33a4E94D148410f1f551CE91dA61',
+          network: 'Base Sepolia',
+          methodology_verified: true,
+          erc8004_compliant: true
+        };
+        
+        const enhancedValidation: ValidationData = {
+          validation_id: realValidation.validation_id,
+          validation_score: realValidation.validation_score,
+          accuracy_score: realValidation.accuracy_score,
+          completeness_score: realValidation.completeness_score,
+          methodology_score: realValidation.methodology_score,
+          discrepancies: realValidation.discrepancies,
+          recommendation: realValidation.recommendation,
+          improved_code: improvedCode,
+          transaction_hash: txHash,
+          basescan_url: txHash.startsWith('0x') ? `https://sepolia.basescan.org/tx/${txHash}` : undefined,
+          audit_receipt: auditReceipt
+        };
+        
+        // Store for downloads
+        safeLocalStorage.setItem(`validation_${txHash}`, enhancedValidation);
+        safeLocalStorage.setItem(`improved_code_${txHash}`, improvedCode);
+        safeLocalStorage.setItem(`audit_receipt_${txHash}`, JSON.stringify(auditReceipt, null, 2));
+        
+        return enhancedValidation;
+        
+      } else {
+        throw new Error('Real validation API failed');
+      }
+      
+    } catch (error) {
+      console.error('Real AI validation failed:', error);
+      console.log('🔄 Falling back to enhanced local validation...');
+      
+      // Enhanced fallback with improved code generation
+      const improvedCode = await generateImprovedCode(code, originalReview.recommendations, language);
+      const validationScore = Math.min(95, Math.max(85, originalReview.overall_score + 15));
+      
+      const auditReceipt = {
+        validation_date: new Date().toISOString(),
+        validator: 'Local AI Validator (API Fallback)',
+        original_score: originalReview.overall_score,
+        improved_score: validationScore,
+        blockchain_proof: txHash,
+        contract_address: userConfig?.useOwnContracts ? userConfig.validationRegistry : '0x6731b3be764B33a4E94D148410f1f551CE91dA61',
+        network: 'Base Sepolia',
+        methodology_verified: false,
+        erc8004_compliant: true
+      };
+      
+      const fallbackValidation: ValidationData = {
+        validation_id: `fallback_${txHash.slice(2, 10)}`,
+        validation_score: validationScore,
+        accuracy_score: Math.min(100, validationScore + 3),
+        completeness_score: Math.min(98, validationScore + 2),
+        methodology_score: 88,
+        discrepancies: [],
+        recommendation: 'APPROVED: Validation completed with enhanced local analysis.',
+        improved_code: improvedCode,
+        transaction_hash: txHash,
+        basescan_url: txHash.startsWith('0x') ? `https://sepolia.basescan.org/tx/${txHash}` : undefined,
+        audit_receipt: auditReceipt
+      };
+      
+      // Store for downloads
+      safeLocalStorage.setItem(`validation_${txHash}`, fallbackValidation);
+      safeLocalStorage.setItem(`improved_code_${txHash}`, improvedCode);
+      safeLocalStorage.setItem(`audit_receipt_${txHash}`, JSON.stringify(auditReceipt, null, 2));
+      
+      return fallbackValidation;
+    }
+  };
+
+  // Generate validation results (fallback function)
+  const generateValidationResults = async (originalReview: ReviewData, txHash: string): Promise<ValidationData> => {
+    // This is now just a wrapper for the enhanced validation
+    return await performRealAIValidation(originalReview, txHash);
+  };
+
   const handleValidation = async () => {
     if (!reviewData) {
       alert('Please complete code review first');
@@ -825,25 +940,30 @@ if __name__ == '__main__':
           console.log(`✅ Validation transaction submitted: ${txHash}`);
           console.log(`🔗 View on BaseScan: https://sepolia.basescan.org/tx/${txHash}`);
         
-      } catch (metaMaskError: any) {
-        console.error('Validation transaction failed:', metaMaskError);
-        
-        // Handle specific MetaMask/blockchain errors
-        if (metaMaskError.code === 4001) {
-          console.log('❌ User rejected validation transaction');
-          setIsValidating(false);
-          return;
-        } else if (metaMaskError.code === -32603) {
-          console.warn('⚠️ JSON-RPC error during validation, using local validation');
-          txHash = `local_validation_${Date.now()}`;
-        } else if (metaMaskError.message?.includes('insufficient funds')) {
-          alert('Insufficient funds for validation transaction');
-          setIsValidating(false);
-          return;
-        } else {
-          console.warn('⚠️ Validation transaction failed, using local validation');
-          txHash = `local_validation_${Date.now()}`;
+              } catch (metaMaskError: any) {
+          console.error('Validation transaction failed:', metaMaskError);
+          
+          // Handle specific MetaMask/blockchain errors
+          if (metaMaskError.code === 4001) {
+            console.log('❌ User rejected validation transaction');
+            setIsValidating(false);
+            return;
+          } else if (metaMaskError.code === -32603) {
+            console.warn('⚠️ JSON-RPC error during validation, using local validation');
+            txHash = `local_validation_${Date.now()}`;
+          } else if (metaMaskError.message?.includes('insufficient funds')) {
+            alert('Insufficient funds for validation transaction');
+            setIsValidating(false);
+            return;
+          } else {
+            console.warn('⚠️ Validation transaction failed, using local validation');
+            txHash = `local_validation_${Date.now()}`;
+          }
         }
+      } else {
+        // No wallet connected - use local validation
+        console.log('🔄 No wallet connected - using local validation');
+        txHash = `local_validation_${Date.now()}`;
       }
       
       // Step 4: Wait for confirmation (handles both blockchain and local)
@@ -923,115 +1043,6 @@ if __name__ == '__main__':
     }
   };
 
-  // Perform REAL AI validation via validator agent
-  const performRealAIValidation = async (originalReview: ReviewData, txHash: string): Promise<ValidationData> => {
-    try {
-      console.log('🛡️ Starting REAL AI validation via validator agent...');
-      
-      // Create validation request for real validator agent
-      const validationResponse = await fetch('http://localhost:8081/validate', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          review_id: originalReview.review_id,
-          original_code: code,
-          original_response: originalReview,
-          server_agent_id: 999, // Demo agent ID
-          transaction_hash: txHash,
-          language: language
-        })
-      });
-      
-      if (validationResponse.ok) {
-        const realValidation = await validationResponse.json();
-        console.log('✅ REAL AI validation completed by validator agent');
-        
-        // Create improved code with real validation results
-        const improvedCode = await generateImprovedCode(code, originalReview.recommendations, language);
-        
-        // Generate professional audit receipt
-        const auditReceipt = {
-          validation_date: new Date().toISOString(),
-          validator: 'ERC-8004 AI Validator Agent',
-          original_score: originalReview.overall_score,
-          improved_score: realValidation.validation_score,
-          blockchain_proof: txHash,
-          contract_address: userConfig?.useOwnContracts ? userConfig.validationRegistry : '0x6731b3be764B33a4E94D148410f1f551CE91dA61',
-          network: 'Base Sepolia',
-          methodology_verified: true,
-          erc8004_compliant: true
-        };
-        
-        const enhancedValidation: ValidationData = {
-          validation_id: realValidation.validation_id,
-          validation_score: realValidation.validation_score,
-          accuracy_score: realValidation.accuracy_score,
-          completeness_score: realValidation.completeness_score,
-          methodology_score: realValidation.methodology_score,
-          discrepancies: realValidation.discrepancies,
-          recommendation: realValidation.recommendation,
-          improved_code: improvedCode,
-          transaction_hash: txHash,
-          basescan_url: txHash.startsWith('0x') ? `https://sepolia.basescan.org/tx/${txHash}` : undefined,
-          audit_receipt: auditReceipt
-        };
-        
-        // Store for downloads
-        safeLocalStorage.setItem(`validation_${txHash}`, enhancedValidation);
-        safeLocalStorage.setItem(`improved_code_${txHash}`, improvedCode);
-        safeLocalStorage.setItem(`audit_receipt_${txHash}`, JSON.stringify(auditReceipt, null, 2));
-        
-        return enhancedValidation;
-        
-      } else {
-        throw new Error('Real validation API failed');
-      }
-      
-    } catch (error) {
-      console.error('Real AI validation failed:', error);
-      console.log('🔄 Falling back to enhanced local validation...');
-      
-      // Enhanced fallback with improved code generation
-      const improvedCode = await generateImprovedCode(code, originalReview.recommendations, language);
-      const validationScore = Math.min(95, Math.max(85, originalReview.overall_score + 15));
-      
-      const auditReceipt = {
-        validation_date: new Date().toISOString(),
-        validator: 'Local AI Validator (API Fallback)',
-        original_score: originalReview.overall_score,
-        improved_score: validationScore,
-        blockchain_proof: txHash,
-        contract_address: userConfig?.useOwnContracts ? userConfig.validationRegistry : '0x6731b3be764B33a4E94D148410f1f551CE91dA61',
-        network: 'Base Sepolia',
-        methodology_verified: false,
-        erc8004_compliant: true
-      };
-      
-      const fallbackValidation: ValidationData = {
-        validation_id: `fallback_${txHash.slice(2, 10)}`,
-        validation_score: validationScore,
-        accuracy_score: Math.min(100, validationScore + 3),
-        completeness_score: Math.min(98, validationScore + 2),
-        methodology_score: 88,
-        discrepancies: [],
-        recommendation: 'APPROVED: Validation completed with enhanced local analysis.',
-        improved_code: improvedCode,
-        transaction_hash: txHash,
-        basescan_url: txHash.startsWith('0x') ? `https://sepolia.basescan.org/tx/${txHash}` : undefined,
-        audit_receipt: auditReceipt
-      };
-      
-      // Store for downloads
-      safeLocalStorage.setItem(`validation_${txHash}`, fallbackValidation);
-      safeLocalStorage.setItem(`improved_code_${txHash}`, improvedCode);
-      safeLocalStorage.setItem(`audit_receipt_${txHash}`, JSON.stringify(auditReceipt, null, 2));
-      
-      return fallbackValidation;
-    }
-  };
-
   // Generate improved code based on AI recommendations
   const generateImprovedCode = async (originalCode: string, recommendations: string[], language: string): Promise<string> => {
     let improvedCode = originalCode;
@@ -1042,14 +1053,14 @@ ${language.toUpperCase()} CODE - SECURITY AUDIT COMPLETE
 ========================================
 🛡️  Analyzed by: ERC-8004 AI Validator
 📊 Security Score: IMPROVED (see validation details)
-🔗 Blockchain Proof: ${reviewData?.analysis_details?.transaction_hash}
+🔗 Blockchain Proof: ${reviewData?.analysis_details?.transaction_hash || 'N/A'}
 ⏰ Audit Date: ${new Date().toLocaleDateString()}
 
 🔧 SECURITY IMPROVEMENTS APPLIED:
-${recommendations.map((rec, i) => `${i + 1}. ${rec}`).join('\n')}
+${recommendations.map((rec: string, i: number) => `${i + 1}. ${rec}`).join('\n')}
 
 ⚠️  ORIGINAL ISSUES FOUND:
-${reviewData?.issues.map((issue, i) => `${i + 1}. ${issue.severity.toUpperCase()}: ${issue.message}`).join('\n')}
+${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity.toUpperCase()}: ${issue.message}`).join('\n') || 'No issues found'}
 
 ✅ This code has been professionally audited and improved.
 ✅ Validation recorded on Base Sepolia blockchain.
