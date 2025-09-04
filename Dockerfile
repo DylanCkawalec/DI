@@ -63,19 +63,33 @@ WORKDIR /app/frontend
 RUN npm ci --omit=dev
 WORKDIR /app
 
-# Copy launcher script
+# Copy launcher script and environment handling
 COPY quick_launch.sh ./
 RUN chmod +x quick_launch.sh
+
+# Copy environment file securely (will be overridden by deployment)
+COPY .env* ./
+RUN chmod 600 .env* 2>/dev/null || true
+
+# Create secure environment loader script
+RUN echo '#!/bin/bash' > /app/load_env.sh && \
+    echo 'set -a' >> /app/load_env.sh && \
+    echo '[ -f /app/.env ] && source /app/.env' >> /app/load_env.sh && \
+    echo 'set +a' >> /app/load_env.sh && \
+    echo 'exec "$@"' >> /app/load_env.sh && \
+    chmod +x /app/load_env.sh
 
 # Create required directories
 RUN mkdir -p data validations logs sessions
 
-# Set environment variables
+# Set base environment variables
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 ENV NODE_ENV=production
 ENV TEE_MODE=production
 ENV PHALA_DEPLOYMENT=true
+
+# Environment file will be loaded at runtime for security
 
 # Create production user
 RUN groupadd -r erc8004 && useradd -r -g erc8004 erc8004
@@ -93,5 +107,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
 # Run as production user (Phala TEE will override if needed)
 USER erc8004
 
-# Default command
-CMD ["./quick_launch.sh"]
+# Default command with secure environment loading
+CMD ["./load_env.sh", "./quick_launch.sh"]

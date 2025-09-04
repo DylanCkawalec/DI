@@ -74,6 +74,8 @@ services:
       - ./sessions:/app/sessions
       - ./validations:/app/validations
       - /var/run/docker.sock:/var/run/docker.sock:ro
+      # Secure environment file mounting (optional - env vars preferred)
+      - ./.env:/app/.env:ro
     
     # Network configuration
     networks:

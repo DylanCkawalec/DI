@@ -11,12 +11,19 @@ echo
 # Setup
 mkdir -p logs data sessions validations 2>/dev/null || true
 
-# Load environment
+# Load environment (works in Docker and local)
 if [[ -f ".env" ]]; then
-    export $(grep -v '^#' .env | xargs) 2>/dev/null || true
+    set -a
+    source .env
+    set +a
     echo "✅ Environment loaded from .env"
+elif [[ -f "/app/.env" ]]; then
+    set -a  
+    source /app/.env
+    set +a
+    echo "✅ Environment loaded from /app/.env (Docker)"
 else
-    echo "⚠️  No .env file - using demo configuration"
+    echo "⚠️  No .env file - using system environment or demo configuration"
 fi
 
 # Set demo defaults
