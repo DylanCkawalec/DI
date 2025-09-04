@@ -35,6 +35,7 @@ import AIStatusBanner from '../components/AIStatusBanner';
 import SystemHealthDashboard from '../components/SystemHealthDashboard';
 import AgentDiscovery from '../components/AgentDiscovery';
 import PhalaKMSBanner from '../components/PhalaKMSBanner';
+import ClientOnlyWrapper from '../components/ClientOnlyWrapper';
 
 interface ReviewData {
   review_id: string;
@@ -1533,16 +1534,18 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                       isActive={isReviewing || isValidating}
                       currentStep={currentProgressStep}
                       onStepUpdate={(step) => console.log('Progress update:', step)}
-                      etherscanApiKey="EF32MAFD3I58N92X1DP2637731ZANQ2ADG"
+                      etherscanApiKey={process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY || ''}
                     />
                   )}
 
                   {/* Transaction Tracker */}
                   {isWalletConnected && (
-                    <TransactionTracker
-                      walletAddress={walletAddress}
-                      etherscanApiKey="EF32MAFD3I58N92X1DP2637731ZANQ2ADG"
-                    />
+                    <ClientOnlyWrapper>
+                      <TransactionTracker
+                        walletAddress={walletAddress}
+                        etherscanApiKey={process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY || ''}
+                      />
+                    </ClientOnlyWrapper>
                   )}
 
                   {/* Revenue Model Explanation */}
@@ -1553,7 +1556,9 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                   />
                   
                   {/* System Health Dashboard - Client Side Only */}
-                  {typeof window !== 'undefined' && <SystemHealthDashboard />}
+                  <ClientOnlyWrapper>
+                    <SystemHealthDashboard />
+                  </ClientOnlyWrapper>
 
                   {/* Cost Estimation */}
                   {isWalletConnected && (

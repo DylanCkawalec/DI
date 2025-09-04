@@ -30,7 +30,7 @@ interface TransactionTrackerProps {
 
 export default function TransactionTracker({ 
   walletAddress, 
-  etherscanApiKey = 'EF32MAFD3I58N92X1DP2637731ZANQ2ADG' 
+  etherscanApiKey 
 }: TransactionTrackerProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -46,9 +46,9 @@ export default function TransactionTracker({
     setIsLoading(true);
     
     try {
-      // Get transaction history from Etherscan API
+      // Use secure API proxy instead of direct Etherscan calls
       const response = await fetch(
-        `https://api-sepolia.basescan.org/api?module=account&action=txlist&address=${walletAddress}&startblock=0&endblock=99999999&sort=desc&apikey=${etherscanApiKey}`
+        `/api/etherscan-proxy?address=${walletAddress}&module=account&action=txlist`
       );
       
       const data = await response.json();

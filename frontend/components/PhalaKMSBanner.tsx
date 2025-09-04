@@ -99,12 +99,12 @@ export default function PhalaKMSBanner() {
         </div>
       </div>
 
-      {/* API Key Integration */}
+      {/* TEE Integration Status */}
       <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-xl">
         <div className="flex items-center space-x-2">
           <KeyIcon className="h-4 w-4 text-blue-400" />
           <span className="text-blue-300 text-sm">
-            Phala API: phak_AITHmEg1_xqgbIHi-qqxxGBkyEBWfzfauJJOnnX_MRY (Integrated)
+            Phala TEE: Securely configured via backend environment
           </span>
         </div>
       </div>

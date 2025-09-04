@@ -26,14 +26,14 @@ interface RealTimeProgressProps {
   isActive: boolean;
   currentStep: string;
   onStepUpdate: (step: ProgressStep) => void;
-  etherscanApiKey: string;
+  etherscanApiKey?: string;
 }
 
 export default function RealTimeProgress({ 
   isActive, 
   currentStep, 
   onStepUpdate, 
-  etherscanApiKey = 'EF32MAFD3I58N92X1DP2637731ZANQ2ADG' 
+  etherscanApiKey 
 }: RealTimeProgressProps) {
   const [steps, setSteps] = useState<ProgressStep[]>([
     {
@@ -137,8 +137,9 @@ export default function RealTimeProgress({
     if (!txHash || !txHash.startsWith('0x')) return;
 
     try {
+      // Use secure API proxy for transaction lookups
       const response = await fetch(
-        `https://api-sepolia.basescan.org/api?module=transaction&action=gettxreceiptstatus&txhash=${txHash}&apikey=${etherscanApiKey}`
+        `/api/etherscan-proxy?address=${txHash}&module=transaction&action=gettxreceiptstatus`
       );
       const data = await response.json();
       
@@ -342,9 +343,9 @@ export default function RealTimeProgress({
         <div className="flex items-center space-x-3">
           <LinkIcon className="h-4 w-4 text-blue-400" />
           <div>
-            <div className="text-blue-300 font-medium">Base Sepolia Integration</div>
+            <div className="text-blue-300 font-medium">Secure Base Sepolia Integration</div>
             <div className="text-blue-200 text-sm">
-              Etherscan API connected • Real-time transaction verification
+              Backend API proxy • Secure transaction verification
             </div>
           </div>
         </div>
