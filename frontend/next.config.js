@@ -4,6 +4,11 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   
+  // JSX Runtime Configuration
+  compiler: {
+    removeConsole: false,
+  },
+  
   // Environment variables that should be available to the frontend
   env: {
     // Only include non-sensitive environment variables here
@@ -33,6 +38,7 @@ const nextConfig = {
     
     return config;
   },
+  
   
   // Experimental features
   experimental: {

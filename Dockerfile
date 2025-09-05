@@ -65,9 +65,10 @@ COPY ERC8004-spec.md README.md ./
 
 # Copy frontend build artifacts
 COPY --from=frontend-builder /app/frontend/.next ./frontend/.next
+COPY --from=frontend-builder /app/frontend/public ./frontend/public
 COPY --from=frontend-builder /app/frontend/package.json ./frontend/
+COPY --from=frontend-builder /app/frontend/package-lock.json ./frontend/
 COPY frontend/next.config.js ./frontend/
-
 # Install frontend production dependencies
 WORKDIR /app/frontend
 RUN npm ci --omit=dev
