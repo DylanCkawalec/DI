@@ -1,0 +1,2661 @@
+[  150.797552] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  173.2MB/409.9MB
+[  151.018994] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  174.4MB/409.9MB
+[  151.213207] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  174.9MB/409.9MB
+[  151.445978] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  175.5MB/409.9MB
+[  151.632619] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]    176MB/409.9MB
+[  151.960714] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  176.6MB/409.9MB
+[  152.249549] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  177.1MB/409.9MB
+[  152.375809] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  178.8MB/409.9MB
+[  152.617892] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  179.4MB/409.9MB
+[  152.943991] app-compose.sh[764]:  6cdb7137344c Extracting [=====================>                             ]  179.9MB/409.9MB
+[  153.221637] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  180.5MB/409.9MB
+[  153.339598] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]    181MB/409.9MB
+[  153.563641] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  181.6MB/409.9MB
+[  153.729601] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  182.7MB/409.9MB
+[  153.901239] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  183.3MB/409.9MB
+[  154.217611] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  183.8MB/409.9MB
+[  154.359214] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  184.4MB/409.9MB
+[  154.468843] app-compose.sh[764]:  6cdb7137344c Extracting [======================>                            ]  186.6MB/409.9MB
+[  154.609313] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  188.8MB/409.9MB
+[  155.532368] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]    190MB/409.9MB
+[  155.704741] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  190.5MB/409.9MB
+[  155.996986] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  191.6MB/409.9MB
+[  156.243670] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  192.2MB/409.9MB
+[  156.535058] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  193.3MB/409.9MB
+[  156.646873] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  193.9MB/409.9MB
+[  156.803369] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  194.4MB/409.9MB
+[  156.904668] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]    195MB/409.9MB
+[  157.085262] app-compose.sh[764]:  6cdb7137344c Extracting [=======================>                           ]  196.1MB/409.9MB
+[  157.214998] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  197.8MB/409.9MB
+[  157.321288] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  198.9MB/409.9MB
+[  157.434653] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  200.5MB/409.9MB
+[  157.971042] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  201.1MB/409.9MB
+[  158.937284] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  201.7MB/409.9MB
+[  159.810356] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  202.2MB/409.9MB
+[  160.661658] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  202.8MB/409.9MB
+[  160.999514] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  203.3MB/409.9MB
+[  161.155538] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  203.9MB/409.9MB
+[  161.261681] app-compose.sh[764]:  6cdb7137344c Extracting [========================>                          ]  204.4MB/409.9MB
+[  161.410251] app-compose.sh[764]:  6cdb7137344c Extracting [=========================>                         ]  205.6MB/409.9MB
+[  161.577683] app-compose.sh[764]:  6cdb7137344c Extracting [=========================>                         ]  206.1MB/409.9MB
+[  161.899683] app-compose.sh[764]:  6cdb7137344c Extracting [=========================>                         ]  206.7MB/409.9MB
+[  162.180517] app-compose.sh[764]:  6cdb7137344c Extracting [=========================>                         ]  207.2MB/409.9MB
+[  162.473981] app-compose.sh[764]:  6cdb7137344c Extracting [=========================>                         ]  207.8MB/409.9MB
+[  162.697011] app-compose.sh[764]:  6cdb7137344c Extracting [=========================>                         ]  208.3MB/409.9MB
+[  162.808364] app-compose.sh[764]:  6cdb7137344c Extracting [==========================>                        ]  214.5MB/409.9MB
+[  162.957910] app-compose.sh[764]:  6cdb7137344c Extracting [===========================>                       ]  223.4MB/409.9MB
+[  163.055139] app-compose.sh[764]:  6cdb7137344c Extracting [===========================>                       ]    229MB/409.9MB
+[  163.162997] app-compose.sh[764]:  6cdb7137344c Extracting [============================>                      ]  234.5MB/409.9MB
+[  163.275185] app-compose.sh[764]:  6cdb7137344c Extracting [============================>                      ]  237.3MB/409.9MB
+[  163.371174] app-compose.sh[764]:  6cdb7137344c Extracting [=============================>                     ]  244.5MB/409.9MB
+[  163.480593] app-compose.sh[764]:  6cdb7137344c Extracting [==============================>                    ]  252.3MB/409.9MB
+[  163.579323] app-compose.sh[764]:  6cdb7137344c Extracting [================================>                  ]  262.9MB/409.9MB
+[  163.682970] app-compose.sh[764]:  6cdb7137344c Extracting [=================================>                 ]  271.3MB/409.9MB
+[  163.799183] app-compose.sh[764]:  6cdb7137344c Extracting [==================================>                ]  279.6MB/409.9MB
+[  163.908736] app-compose.sh[764]:  6cdb7137344c Extracting [==================================>                ]  281.9MB/409.9MB
+[  164.015974] app-compose.sh[764]:  6cdb7137344c Extracting [==================================>                ]  283.5MB/409.9MB
+[  164.126255] app-compose.sh[764]:  6cdb7137344c Extracting [==================================>                ]  286.3MB/409.9MB
+[  164.228915] app-compose.sh[764]:  6cdb7137344c Extracting [===================================>               ]  294.7MB/409.9MB
+[  164.333472] app-compose.sh[764]:  6cdb7137344c Extracting [=====================================>             ]  304.7MB/409.9MB
+[  164.433891] app-compose.sh[764]:  6cdb7137344c Extracting [======================================>            ]  315.9MB/409.9MB
+[  164.539477] app-compose.sh[764]:  6cdb7137344c Extracting [======================================>            ]  318.6MB/409.9MB
+[  164.647629] app-compose.sh[764]:  6cdb7137344c Extracting [=======================================>           ]  320.9MB/409.9MB
+[  164.752714] app-compose.sh[764]:  6cdb7137344c Extracting [========================================>          ]    332MB/409.9MB
+[  164.853509] app-compose.sh[764]:  6cdb7137344c Extracting [=========================================>         ]  339.8MB/409.9MB
+[  164.963035] app-compose.sh[764]:  6cdb7137344c Extracting [==========================================>        ]    347MB/409.9MB
+[  165.068018] app-compose.sh[764]:  6cdb7137344c Extracting [==========================================>        ]  350.9MB/409.9MB
+[  165.179657] app-compose.sh[764]:  6cdb7137344c Extracting [===========================================>       ]    356MB/409.9MB
+[  165.327607] app-compose.sh[764]:  6cdb7137344c Extracting [===========================================>       ]  359.3MB/409.9MB
+[  165.436304] app-compose.sh[764]:  6cdb7137344c Extracting [============================================>      ]  363.8MB/409.9MB
+[  165.538182] app-compose.sh[764]:  6cdb7137344c Extracting [=============================================>     ]  372.1MB/409.9MB
+[  165.640420] app-compose.sh[764]:  6cdb7137344c Extracting [==============================================>    ]  383.8MB/409.9MB
+[  165.745118] app-compose.sh[764]:  6cdb7137344c Extracting [================================================>  ]  397.2MB/409.9MB
+[  165.847261] app-compose.sh[764]:  6cdb7137344c Extracting [=================================================> ]  403.3MB/409.9MB
+[  166.001160] app-compose.sh[764]:  6cdb7137344c Extracting [=================================================> ]  407.8MB/409.9MB
+[  166.583918] app-compose.sh[764]:  6cdb7137344c Extracting [=================================================> ]  409.4MB/409.9MB
+[  166.801257] app-compose.sh[764]:  6cdb7137344c Extracting [==================================================>]  409.9MB/409.9MB
+[  170.697679] app-compose.sh[764]:  6cdb7137344c Pull complete
+[  170.763897] app-compose.sh[764]:  33e54e4097b2 Extracting [==================================================>]  2.744kB/2.744kB
+[  170.774717] app-compose.sh[764]:  33e54e4097b2 Extracting [==================================================>]  2.744kB/2.744kB
+[  170.788141] app-compose.sh[764]:  33e54e4097b2 Pull complete
+[  170.819389] app-compose.sh[764]:  14d87560caf7 Extracting [==================================================>]     194B/194B
+[  170.826579] app-compose.sh[764]:  14d87560caf7 Extracting [==================================================>]     194B/194B
+[  170.839064] app-compose.sh[764]:  14d87560caf7 Pull complete
+[  170.843265] app-compose.sh[764]:  ed880fa5a643 Extracting [==================================================>]     162B/162B
+[  170.852621] app-compose.sh[764]:  ed880fa5a643 Extracting [==================================================>]     162B/162B
+[  170.861974] app-compose.sh[764]:  ed880fa5a643 Pull complete
+[  170.961461] app-compose.sh[764]:  64364f5a1524 Extracting [>                                                  ]  557.1kB/224MB
+[  171.067891] app-compose.sh[764]:  64364f5a1524 Extracting [>                                                  ]  2.785MB/224MB
+[  171.187363] app-compose.sh[764]:  64364f5a1524 Extracting [=>                                                 ]  5.014MB/224MB
+[  171.299227] app-compose.sh[764]:  64364f5a1524 Extracting [=>                                                 ]  7.242MB/224MB
+[  171.422799] app-compose.sh[764]:  64364f5a1524 Extracting [==>                                                ]   9.47MB/224MB
+[  171.809425] app-compose.sh[764]:  64364f5a1524 Extracting [==>                                                ]  10.58MB/224MB
+[  171.929315] app-compose.sh[764]:  64364f5a1524 Extracting [==>                                                ]  11.14MB/224MB
+[  172.069493] app-compose.sh[764]:  64364f5a1524 Extracting [==>                                                ]  12.81MB/224MB
+[  172.339283] app-compose.sh[764]:  64364f5a1524 Extracting [===>                                               ]  14.48MB/224MB
+[  172.467677] app-compose.sh[764]:  64364f5a1524 Extracting [===>                                               ]  15.04MB/224MB
+[  172.580528] app-compose.sh[764]:  64364f5a1524 Extracting [===>                                               ]   15.6MB/224MB
+[  172.876923] app-compose.sh[764]:  64364f5a1524 Extracting [===>                                               ]  16.71MB/224MB
+[  173.066447] app-compose.sh[764]:  64364f5a1524 Extracting [===>                                               ]  17.27MB/224MB
+[  173.223912] app-compose.sh[764]:  64364f5a1524 Extracting [===>                                               ]  17.83MB/224MB
+[  174.247966] app-compose.sh[764]:  64364f5a1524 Extracting [====>                                              ]  18.38MB/224MB
+[  175.653490] app-compose.sh[764]:  64364f5a1524 Extracting [====>                                              ]  18.94MB/224MB
+[  175.961524] app-compose.sh[764]:  64364f5a1524 Extracting [====>                                              ]   19.5MB/224MB
+[  176.061939] app-compose.sh[764]:  64364f5a1524 Extracting [====>                                              ]  20.05MB/224MB
+[  176.215871] app-compose.sh[764]:  64364f5a1524 Extracting [====>                                              ]  21.17MB/224MB
+[  176.359284] app-compose.sh[764]:  64364f5a1524 Extracting [=====>                                             ]  22.84MB/224MB
+[  176.623327] app-compose.sh[764]:  64364f5a1524 Extracting [=====>                                             ]  25.07MB/224MB
+[  176.762310] app-compose.sh[764]:  64364f5a1524 Extracting [=====>                                             ]  26.18MB/224MB
+[  176.943379] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]   27.3MB/224MB
+[  177.125420] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]  27.85MB/224MB
+[  177.520418] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]  28.41MB/224MB
+[  177.698978] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]  28.97MB/224MB
+[  177.837722] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]  29.52MB/224MB
+[  178.051523] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]  30.08MB/224MB
+[  178.323594] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]  30.64MB/224MB
+[  178.582102] app-compose.sh[764]:  64364f5a1524 Extracting [======>                                            ]   31.2MB/224MB
+[  179.021914] app-compose.sh[764]:  64364f5a1524 Extracting [=======>                                           ]  31.75MB/224MB
+[  179.302397] app-compose.sh[764]:  64364f5a1524 Extracting [=======>                                           ]  32.31MB/224MB
+[  179.410566] app-compose.sh[764]:  64364f5a1524 Extracting [=======>                                           ]  34.54MB/224MB
+[  179.525770] app-compose.sh[764]:  64364f5a1524 Extracting [========>                                          ]  37.88MB/224MB
+[  179.647565] app-compose.sh[764]:  64364f5a1524 Extracting [=========>                                         ]  40.67MB/224MB
+[  179.765634] app-compose.sh[764]:  64364f5a1524 Extracting [=========>                                         ]  44.01MB/224MB
+[  179.879413] app-compose.sh[764]:  64364f5a1524 Extracting [==========>                                        ]  47.35MB/224MB
+[  180.023547] app-compose.sh[764]:  64364f5a1524 Extracting [==========>                                        ]  48.46MB/224MB
+[  180.140078] app-compose.sh[764]:  64364f5a1524 Extracting [===========>                                       ]  50.69MB/224MB
+[  180.325380] app-compose.sh[764]:  64364f5a1524 Extracting [===========>                                       ]  53.48MB/224MB
+[  180.623974] app-compose.sh[764]:  64364f5a1524 Extracting [============>                                      ]  54.03MB/224MB
+[  180.889687] app-compose.sh[764]:  64364f5a1524 Extracting [============>                                      ]  54.59MB/224MB
+[  180.997613] app-compose.sh[764]:  64364f5a1524 Extracting [============>                                      ]  57.38MB/224MB
+[  181.099190] app-compose.sh[764]:  64364f5a1524 Extracting [=============>                                     ]  60.16MB/224MB
+[  181.211629] app-compose.sh[764]:  64364f5a1524 Extracting [==============>                                    ]   63.5MB/224MB
+[  181.366019] app-compose.sh[764]:  64364f5a1524 Extracting [==============>                                    ]  66.29MB/224MB
+[  181.446221] app-compose.sh[764]:  64364f5a1524 Extracting [===============>                                   ]  69.07MB/224MB
+[  181.560952] app-compose.sh[764]:  64364f5a1524 Extracting [================>                                  ]  72.42MB/224MB
+[  181.673154] app-compose.sh[764]:  64364f5a1524 Extracting [================>                                  ]  74.65MB/224MB
+[  181.779740] app-compose.sh[764]:  64364f5a1524 Extracting [=================>                                 ]  77.99MB/224MB
+[  181.885845] app-compose.sh[764]:  64364f5a1524 Extracting [==================>                                ]  81.33MB/224MB
+[  181.997558] app-compose.sh[764]:  64364f5a1524 Extracting [==================>                                ]  84.67MB/224MB
+[  182.113184] app-compose.sh[764]:  64364f5a1524 Extracting [===================>                               ]  88.01MB/224MB
+[  182.252149] app-compose.sh[764]:  64364f5a1524 Extracting [====================>                              ]  91.91MB/224MB
+[  182.338194] app-compose.sh[764]:  64364f5a1524 Extracting [=====================>                             ]  94.14MB/224MB
+[  182.444973] app-compose.sh[764]:  64364f5a1524 Extracting [=====================>                             ]  96.93MB/224MB
+[  182.547063] app-compose.sh[764]:  64364f5a1524 Extracting [======================>                            ]  99.16MB/224MB
+[  182.648175] app-compose.sh[764]:  64364f5a1524 Extracting [======================>                            ]  101.9MB/224MB
+[  182.752608] app-compose.sh[764]:  64364f5a1524 Extracting [=======================>                           ]  104.7MB/224MB
+[  182.880214] app-compose.sh[764]:  64364f5a1524 Extracting [========================>                          ]  108.1MB/224MB
+[  182.973420] app-compose.sh[764]:  64364f5a1524 Extracting [========================>                          ]  110.9MB/224MB
+[  183.091335] app-compose.sh[764]:  64364f5a1524 Extracting [=========================>                         ]  114.2MB/224MB
+[  183.223221] app-compose.sh[764]:  64364f5a1524 Extracting [==========================>                        ]    117MB/224MB
+[  183.299560] app-compose.sh[764]:  64364f5a1524 Extracting [==========================>                        ]  119.2MB/224MB
+[  183.414368] app-compose.sh[764]:  64364f5a1524 Extracting [===========================>                       ]    122MB/224MB
+[  183.532347] app-compose.sh[764]:  64364f5a1524 Extracting [===========================>                       ]  124.8MB/224MB
+[  183.646456] app-compose.sh[764]:  64364f5a1524 Extracting [============================>                      ]  127.6MB/224MB
+[  183.752487] app-compose.sh[764]:  64364f5a1524 Extracting [=============================>                     ]  130.4MB/224MB
+[  183.867493] app-compose.sh[764]:  64364f5a1524 Extracting [=============================>                     ]  133.7MB/224MB
+[  183.976709] app-compose.sh[764]:  64364f5a1524 Extracting [==============================>                    ]    137MB/224MB
+[  184.084005] app-compose.sh[764]:  64364f5a1524 Extracting [===============================>                   ]  140.4MB/224MB
+[  184.197078] app-compose.sh[764]:  64364f5a1524 Extracting [===============================>                   ]  143.2MB/224MB
+[  184.312174] app-compose.sh[764]:  64364f5a1524 Extracting [================================>                  ]  146.5MB/224MB
+[  184.443144] app-compose.sh[764]:  64364f5a1524 Extracting [================================>                  ]  147.6MB/224MB
+[  184.568156] app-compose.sh[764]:  64364f5a1524 Extracting [=================================>                 ]  148.2MB/224MB
+[  184.814013] app-compose.sh[764]:  64364f5a1524 Extracting [=================================>                 ]  148.7MB/224MB
+[  184.986451] app-compose.sh[764]:  64364f5a1524 Extracting [=================================>                 ]  149.8MB/224MB
+[  185.101695] app-compose.sh[764]:  64364f5a1524 Extracting [=================================>                 ]    151MB/224MB
+[  185.315273] app-compose.sh[764]:  64364f5a1524 Extracting [==================================>                ]  153.2MB/224MB
+[  185.482204] app-compose.sh[764]:  64364f5a1524 Extracting [==================================>                ]  153.7MB/224MB
+[  185.793346] app-compose.sh[764]:  64364f5a1524 Extracting [==================================>                ]  154.3MB/224MB
+[  186.214156] app-compose.sh[764]:  64364f5a1524 Extracting [==================================>                ]  155.4MB/224MB
+[  186.353941] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  157.1MB/224MB
+[  186.484549] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  157.6MB/224MB
+[  186.632214] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  158.2MB/224MB
+[  186.984214] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  158.8MB/224MB
+[  187.225812] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  159.3MB/224MB
+[  187.425312] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  159.9MB/224MB
+[  189.245635] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]  160.4MB/224MB
+[  189.942823] app-compose.sh[764]:  64364f5a1524 Extracting [===================================>               ]    161MB/224MB
+[  190.127409] app-compose.sh[764]:  64364f5a1524 Extracting [====================================>              ]  161.5MB/224MB
+[  190.328586] app-compose.sh[764]:  64364f5a1524 Extracting [====================================>              ]  162.1MB/224MB
+[  190.464884] app-compose.sh[764]:  64364f5a1524 Extracting [====================================>              ]  163.8MB/224MB
+[  190.776214] app-compose.sh[764]:  64364f5a1524 Extracting [====================================>              ]  164.3MB/224MB
+[  191.098218] app-compose.sh[764]:  64364f5a1524 Extracting [====================================>              ]  164.9MB/224MB
+[  191.231113] app-compose.sh[764]:  64364f5a1524 Extracting [====================================>              ]  165.4MB/224MB
+[  191.476192] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]    166MB/224MB
+[  191.660753] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]  166.6MB/224MB
+[  191.767452] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]  167.1MB/224MB
+[  192.050264] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]  167.7MB/224MB
+[  192.394183] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]  168.2MB/224MB
+[  192.627324] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]  168.8MB/224MB
+[  193.049041] app-compose.sh[764]:  64364f5a1524 Extracting [=====================================>             ]  169.3MB/224MB
+[  193.874014] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]  170.5MB/224MB
+[  194.151511] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]    171MB/224MB
+[  194.397848] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]  172.1MB/224MB
+[  194.539924] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]  172.7MB/224MB
+[  194.733913] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]  173.2MB/224MB
+[  194.955648] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]  173.8MB/224MB
+[  195.221367] app-compose.sh[764]:  64364f5a1524 Extracting [======================================>            ]  174.4MB/224MB
+[  195.325398] app-compose.sh[764]:  64364f5a1524 Extracting [=======================================>           ]  175.5MB/224MB
+[  195.554451] app-compose.sh[764]:  64364f5a1524 Extracting [=======================================>           ]  177.1MB/224MB
+[  195.812481] app-compose.sh[764]:  64364f5a1524 Extracting [========================================>          ]  179.4MB/224MB
+[  195.909388] app-compose.sh[764]:  64364f5a1524 Extracting [========================================>          ]  181.6MB/224MB
+[  196.032355] app-compose.sh[764]:  64364f5a1524 Extracting [========================================>          ]  182.7MB/224MB
+[  196.138331] app-compose.sh[764]:  64364f5a1524 Extracting [=========================================>         ]  183.8MB/224MB
+[  196.250352] app-compose.sh[764]:  64364f5a1524 Extracting [=========================================>         ]  186.1MB/224MB
+[  196.380087] app-compose.sh[764]:  64364f5a1524 Extracting [=========================================>         ]  187.7MB/224MB
+[  196.496402] app-compose.sh[764]:  64364f5a1524 Extracting [==========================================>        ]  188.8MB/224MB
+[  196.625369] app-compose.sh[764]:  64364f5a1524 Extracting [==========================================>        ]    190MB/224MB
+[  196.839574] app-compose.sh[764]:  64364f5a1524 Extracting [==========================================>        ]  190.5MB/224MB
+[  197.067970] app-compose.sh[764]:  64364f5a1524 Extracting [==========================================>        ]  191.1MB/224MB
+[  197.280701] app-compose.sh[764]:  64364f5a1524 Extracting [==========================================>        ]  191.6MB/224MB
+[  197.599274] app-compose.sh[764]:  64364f5a1524 Extracting [==========================================>        ]  192.2MB/224MB
+[  197.861082] app-compose.sh[764]:  64364f5a1524 Extracting [===========================================>       ]  192.7MB/224MB
+[  198.057340] app-compose.sh[764]:  64364f5a1524 Extracting [===========================================>       ]  193.9MB/224MB
+[  198.302957] app-compose.sh[764]:  64364f5a1524 Extracting [===========================================>       ]    195MB/224MB
+[  198.582986] app-compose.sh[764]:  64364f5a1524 Extracting [===========================================>       ]  195.5MB/224MB
+[  198.779573] app-compose.sh[764]:  64364f5a1524 Extracting [===========================================>       ]  196.1MB/224MB
+[  198.890910] app-compose.sh[764]:  64364f5a1524 Extracting [===========================================>       ]  196.6MB/224MB
+[  199.182557] app-compose.sh[764]:  64364f5a1524 Extracting [============================================>      ]  197.2MB/224MB
+[  199.286853] app-compose.sh[764]:  64364f5a1524 Extracting [============================================>      ]  197.8MB/224MB
+[  199.530643] app-compose.sh[764]:  64364f5a1524 Extracting [============================================>      ]  198.9MB/224MB
+[  199.886662] app-compose.sh[764]:  64364f5a1524 Extracting [============================================>      ]  199.4MB/224MB
+[  199.988190] app-compose.sh[764]:  64364f5a1524 Extracting [============================================>      ]    200MB/224MB
+[  200.114503] app-compose.sh[764]:  64364f5a1524 Extracting [=============================================>     ]  202.8MB/224MB
+[  200.239112] app-compose.sh[764]:  64364f5a1524 Extracting [=============================================>     ]    205MB/224MB
+[  200.988324] app-compose.sh[764]:  64364f5a1524 Extracting [=============================================>     ]  205.6MB/224MB
+[  201.138184] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]  206.1MB/224MB
+[  201.421807] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]  207.2MB/224MB
+[  201.631480] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]  207.8MB/224MB
+[  201.805936] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]  208.3MB/224MB
+[  202.045417] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]  208.9MB/224MB
+[  202.146125] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]  209.5MB/224MB
+[  202.265226] app-compose.sh[764]:  64364f5a1524 Extracting [==============================================>    ]    210MB/224MB
+[  202.390445] app-compose.sh[764]:  64364f5a1524 Extracting [===============================================>   ]  210.6MB/224MB
+[  202.559487] app-compose.sh[764]:  64364f5a1524 Extracting [===============================================>   ]  211.7MB/224MB
+[  202.708446] app-compose.sh[764]:  64364f5a1524 Extracting [===============================================>   ]  213.9MB/224MB
+[  202.873559] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  216.1MB/224MB
+[  203.259646] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  216.7MB/224MB
+[  204.144188] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  217.3MB/224MB
+[  205.154108] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  217.8MB/224MB
+[  206.049749] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  218.4MB/224MB
+[  206.352269] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  218.9MB/224MB
+[  206.688723] app-compose.sh[764]:  64364f5a1524 Extracting [================================================>  ]  219.5MB/224MB
+[  206.809265] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]    220MB/224MB
+[  207.022227] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  220.6MB/224MB
+[  207.117643] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  221.2MB/224MB
+[  207.265483] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  221.7MB/224MB
+[  207.705262] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  222.3MB/224MB
+[  208.035728] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  222.8MB/224MB
+[  208.335456] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  223.4MB/224MB
+[  208.568982] app-compose.sh[764]:  64364f5a1524 Extracting [=================================================> ]  223.9MB/224MB
+[  208.579835] app-compose.sh[764]:  64364f5a1524 Extracting [==================================================>]    224MB/224MB
+[  209.905203] app-compose.sh[764]:  64364f5a1524 Pull complete
+[  209.921412] app-compose.sh[764]:  app Pulled
+[  209.931468] app-compose.sh[764]:  Network dstack_default  Creating
+[  209.997891] app-compose.sh[764]:  Network dstack_default  Created
+[  209.999774] app-compose.sh[764]:  Container dstack-app-1  Creating
+[  210.186258] app-compose.sh[764]:  Container dstack-app-1  Created
+[  210.188214] app-compose.sh[764]:  Container dstack-app-1  Starting
+[  210.331610] br-a0ae325efff1: port 1(vethf3ea4a4) entered blocking state
+[  210.334117] br-a0ae325efff1: port 1(vethf3ea4a4) entered disabled state
+[  210.335392] vethf3ea4a4: entered allmulticast mode
+[  210.336418] vethf3ea4a4: entered promiscuous mode
+[  210.671231] eth0: renamed from veth2a2be70
+[  210.673685] br-a0ae325efff1: port 1(vethf3ea4a4) entered blocking state
+[  210.676264] br-a0ae325efff1: port 1(vethf3ea4a4) entered forwarding state
+[  210.607523] app-compose.sh[764]:  Container dstack-app-1  Started
+[  210.625131] app-compose.sh[570]: Pruning unused images
+[  210.664495] app-compose.sh[986]: Total reclaimed space: 0B
+[  210.666556] app-compose.sh[570]: Pruning unused volumes
+[  210.700880] app-compose.sh[999]: Total reclaimed space: 0B
+[[0;32m  OK  [0m] Finished [0;1;39mApp Compose Service[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mMulti-User System[0m.
+
+         Starting [0;1;39mRecord Runlevel Change in UTMP[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mRecord Runlevel Change in UTMP[0m.
+
+[  210.899095] veth2a2be70: renamed from eth0
+[  210.909619] br-a0ae325efff1: port 1(vethf3ea4a4) entered disabled state
+[  210.920576] br-a0ae325efff1: port 1(vethf3ea4a4) entered disabled state
+[  210.922489] vethf3ea4a4 (unregistering): left allmulticast mode
+[  210.923680] vethf3ea4a4 (unregistering): left promiscuous mode
+[  210.924813] br-a0ae325efff1: port 1(vethf3ea4a4) entered disabled state
+[  210.958867] br-a0ae325efff1: port 1(veth9143c67) entered blocking state
+[  210.960754] br-a0ae325efff1: port 1(veth9143c67) entered disabled state
+[  210.962302] veth9143c67: entered allmulticast mode
+[  210.963454] veth9143c67: entered promiscuous mode
+[  211.235829] eth0: renamed from veth067ec04
+[  211.237934] br-a0ae325efff1: port 1(veth9143c67) entered blocking state
+[  211.240281] br-a0ae325efff1: port 1(veth9143c67) entered forwarding state
+[  211.403962] br-a0ae325efff1: port 1(veth9143c67) entered disabled state
+[  211.405663] veth067ec04: renamed from eth0
+[  211.418832] br-a0ae325efff1: port 1(veth9143c67) entered disabled state
+[  211.420936] veth9143c67 (unregistering): left allmulticast mode
+[  211.422423] veth9143c67 (unregistering): left promiscuous mode
+[  211.423658] br-a0ae325efff1: port 1(veth9143c67) entered disabled state
+[  211.573736] br-a0ae325efff1: port 1(vethf33bb02) entered blocking state
+[  211.581898] br-a0ae325efff1: port 1(vethf33bb02) entered disabled state
+[  211.586897] vethf33bb02: entered allmulticast mode
+[  211.590890] vethf33bb02: entered promiscuous mode
+[  211.922805] eth0: renamed from vetha716c84
+[  211.925350] br-a0ae325efff1: port 1(vethf33bb02) entered blocking state
+[  211.926940] br-a0ae325efff1: port 1(vethf33bb02) entered forwarding state
+[  212.224808] br-a0ae325efff1: port 1(vethf33bb02) entered disabled state
+[  212.226325] vetha716c84: renamed from eth0
+[  212.268344] br-a0ae325efff1: port 1(vethf33bb02) entered disabled state
+[  212.276089] vethf33bb02 (unregistering): left allmulticast mode
+[  212.278873] vethf33bb02 (unregistering): left promiscuous mode
+[  212.280274] br-a0ae325efff1: port 1(vethf33bb02) entered disabled state
+[  212.557024] br-a0ae325efff1: port 1(veth3faedc6) entered blocking state
+[  212.566516] br-a0ae325efff1: port 1(veth3faedc6) entered disabled state
+[  212.571415] veth3faedc6: entered allmulticast mode
+[  212.575538] veth3faedc6: entered promiscuous mode
+[  212.987366] eth0: renamed from veth70c891a
+[  212.990687] br-a0ae325efff1: port 1(veth3faedc6) entered blocking state
+[  212.992337] br-a0ae325efff1: port 1(veth3faedc6) entered forwarding state
+[  213.162196] br-a0ae325efff1: port 1(veth3faedc6) entered disabled state
+[  213.164891] veth70c891a: renamed from eth0
+[  213.187711] br-a0ae325efff1: port 1(veth3faedc6) entered disabled state
+[  213.189729] veth3faedc6 (unregistering): left allmulticast mode
+[  213.191083] veth3faedc6 (unregistering): left promiscuous mode
+[  213.192175] br-a0ae325efff1: port 1(veth3faedc6) entered disabled state
+[  213.932687] br-a0ae325efff1: port 1(veth3e68f37) entered blocking state
+[  213.940760] br-a0ae325efff1: port 1(veth3e68f37) entered disabled state
+[  213.945743] veth3e68f37: entered allmulticast mode
+[  213.949819] veth3e68f37: entered promiscuous mode
+[  214.285069] eth0: renamed from vethb65cf5f
+[  214.286614] br-a0ae325efff1: port 1(veth3e68f37) entered blocking state
+[  214.287967] br-a0ae325efff1: port 1(veth3e68f37) entered forwarding state
+[  214.453446] vethb65cf5f: renamed from eth0
+[  214.462601] br-a0ae325efff1: port 1(veth3e68f37) entered disabled state
+[  214.474056] br-a0ae325efff1: port 1(veth3e68f37) entered disabled state
+[  214.476065] veth3e68f37 (unregistering): left allmulticast mode
+[  214.477656] veth3e68f37 (unregistering): left promiscuous mode
+[  214.479009] br-a0ae325efff1: port 1(veth3e68f37) entered disabled state
+[  216.020995] br-a0ae325efff1: port 1(vethf3884c2) entered blocking state
+[  216.030940] br-a0ae325efff1: port 1(vethf3884c2) entered disabled state
+[  216.034505] vethf3884c2: entered allmulticast mode
+[  216.036772] vethf3884c2: entered promiscuous mode
+[  216.420066] eth0: renamed from veth5c77c36
+[  216.422802] br-a0ae325efff1: port 1(vethf3884c2) entered blocking state
+[  216.425749] br-a0ae325efff1: port 1(vethf3884c2) entered forwarding state
+[  216.610081] veth5c77c36: renamed from eth0
+[  216.620708] br-a0ae325efff1: port 1(vethf3884c2) entered disabled state
+[  216.630868] br-a0ae325efff1: port 1(vethf3884c2) entered disabled state
+[  216.633873] vethf3884c2 (unregistering): left allmulticast mode
+[  216.635278] vethf3884c2 (unregistering): left promiscuous mode
+[  216.636471] br-a0ae325efff1: port 1(vethf3884c2) entered disabled state
+[  219.776892] br-a0ae325efff1: port 1(vethb84005e) entered blocking state
+[  219.791321] br-a0ae325efff1: port 1(vethb84005e) entered disabled state
+[  219.797427] vethb84005e: entered allmulticast mode
+[  219.801676] vethb84005e: entered promiscuous mode
+[  220.160430] eth0: renamed from veth3bd0176
+[  220.162149] br-a0ae325efff1: port 1(vethb84005e) entered blocking state
+[  220.163834] br-a0ae325efff1: port 1(vethb84005e) entered forwarding state
+[  220.335067] veth3bd0176: renamed from eth0
+[  220.341221] br-a0ae325efff1: port 1(vethb84005e) entered disabled state
+[  220.351599] br-a0ae325efff1: port 1(vethb84005e) entered disabled state
+[  220.354547] vethb84005e (unregistering): left allmulticast mode
+[  220.356105] vethb84005e (unregistering): left promiscuous mode
+[  220.357536] br-a0ae325efff1: port 1(vethb84005e) entered disabled state
+[  226.702250] br-a0ae325efff1: port 1(veth0d90055) entered blocking state
+[  226.714344] br-a0ae325efff1: port 1(veth0d90055) entered disabled state
+[  226.720246] veth0d90055: entered allmulticast mode
+[  226.724414] veth0d90055: entered promiscuous mode
+[  227.071850] eth0: renamed from veth4d369e6
+[  227.073874] br-a0ae325efff1: port 1(veth0d90055) entered blocking state
+[  227.075498] br-a0ae325efff1: port 1(veth0d90055) entered forwarding state
+[  227.228258] veth4d369e6: renamed from eth0
+[  227.237809] br-a0ae325efff1: port 1(veth0d90055) entered disabled state
+[  227.247286] br-a0ae325efff1: port 1(veth0d90055) entered disabled state
+[  227.250378] veth0d90055 (unregistering): left allmulticast mode
+[  227.251908] veth0d90055 (unregistering): left promiscuous mode
+[  227.253441] br-a0ae325efff1: port 1(veth0d90055) entered disabled state
+[  240.003187] br-a0ae325efff1: port 1(veth8babece) entered blocking state
+[  240.011284] br-a0ae325efff1: port 1(veth8babece) entered disabled state
+[  240.018784] veth8babece: entered allmulticast mode
+[  240.023292] veth8babece: entered promiscuous mode
+[  240.406044] eth0: renamed from veth0164b19
+[  240.408071] br-a0ae325efff1: port 1(veth8babece) entered blocking state
+[  240.410130] br-a0ae325efff1: port 1(veth8babece) entered forwarding state
+[  240.582529] br-a0ae325efff1: port 1(veth8babece) entered disabled state
+[  240.585044] veth0164b19: renamed from eth0
+[  240.603596] br-a0ae325efff1: port 1(veth8babece) entered disabled state
+[  240.605950] veth8babece (unregistering): left allmulticast mode
+[  240.607729] veth8babece (unregistering): left promiscuous mode
+[  240.609356] br-a0ae325efff1: port 1(veth8babece) entered disabled state
+[  266.156112] br-a0ae325efff1: port 1(vethdf4990b) entered blocking state
+[  266.166753] br-a0ae325efff1: port 1(vethdf4990b) entered disabled state
+[  266.172133] vethdf4990b: entered allmulticast mode
+[  266.176174] vethdf4990b: entered promiscuous mode
+[  266.565857] eth0: renamed from vethe6c4f52
+[  266.567867] br-a0ae325efff1: port 1(vethdf4990b) entered blocking state
+[  266.570094] br-a0ae325efff1: port 1(vethdf4990b) entered forwarding state
+[  266.739176] vethe6c4f52: renamed from eth0
+[  266.741135] br-a0ae325efff1: port 1(vethdf4990b) entered disabled state
+[  266.763364] br-a0ae325efff1: port 1(vethdf4990b) entered disabled state
+[  266.765598] vethdf4990b (unregistering): left allmulticast mode
+[  266.767271] vethdf4990b (unregistering): left promiscuous mode
+[  266.768848] br-a0ae325efff1: port 1(vethdf4990b) entered disabled state
+[  317.908160] br-a0ae325efff1: port 1(vethea6f8d1) entered blocking state
+[  317.919426] br-a0ae325efff1: port 1(vethea6f8d1) entered disabled state
+[  317.925456] vethea6f8d1: entered allmulticast mode
+[  317.929712] vethea6f8d1: entered promiscuous mode
+[  318.300578] eth0: renamed from vethf64154b
+[  318.303361] br-a0ae325efff1: port 1(vethea6f8d1) entered blocking state
+[  318.306081] br-a0ae325efff1: port 1(vethea6f8d1) entered forwarding state
+[  318.473142] vethf64154b: renamed from eth0
+[  318.474785] br-a0ae325efff1: port 1(vethea6f8d1) entered disabled state
+[  318.496684] br-a0ae325efff1: port 1(vethea6f8d1) entered disabled state
+[  318.499267] vethea6f8d1 (unregistering): left allmulticast mode
+[  318.500932] vethea6f8d1 (unregistering): left promiscuous mode
+[  318.502542] br-a0ae325efff1: port 1(vethea6f8d1) entered disabled state
+[  378.442593] br-a0ae325efff1: port 1(veth4a60bb6) entered blocking state
+[  378.455473] br-a0ae325efff1: port 1(veth4a60bb6) entered disabled state
+[  378.460968] veth4a60bb6: entered allmulticast mode
+[  378.465166] veth4a60bb6: entered promiscuous mode
+[  378.848822] eth0: renamed from veth30d3d8a
+[  378.851130] br-a0ae325efff1: port 1(veth4a60bb6) entered blocking state
+[  378.852834] br-a0ae325efff1: port 1(veth4a60bb6) entered forwarding state
+[  379.015525] br-a0ae325efff1: port 1(veth4a60bb6) entered disabled state
+[  379.018114] veth30d3d8a: renamed from eth0
+[  379.038592] br-a0ae325efff1: port 1(veth4a60bb6) entered disabled state
+[  379.042046] veth4a60bb6 (unregistering): left allmulticast mode
+[  379.043314] veth4a60bb6 (unregistering): left promiscuous mode
+[  379.044545] br-a0ae325efff1: port 1(veth4a60bb6) entered disabled state
+[  438.979558] br-a0ae325efff1: port 1(veth0dc3bf2) entered blocking state
+[  438.986684] br-a0ae325efff1: port 1(veth0dc3bf2) entered disabled state
+[  438.992084] veth0dc3bf2: entered allmulticast mode
+[  438.996652] veth0dc3bf2: entered promiscuous mode
+[  439.277845] eth0: renamed from veth6840238
+[  439.279346] br-a0ae325efff1: port 1(veth0dc3bf2) entered blocking state
+[  439.280651] br-a0ae325efff1: port 1(veth0dc3bf2) entered forwarding state
+[  439.390913] veth6840238: renamed from eth0
+[  439.392162] br-a0ae325efff1: port 1(veth0dc3bf2) entered disabled state
+[  439.411597] br-a0ae325efff1: port 1(veth0dc3bf2) entered disabled state
+[  439.413432] veth0dc3bf2 (unregistering): left allmulticast mode
+[  439.414623] veth0dc3bf2 (unregistering): left promiscuous mode
+[  439.415760] br-a0ae325efff1: port 1(veth0dc3bf2) entered disabled state
+[  499.374595] br-a0ae325efff1: port 1(vethf9233e7) entered blocking state
+[  499.385303] br-a0ae325efff1: port 1(vethf9233e7) entered disabled state
+[  499.390605] vethf9233e7: entered allmulticast mode
+[  499.394662] vethf9233e7: entered promiscuous mode
+[  499.658707] eth0: renamed from veth16913f0
+[  499.660200] br-a0ae325efff1: port 1(vethf9233e7) entered blocking state
+[  499.661802] br-a0ae325efff1: port 1(vethf9233e7) entered forwarding state
+[  499.772316] veth16913f0: renamed from eth0
+[  499.773656] br-a0ae325efff1: port 1(vethf9233e7) entered disabled state
+[  499.793413] br-a0ae325efff1: port 1(vethf9233e7) entered disabled state
+[  499.795116] vethf9233e7 (unregistering): left allmulticast mode
+[  499.796270] vethf9233e7 (unregistering): left promiscuous mode
+[  499.797670] br-a0ae325efff1: port 1(vethf9233e7) entered disabled state
+[  559.752440] br-a0ae325efff1: port 1(veth90986e6) entered blocking state
+[  559.758589] br-a0ae325efff1: port 1(veth90986e6) entered disabled state
+[  559.760344] veth90986e6: entered allmulticast mode
+[  559.761756] veth90986e6: entered promiscuous mode
+[  560.090841] eth0: renamed from vethe004d0a
+[  560.092909] br-a0ae325efff1: port 1(veth90986e6) entered blocking state
+[  560.095063] br-a0ae325efff1: port 1(veth90986e6) entered forwarding state
+[  560.251714] vethe004d0a: renamed from eth0
+[  560.253091] br-a0ae325efff1: port 1(veth90986e6) entered disabled state
+[  560.277140] br-a0ae325efff1: port 1(veth90986e6) entered disabled state
+[  560.279376] veth90986e6 (unregistering): left allmulticast mode
+[  560.280790] veth90986e6 (unregistering): left promiscuous mode
+[  560.281979] br-a0ae325efff1: port 1(veth90986e6) entered disabled state
+[  620.225207] br-a0ae325efff1: port 1(vethe811c98) entered blocking state
+[  620.237644] br-a0ae325efff1: port 1(vethe811c98) entered disabled state
+[  620.243287] vethe811c98: entered allmulticast mode
+[  620.247665] vethe811c98: entered promiscuous mode
+[  620.593059] eth0: renamed from veth4afdb53
+[  620.595367] br-a0ae325efff1: port 1(vethe811c98) entered blocking state
+[  620.597676] br-a0ae325efff1: port 1(vethe811c98) entered forwarding state
+[  620.730912] veth4afdb53: renamed from eth0
+[  620.736973] br-a0ae325efff1: port 1(vethe811c98) entered disabled state
+[  620.748892] br-a0ae325efff1: port 1(vethe811c98) entered disabled state
+[  620.751271] vethe811c98 (unregistering): left allmulticast mode
+[  620.753149] vethe811c98 (unregistering): left promiscuous mode
+[  620.754762] br-a0ae325efff1: port 1(vethe811c98) entered disabled state
+[  680.708328] br-a0ae325efff1: port 1(vethe715f86) entered blocking state
+[  680.719693] br-a0ae325efff1: port 1(vethe715f86) entered disabled state
+[  680.725076] vethe715f86: entered allmulticast mode
+[  680.730128] vethe715f86: entered promiscuous mode
+[  680.992481] eth0: renamed from veth144fed1
+[  680.994167] br-a0ae325efff1: port 1(vethe715f86) entered blocking state
+[  680.995759] br-a0ae325efff1: port 1(vethe715f86) entered forwarding state
+[  681.105497] br-a0ae325efff1: port 1(vethe715f86) entered disabled state
+[  681.107572] veth144fed1: renamed from eth0
+[  681.129345] br-a0ae325efff1: port 1(vethe715f86) entered disabled state
+[  681.131327] vethe715f86 (unregistering): left allmulticast mode
+[  681.132555] vethe715f86 (unregistering): left promiscuous mode
+[  681.133731] br-a0ae325efff1: port 1(vethe715f86) entered disabled state
+[  741.089239] br-a0ae325efff1: port 1(vethd74ef3d) entered blocking state
+[  741.102728] br-a0ae325efff1: port 1(vethd74ef3d) entered disabled state
+[  741.108132] vethd74ef3d: entered allmulticast mode
+[  741.112527] vethd74ef3d: entered promiscuous mode
+[  741.326851] eth0: renamed from vetha1adec0
+[  741.328111] br-a0ae325efff1: port 1(vethd74ef3d) entered blocking state
+[  741.329411] br-a0ae325efff1: port 1(vethd74ef3d) entered forwarding state
+[  741.435905] br-a0ae325efff1: port 1(vethd74ef3d) entered disabled state
+[  741.437596] vetha1adec0: renamed from eth0
+[  741.457389] br-a0ae325efff1: port 1(vethd74ef3d) entered disabled state
+[  741.459282] vethd74ef3d (unregistering): left allmulticast mode
+[  741.460445] vethd74ef3d (unregistering): left promiscuous mode
+[  741.461612] br-a0ae325efff1: port 1(vethd74ef3d) entered disabled state
+[  801.418880] br-a0ae325efff1: port 1(vethaa1cc53) entered blocking state
+[  801.431613] br-a0ae325efff1: port 1(vethaa1cc53) entered disabled state
+[  801.437460] vethaa1cc53: entered allmulticast mode
+[  801.441768] vethaa1cc53: entered promiscuous mode
+[  801.710381] eth0: renamed from veth8ae472d
+[  801.712479] br-a0ae325efff1: port 1(vethaa1cc53) entered blocking state
+[  801.713911] br-a0ae325efff1: port 1(vethaa1cc53) entered forwarding state
+[  801.847506] veth8ae472d: renamed from eth0
+[  801.858598] br-a0ae325efff1: port 1(vethaa1cc53) entered disabled state
+[  801.869674] br-a0ae325efff1: port 1(vethaa1cc53) entered disabled state
+[  801.872051] vethaa1cc53 (unregistering): left allmulticast mode
+[  801.873167] vethaa1cc53 (unregistering): left promiscuous mode
+[  801.874238] br-a0ae325efff1: port 1(vethaa1cc53) entered disabled state
+[vmm heartbeat]
+[  861.830904] br-a0ae325efff1: port 1(veth3042bc1) entered blocking state
+[  861.840731] br-a0ae325efff1: port 1(veth3042bc1) entered disabled state
+[  861.845971] veth3042bc1: entered allmulticast mode
+[  861.850182] veth3042bc1: entered promiscuous mode
+[  862.233974] eth0: renamed from vethe37b6a8
+[  862.236103] br-a0ae325efff1: port 1(veth3042bc1) entered blocking state
+[  862.237491] br-a0ae325efff1: port 1(veth3042bc1) entered forwarding state
+[  862.385858] vethe37b6a8: renamed from eth0
+[  862.392717] br-a0ae325efff1: port 1(veth3042bc1) entered disabled state
+[  862.402419] br-a0ae325efff1: port 1(veth3042bc1) entered disabled state
+[  862.405778] veth3042bc1 (unregistering): left allmulticast mode
+[  862.406962] veth3042bc1 (unregistering): left promiscuous mode
+[  862.408098] br-a0ae325efff1: port 1(veth3042bc1) entered disabled state
+[vmm heartbeat]
+[  922.359289] br-a0ae325efff1: port 1(veth5658553) entered blocking state
+[  922.370454] br-a0ae325efff1: port 1(veth5658553) entered disabled state
+[  922.375797] veth5658553: entered allmulticast mode
+[  922.380157] veth5658553: entered promiscuous mode
+[  922.709652] eth0: renamed from veth719de8e
+[  922.711363] br-a0ae325efff1: port 1(veth5658553) entered blocking state
+[  922.712797] br-a0ae325efff1: port 1(veth5658553) entered forwarding state
+[  922.890370] veth719de8e: renamed from eth0
+[  922.902494] br-a0ae325efff1: port 1(veth5658553) entered disabled state
+[  922.914931] br-a0ae325efff1: port 1(veth5658553) entered disabled state
+[  922.917616] veth5658553 (unregistering): left allmulticast mode
+[  922.919010] veth5658553 (unregistering): left promiscuous mode
+[  922.920339] br-a0ae325efff1: port 1(veth5658553) entered disabled state
+[vmm heartbeat]
+[  982.861540] br-a0ae325efff1: port 1(vethd2ed8a1) entered blocking state
+[  982.872299] br-a0ae325efff1: port 1(vethd2ed8a1) entered disabled state
+[  982.877768] vethd2ed8a1: entered allmulticast mode
+[  982.882071] vethd2ed8a1: entered promiscuous mode
+[  983.236082] eth0: renamed from vethe9ce802
+[  983.238237] br-a0ae325efff1: port 1(vethd2ed8a1) entered blocking state
+[  983.239826] br-a0ae325efff1: port 1(vethd2ed8a1) entered forwarding state
+[  983.386376] vethe9ce802: renamed from eth0
+[  983.393498] br-a0ae325efff1: port 1(vethd2ed8a1) entered disabled state
+[  983.408305] br-a0ae325efff1: port 1(vethd2ed8a1) entered disabled state
+[  983.410520] vethd2ed8a1 (unregistering): left allmulticast mode
+[  983.411855] vethd2ed8a1 (unregistering): left promiscuous mode
+[  983.413053] br-a0ae325efff1: port 1(vethd2ed8a1) entered disabled state
+[ 1010.150122] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"NODE_ENV\" variable is not set. Defaulting to a blank string."
+[ 1010.154352] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"TEE_MODE\" variable is not set. Defaulting to a blank string."
+[ 1010.157690] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"USE_TEE_AUTH\" variable is not set. Defaulting to a blank string."
+[ 1010.161302] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"RPC_URL\" variable is not set. Defaulting to a blank string."
+[ 1010.164708] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"CHAIN_ID\" variable is not set. Defaulting to a blank string."
+[ 1010.168882] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"SERVER_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[ 1010.172795] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="The \"VALIDATOR_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[ 1010.177241] docker[4542]: time="2025-09-05T07:01:51Z" level=warning msg="/dstack/docker-compose.yaml: `version` is obsolete"
+[ 1010.180317] docker[4542]:  Container dstack-app-1  Stopping
+[ 1010.181841] docker[4542]:  Container dstack-app-1  Stopped
+[[0;32m  OK  [0m] Removed slice [0;1;39mSlice /system/modprobe[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mMulti-User System[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mHost and Network Name Lookups[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mRemote File Systems[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mTimer Units[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDaily Cleanup of Temporary Directories[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mZFS startup target[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mZFS pool import target[0m.
+
+         Stopping [0;1;39mD-Bus System Message Bus[0m...
+
+         Stopping [0;1;39mDocker Application Container Engine[0m...
+
+         Stopping [0;1;39mLoad/Save OS Random Seed[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mD-Bus System Message Bus[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mLoad/Save OS Random Seed[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDocker Application Container Engine[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mNetwork is Online[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSystem Time Set[0m.
+
+         Stopping [0;1;39mcontainerd container runtime[0m...
+
+         Stopping [0;1;39mDstack Guest Agent Service[0m...
+
+[ 1010.266653] dstack-guest-agent[443]: [2m2025-09-05T07:01:51.845479Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[ 1010.271145] dstack-guest-agent[443]: [2m2025-09-05T07:01:51.845583Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[ 1010.274816] dstack-guest-agent[443]: [2m2025-09-05T07:01:51.845594Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[[0;32m  OK  [0m] Stopped [0;1;39mWait for Network to be Configured[0m.
+
+[ 1010.278482] dstack-guest-agent[443]: [2m2025-09-05T07:01:51.845602Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[[0;32m  OK  [0m] Stopped [0;1;39mcontainerd container runtime[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDstack Guest Agent Service[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDStack Guest Preparation Service[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mNetwork[0m.
+
+         Stopping [0;1;39mNTP client/server[0m...
+
+         Stopping [0;1;39mNetwork Configuration[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mNTP client/server[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mNetwork Configuration[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mPreparation for Network[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mIPv6 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mIPv4 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mBasic System[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mPath Units[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSlice Units[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSocket Units[0m.
+
+[[0;32m  OK  [0m] Closed [0;1;39mD-Bus System Message Bus Socket[0m.
+
+[[0;32m  OK  [0m] Closed [0;1;39mDocker Socket for the API[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSystem Initialization[0m.
+
+[[0;32m  OK  [0m] Closed [0;1;39mNetwork Service Netlink Socket[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mGenerate network units from Kernel command line[0m.
+
+         Stopping [0;1;39mNetwork Name Resolution[0m...
+
+         Stopping [0;1;39mRecord System Boot/Shutdown in UTMP[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mNetwork Name Resolution[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mApply Kernel Variables[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mLoad Kernel Modules[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mRecord System Boot/Shutdown in UTMP[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mCreate Volatile Files and Directories[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mLocal File Systems[0m.
+
+         Unmounting [0;1;39m/dstack/persistent[0m...
+
+         Unmounting [0;1;39m/etc/docker[0m...
+
+         Unmounting [0;1;39m/etc/machine-id[0m...
+
+         Unmounting [0;1;39m/etc/wireguard[0m...
+
+         Unmounting [0;1;39m/home/root[0m...
+
+         Unmounting [0;1;39m/srv[0m...
+
+         Unmounting [0;1;39mTemporary Directory /tmp[0m...
+
+         Unmounting [0;1;39m/usr/bin[0m...
+
+         Unmounting [0;1;39m/var/cache[0m...
+
+         Unmounting [0;1;39m/var/lib/docker[0m...
+
+         Unmounting [0;1;39m/var/spool[0m...
+
+         Unmounting [0;1;39m/var/volatile/dstack/persistent[0m...
+
+         Stopping [0;1;39mBind mount volatile /var/cache[0m...
+
+         Stopping [0;1;39mBind mount volatile /var/lib[0m...
+
+         Stopping [0;1;39mBind mount volatile /var/spool[0m...
+
+         Stopping [0;1;39mBind mount volatile /srv[0m...
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/lib[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/dstack/persistent[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/etc/docker[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/etc/machine-id[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/etc/wireguard[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/home/root[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/srv[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39mTemporary Directory /tmp[0m.
+
+[[0;1;31mFAILED[0m] Failed unmounting [0;1;39m/usr/bin[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/cache[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/spool[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/volatile/dstack/persistent[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /var/cache[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /var/lib[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /var/spool[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /srv[0m.
+
+         Unmounting [0;1;39m/dstack[0m...
+
+         Unmounting [0;1;39m/var/volatile[0m...
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/volatile[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSwaps[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/dstack[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/lib/docker[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mPreparation for Local File Systems[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mUnmount All Filesystems[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mRemount Root and Kernel File Systems[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mCreate Static Device Nodes in /dev[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mCreate Static Device Nodes in /dev gracefully[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Shutdown[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mLate Shutdown Services[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mSystem Power Off[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Power Off[0m.
+
+[ 1012.842138] systemd-shutdown[1]: Syncing filesystems and block devices.
+[ 1012.848741] systemd-shutdown[1]: Sending SIGTERM to remaining processes...
+[ 1012.874101] systemd-journald[107]: Received SIGTERM from PID 1 (systemd-shutdow).
+[ 1012.886549] systemd-shutdown[1]: Sending SIGKILL to remaining processes...
+[ 1012.907193] systemd-shutdown[1]: Unmounting file systems.
+[ 1012.914196] (sd-remount)[4622]: Remounting '/usr/bin' read-only with options 'lowerdir=/usr/bin,upperdir=/var/volatile//usr/bin/upper,workdir=/var/volatile//usr/bin/work,uuid=on'.
+[ 1012.928285] (sd-umount)[4623]: Unmounting '/usr/bin'.
+[ 1012.936703] systemd-shutdown[1]: All filesystems unmounted.
+[ 1012.940697] systemd-shutdown[1]: Deactivating swaps.
+[ 1012.944099] systemd-shutdown[1]: All swaps deactivated.
+[ 1012.947868] systemd-shutdown[1]: Detaching loop devices.
+[ 1012.953846] systemd-shutdown[1]: All loop devices detached.
+[ 1012.957158] systemd-shutdown[1]: Stopping MD devices.
+[ 1012.960266] systemd-shutdown[1]: All MD devices stopped.
+[ 1012.963093] systemd-shutdown[1]: Detaching DM devices.
+[ 1012.966408] systemd-shutdown[1]: Detaching DM /dev/dm-1 (253:1).
+[ 1012.970197] systemd-shutdown[1]: Could not detach DM /dev/dm-1: Device or resource busy
+[ 1012.973895] systemd-shutdown[1]: Not all DM devices detached, 2 left.
+[ 1012.976974] systemd-shutdown[1]: Detaching DM devices.
+[ 1012.979935] systemd-shutdown[1]: Detaching DM /dev/dm-1 (253:1).
+[ 1012.983011] systemd-shutdown[1]: Could not detach DM /dev/dm-1: Device or resource busy
+[ 1012.986521] systemd-shutdown[1]: Not all DM devices detached, 2 left.
+[ 1012.989162] systemd-shutdown[1]: Detaching DM devices.
+[ 1012.991764] systemd-shutdown[1]: Detaching DM /dev/dm-1 (253:1).
+[ 1012.994610] systemd-shutdown[1]: Could not detach DM /dev/dm-1: Device or resource busy
+[ 1012.997572] systemd-shutdown[1]: Not all DM devices detached, 2 left.
+[ 1012.999929] systemd-shutdown[1]: Cannot finalize remaining DM devices, continuing.
+[ 1013.002777] systemd-shutdown[1]: Unable to finalize remaining DM devices, ignoring.
+[ 1013.005858] systemd-shutdown[1]: Syncing filesystems and block devices.
+[ 1013.008639] systemd-shutdown[1]: Powering off.
+[ 1013.013162] ACPI: PM: Preparing to enter system sleep state S5
+[ 1013.015354] reboot: Power down
+[2J[01;01H[=3h[2J[01;01HEFI stub: Loaded initrd from LINUX_EFI_INITRD_MEDIA_GUID device path
+EFI stub: Measured initrd data into PCR 9
+[    0.000000] tdx: Guest detected
+[    0.000000] Linux version 6.9.0-dstack (oe-user@oe-host) (x86_64-poky-linux-gcc (GCC) 13.3.0, GNU ld (GNU Binutils) 2.42.0.20240723) #1 SMP PREEMPT_DYNAMIC Thu May 30 14:26:20 UTC 2024
+[    0.000000] Command line: console=ttyS0 init=/init panic=1 systemd.unified_cgroup_hierarchy=0 net.ifnames=0 biosdevname=0 mce=off oops=panic pci=noearly pci=nommconf random.trust_cpu=y random.trust_bootloader=n tsc=reliable no-kvmclock dstack.rootfs_hash=9d684404e3f9618671855a200d799c66eb871280dfe5a9ceb6d6e44ba4b216eb dstack.rootfs_size=136339456 initrd=initrd
+[    0.000000] x86/split lock detection: #DB: warning on user-space bus_locks
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x00000000007fffff] usable
+[    0.000000] BIOS-e820: [mem 0x0000000000800000-0x0000000000805fff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x0000000000806000-0x000000000080bfff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000080c000-0x000000000080cfff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x000000000080d000-0x000000007d673fff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007d674000-0x000000007d675fff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x000000007d676000-0x000000007d694fff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007d695000-0x000000007d695fff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x000000007d696000-0x000000007d698fff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000007d699000-0x000000007d6b0fff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x000000007d6b1000-0x000000007d73afff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000007d73b000-0x000000007e7bafff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007e7bb000-0x000000007e812fff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000007e813000-0x000000007e81afff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x000000007e81b000-0x000000007e81efff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x000000007e81f000-0x000000007ff7bfff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007ff7c000-0x000000007fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000e0000000-0x00000000efffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000100000000-0x000000017fffffff] usable
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] APIC: Static calls initialized
+[    0.000000] efi: EFI v2.7 by EDK II
+[    0.000000] efi: CCFinalLog=0x7d699000 ACPI=0x7e81a000 ACPI 2.0=0x7e81a014 SMBIOS=0x7e7eb000 MEMATTR=0x7d789698 INITRD=0x7d694c18 TPMEventLog=0x7d694198 Unaccepted=0x7e813018 
+[    0.000000] [Firmware Bug]: Failed to parse event in TPM Final Events Log
+[    0.000000] SMBIOS 2.8 present.
+[    0.000000] DMI: QEMU Standard PC (Q35 + ICH9, 2009), BIOS unknown 02/02/2022
+[    0.000000] Hypervisor detected: KVM
+[    0.000000] tsc: Detected 2400.000 MHz processor
+[    0.000020] last_pfn = 0x180000 max_arch_pfn = 0x400000000
+[    0.000078] MTRRs disabled by BIOS
+[    0.000079] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.000094] x2apic: enabled by BIOS, switching to x2apic ops
+[    0.000119] last_pfn = 0x7ff7c max_arch_pfn = 0x400000000
+[    0.004857] software IO TLB: SWIOTLB bounce buffer size adjusted to 245MB
+[    0.004867] Using GB pages for direct mapping
+[    0.008032] Secure boot disabled
+[    0.008033] RAMDISK: [mem 0x7a503000-0x7ac72fff]
+[    0.008037] ACPI: Early table checksum verification disabled
+[    0.008057] ACPI: RSDP 0x000000007E81A014 000024 (v02 BOCHS )
+[    0.008062] ACPI: XSDT 0x000000007E8190E8 00004C (v01 BOCHS  BXPC     00000001      01000013)
+[    0.008069] ACPI: FACP 0x000000007E814000 0000F4 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008075] ACPI: DSDT 0x000000007E815000 00205D (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008078] ACPI: FACS 0x000000007E81D000 000040
+[    0.008081] ACPI: CCEL 0x000000007E818000 000038 (v01 INTEL  EDK2     00000002      01000013)
+[    0.008084] ACPI: MCFG 0x000000007D675000 00003C (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008087] ACPI: WAET 0x000000007D674000 000028 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008090] ACPI: APIC 0x000000007D695000 0000FE (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008092] ACPI: Reserving FACP table memory at [mem 0x7e814000-0x7e8140f3]
+[    0.008094] ACPI: Reserving DSDT table memory at [mem 0x7e815000-0x7e81705c]
+[    0.008095] ACPI: Reserving FACS table memory at [mem 0x7e81d000-0x7e81d03f]
+[    0.008096] ACPI: Reserving CCEL table memory at [mem 0x7e818000-0x7e818037]
+[    0.008097] ACPI: Reserving MCFG table memory at [mem 0x7d675000-0x7d67503b]
+[    0.008098] ACPI: Reserving WAET table memory at [mem 0x7d674000-0x7d674027]
+[    0.008099] ACPI: Reserving APIC table memory at [mem 0x7d695000-0x7d6950fd]
+[    0.008146] APIC: Switched APIC routing to: cluster x2apic
+[    0.091267] Zone ranges:
+[    0.091270]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.091273]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+[    0.091275]   Normal   [mem 0x0000000100000000-0x000000017fffffff]
+[    0.091278] Movable zone start for each node
+[    0.091278] Early memory node ranges
+[    0.091279]   node   0: [mem 0x0000000000001000-0x000000000009ffff]
+[    0.091282]   node   0: [mem 0x0000000000100000-0x00000000007fffff]
+[    0.091283]   node   0: [mem 0x0000000000806000-0x000000000080bfff]
+[    0.091284]   node   0: [mem 0x000000000080d000-0x000000007d673fff]
+[    0.091286]   node   0: [mem 0x000000007d676000-0x000000007d694fff]
+[    0.091288]   node   0: [mem 0x000000007d73b000-0x000000007e7bafff]
+[    0.091289]   node   0: [mem 0x000000007e813000-0x000000007e813fff]
+[    0.091290]   node   0: [mem 0x000000007e81f000-0x000000007ff7bfff]
+[    0.091291]   node   0: [mem 0x0000000100000000-0x000000017fffffff]
+[    0.091294] Initmem setup node 0 [mem 0x0000000000001000-0x000000017fffffff]
+[    0.091305] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.091377] On node 0, zone DMA: 96 pages in unavailable ranges
+[    0.091380] On node 0, zone DMA: 6 pages in unavailable ranges
+[    0.091443] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.107666] On node 0, zone DMA32: 2 pages in unavailable ranges
+[    0.107812] On node 0, zone DMA32: 166 pages in unavailable ranges
+[    0.107817] On node 0, zone DMA32: 88 pages in unavailable ranges
+[    0.108001] On node 0, zone DMA32: 11 pages in unavailable ranges
+[    0.124433] On node 0, zone Normal: 132 pages in unavailable ranges
+[    0.124443] ACPI: PM-Timer IO Port: 0x608
+[    0.124483] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.124668] IOAPIC[0]: apic_id 0, version 32, address 0xfec00000, GSI 0-23
+[    0.124672] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 high edge)
+[    0.124676] ACPI: INT_SRC_OVR (bus 0 bus_irq 1 global_irq 1 high edge)
+[    0.124677] ACPI: INT_SRC_OVR (bus 0 bus_irq 2 global_irq 2 high edge)
+[    0.124679] ACPI: INT_SRC_OVR (bus 0 bus_irq 3 global_irq 3 high edge)
+[    0.124680] ACPI: INT_SRC_OVR (bus 0 bus_irq 4 global_irq 4 high edge)
+[    0.124682] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high edge)
+[    0.124684] ACPI: INT_SRC_OVR (bus 0 bus_irq 6 global_irq 6 high edge)
+[    0.124685] ACPI: INT_SRC_OVR (bus 0 bus_irq 7 global_irq 7 high edge)
+[    0.124687] ACPI: INT_SRC_OVR (bus 0 bus_irq 8 global_irq 8 high edge)
+[    0.124688] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high edge)
+[    0.124691] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high edge)
+[    0.124693] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high edge)
+[    0.124695] ACPI: INT_SRC_OVR (bus 0 bus_irq 12 global_irq 12 high edge)
+[    0.124696] ACPI: INT_SRC_OVR (bus 0 bus_irq 13 global_irq 13 high edge)
+[    0.124698] ACPI: INT_SRC_OVR (bus 0 bus_irq 14 global_irq 14 high edge)
+[    0.124700] ACPI: INT_SRC_OVR (bus 0 bus_irq 15 global_irq 15 high edge)
+[    0.124704] ACPI: Found unsupported MADT entry (type = 0x10)
+[    0.124707] ACPI: APIC: wakeup_secondary_cpu_64() replaced with acpi_wakeup_cpu()
+[    0.124718] ACPI: Using ACPI (MADT) for SMP configuration information
+[    0.124721] TSC deadline timer available
+[    0.124727] CPU topo: Max. logical packages:   1
+[    0.124729] CPU topo: Max. logical dies:       1
+[    0.124729] CPU topo: Max. dies per package:   1
+[    0.124735] CPU topo: Max. threads per core:   1
+[    0.124736] CPU topo: Num. cores per package:     2
+[    0.124737] CPU topo: Num. threads per package:   2
+[    0.124738] CPU topo: Allowing 2 present CPUs plus 0 hotplug CPUs
+[    0.124880] [mem 0x80000000-0xdfffffff] available for PCI devices
+[    0.124883] Booting paravirtualized kernel on KVM
+[    0.124887] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.124894] setup_percpu: NR_CPUS:64 nr_cpumask_bits:2 nr_cpu_ids:2 nr_node_ids:1
+[    0.128593] percpu: Embedded 58 pages/cpu s197480 r8192 d31896 u1048576
+[    0.128672] kvm-guest: PV spinlocks enabled
+[    0.128675] PV qspinlock hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.128678] Kernel command line: console=ttyS0 init=/init panic=1 systemd.unified_cgroup_hierarchy=0 net.ifnames=0 biosdevname=0 mce=off oops=panic pci=noearly pci=nommconf random.trust_cpu=y random.trust_bootloader=n tsc=reliable no-kvmclock dstack.rootfs_hash=9d684404e3f9618671855a200d799c66eb871280dfe5a9ceb6d6e44ba4b216eb dstack.rootfs_size=136339456 initrd=initrd
+[    0.128889] Unknown kernel command line parameters "biosdevname=0", will be passed to user space.
+[    0.128905] random: crng init done
+[    0.135980] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    0.139637] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    0.139705] Built 1 zonelists, mobility grouping on.  Total pages: 1031535
+[    0.139707] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.139714] software IO TLB: area num 2.
+[    0.139716] software IO TLB: SWIOTLB bounce buffer size roundup to 256MB
+[    0.393460] Memory: 3767444K/4192292K available (14336K kernel code, 2056K rwdata, 4716K rodata, 2384K init, 1584K bss, 424588K reserved, 0K cma-reserved)
+[    0.393522] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.393708] Dynamic Preempt: full
+[    0.399196] rcu: Preemptible hierarchical RCU implementation.
+[    0.399197] rcu: 	RCU event tracing is enabled.
+[    0.399199] rcu: 	RCU restricting CPUs from NR_CPUS=64 to nr_cpu_ids=2.
+[    0.399201] 	Trampoline variant of Tasks RCU enabled.
+[    0.399202] 	Tracing variant of Tasks RCU enabled.
+[    0.399203] rcu: RCU calculated value of scheduler-enlistment delay is 100 jiffies.
+[    0.399204] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+[    0.399215] RCU Tasks: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1.
+[    0.399217] RCU Tasks Trace: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1.
+[    0.400656] NR_IRQS: 4352, nr_irqs: 440, preallocated irqs: 16
+[    0.401065] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.401408] Console: colour dummy device 80x25
+[    0.401515] printk: legacy console [ttyS0] enabled
+[    0.710924] ACPI: Core revision 20230628
+[    0.712398] APIC: Switch to symmetric I/O mode setup
+[    0.717798] APIC: Switched APIC routing to: physical x2apic
+[    0.719553] kvm-guest: APIC: send_IPI_mask() replaced with kvm_send_ipi_mask()
+[    0.721805] kvm-guest: APIC: send_IPI_mask_allbutself() replaced with kvm_send_ipi_mask_allbutself()
+[    0.724647] kvm-guest: setup PV IPIs
+[    0.732227] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.734410] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x22983777dd9, max_idle_ns: 440795300422 ns
+[    0.737747] Calibrating delay loop (skipped), value calculated using timer frequency.. 4800.00 BogoMIPS (lpj=2400000)
+[    0.738959] x86/cpu: User Mode Instruction Prevention (UMIP) activated
+[    0.739753] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+[    0.740747] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+[    0.741749] process: using TDX aware idle routine
+[    0.742752] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.743749] Spectre V2 : Mitigation: Enhanced / Automatic IBRS
+[    0.744747] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+[    0.745747] Spectre V2 : Spectre v2 / PBRSB-eIBRS: Retire a single CALL on VMEXIT
+[    0.746748] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[    0.747748] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+[    0.748769] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.749747] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.750747] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.751747] x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+[    0.752748] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    0.753747] x86/fpu: xstate_offset[9]:  832, xstate_sizes[9]:    8
+[    0.754747] x86/fpu: Enabled xstate features 0x207, context size is 840 bytes, using 'compacted' format.
+[    0.774890] Freeing SMP alternatives memory: 24K
+[    0.796760] Memory Encryption Features active: Intel TDX
+[    0.797748] pid_max: default: 32768 minimum: 301
+[    0.800945] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.801781] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.803335] smpboot: CPU0: Intel 06/af (family: 0x6, model: 0xaf, stepping: 0x3)
+[    0.804034] Performance Events: unsupported p6 CPU model 175 no PMU driver, software events only.
+[    0.804787] signal: max sigframe size: 3632
+[    0.805746] rcu: Hierarchical SRCU implementation.
+[    0.805758] rcu: 	Max phase no-delay instances is 400.
+[    0.806919] smp: Bringing up secondary CPUs ...
+[    0.807770] smpboot: Parallel CPU startup disabled by the platform
+[    0.808898] smpboot: x86: Booting SMP configuration:
+[    0.809761] .... node  #0, CPUs:      #1
+[    0.809899] smp: Brought up 1 node, 2 CPUs
+[    0.811746] smpboot: Total of 2 processors activated (9600.00 BogoMIPS)
+[    0.812148] devtmpfs: initialized
+[    0.813099] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.813777] futex hash table entries: 512 (order: 3, 32768 bytes, linear)
+[    0.814801] pinctrl core: initialized pinctrl subsystem
+[    0.816054] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.816971] thermal_sys: Registered thermal governor 'step_wise'
+[    0.816973] thermal_sys: Registered thermal governor 'user_space'
+[    0.817774] cpuidle: using governor menu
+[    0.819746] PCI: Using configuration type 1 for base access
+[    0.822069] cryptd: max_cpu_qlen set to 1000
+[    0.827872] ACPI: Added _OSI(Module Device)
+[    0.828759] ACPI: Added _OSI(Processor Device)
+[    0.829746] ACPI: Added _OSI(3.0 _SCP Extensions)
+[    0.830758] ACPI: Added _OSI(Processor Aggregator Device)
+[    0.832489] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[    0.836822] ACPI: _OSC evaluation for CPUs failed, trying _PDC
+[    0.837859] ACPI: Interpreter enabled
+[    0.838746] ACPI: PM: (supports S0 S5)
+[    0.838759] ACPI: Using IOAPIC for interrupt routing
+[    0.839770] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.841758] PCI: Using E820 reservations for host bridge windows
+[    0.842864] ACPI: Enabled 2 GPEs in block 00 to 3F
+[    0.845296] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.846766] acpi PNP0A08:00: _OSC: OS supports [ASPM ClockPM Segments MSI HPX-Type3]
+[    0.848758] acpi PNP0A08:00: _OSC: not requesting OS control; OS requires [ExtendedConfig ASPM ClockPM MSI]
+[    0.849788] acpi PNP0A08:00: MMCONFIG is disabled, can't access extended configuration space under this bridge
+[    0.851806] PCI host bridge to bus 0000:00
+[    0.852746] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[    0.854758] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[    0.855758] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[    0.856758] pci_bus 0000:00: root bus resource [mem 0x80000000-0xdfffffff window]
+[    0.858758] pci_bus 0000:00: root bus resource [mem 0xf0000000-0xfebfffff window]
+[    0.859761] pci_bus 0000:00: root bus resource [mem 0x380000000000-0x3807ffffffff window]
+[    0.861777] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.862888] pci 0000:00:00.0: [8086:29c0] type 00 class 0x060000 conventional PCI endpoint
+[    0.865899] pci 0000:00:01.0: [1af4:1042] type 00 class 0x010000 conventional PCI endpoint
+[    0.867759] pci 0000:00:01.0: BAR 1 [mem 0x80005000-0x80005fff]
+[    0.871219] pci 0000:00:01.0: BAR 4 [mem 0x380000000000-0x380000003fff 64bit pref]
+[    0.874746] pci 0000:00:02.0: [1af4:1042] type 00 class 0x010000 conventional PCI endpoint
+[    0.876746] pci 0000:00:02.0: BAR 1 [mem 0x80004000-0x80004fff]
+[    0.878758] pci 0000:00:02.0: BAR 4 [mem 0x380000004000-0x380000007fff 64bit pref]
+[    0.882746] pci 0000:00:03.0: [1af4:1041] type 00 class 0x020000 conventional PCI endpoint
+[    0.885037] pci 0000:00:03.0: BAR 1 [mem 0x80003000-0x80003fff]
+[    0.886746] pci 0000:00:03.0: BAR 4 [mem 0x380000008000-0x38000000bfff 64bit pref]
+[    0.889196] pci 0000:00:03.0: ROM [mem 0x00000000-0x0007ffff pref]
+[    0.891603] pci 0000:00:04.0: [1af4:1053] type 00 class 0x078000 conventional PCI endpoint
+[    0.893673] pci 0000:00:04.0: BAR 1 [mem 0x80002000-0x80002fff]
+[    0.894746] pci 0000:00:04.0: BAR 4 [mem 0x38000000c000-0x38000000ffff 64bit pref]
+[    0.897746] pci 0000:00:05.0: [1af4:1049] type 00 class 0x000200 conventional PCI endpoint
+[    0.900746] pci 0000:00:05.0: BAR 1 [mem 0x80001000-0x80001fff]
+[    0.901746] pci 0000:00:05.0: BAR 4 [mem 0x380000010000-0x380000013fff 64bit pref]
+[    0.905746] pci 0000:00:1f.0: [8086:2918] type 00 class 0x060100 conventional PCI endpoint
+[    0.907746] pci 0000:00:1f.0: quirk: [io  0x0600-0x067f] claimed by ICH6 ACPI/GPIO/TCO
+[    0.909411] pci 0000:00:1f.2: [8086:2922] type 00 class 0x010601 conventional PCI endpoint
+[    0.912481] pci 0000:00:1f.2: BAR 4 [io  0x6040-0x605f]
+[    0.913269] pci 0000:00:1f.2: BAR 5 [mem 0x80000000-0x80000fff]
+[    0.915746] pci 0000:00:1f.3: [8086:2930] type 00 class 0x0c0500 conventional PCI endpoint
+[    0.917758] pci 0000:00:1f.3: BAR 4 [io  0x6000-0x603f]
+[    0.919746] ACPI: PCI: Interrupt link LNKA configured for IRQ 10
+[    0.921950] ACPI: PCI: Interrupt link LNKB configured for IRQ 10
+[    0.922895] ACPI: PCI: Interrupt link LNKC configured for IRQ 11
+[    0.923891] ACPI: PCI: Interrupt link LNKD configured for IRQ 11
+[    0.924892] ACPI: PCI: Interrupt link LNKE configured for IRQ 10
+[    0.925894] ACPI: PCI: Interrupt link LNKF configured for IRQ 10
+[    0.927896] ACPI: PCI: Interrupt link LNKG configured for IRQ 11
+[    0.928893] ACPI: PCI: Interrupt link LNKH configured for IRQ 11
+[    0.929827] ACPI: PCI: Interrupt link GSIA configured for IRQ 16
+[    0.930769] ACPI: PCI: Interrupt link GSIB configured for IRQ 17
+[    0.931766] ACPI: PCI: Interrupt link GSIC configured for IRQ 18
+[    0.932766] ACPI: PCI: Interrupt link GSID configured for IRQ 19
+[    0.933767] ACPI: PCI: Interrupt link GSIE configured for IRQ 20
+[    0.934767] ACPI: PCI: Interrupt link GSIF configured for IRQ 21
+[    0.935767] ACPI: PCI: Interrupt link GSIG configured for IRQ 22
+[    0.936766] ACPI: PCI: Interrupt link GSIH configured for IRQ 23
+[    0.938918] iommu: Default domain type: Translated
+[    0.939759] iommu: DMA domain TLB invalidation policy: lazy mode
+[    0.940903] SCSI subsystem initialized
+[    0.941899] ACPI: bus type USB registered
+[    0.942746] usbcore: registered new interface driver usbfs
+[    0.942765] usbcore: registered new interface driver hub
+[    0.943766] usbcore: registered new device driver usb
+[    0.944746] pps_core: LinuxPPS API ver. 1 registered
+[    0.945758] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.947761] PTP clock support registered
+[    0.948746] efivars: Registered efivars operations
+[    0.949092] PCI: Using ACPI for IRQ routing
+[    0.950828] vgaarb: loaded
+[    0.950875] clocksource: Switched to clocksource tsc-early
+[    0.952674] pnp: PnP ACPI init
+[    0.953478] system 00:04: [mem 0xe0000000-0xefffffff window] has been reserved
+[    0.956397] pnp: PnP ACPI: found 5 devices
+[    0.971854] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+[    0.981184] NET: Registered PF_INET protocol family
+[    0.985947] IP idents hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.994506] tcp_listen_portaddr_hash hash table entries: 2048 (order: 3, 32768 bytes, linear)
+[    1.001330] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    1.007151] TCP established hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    1.012772] TCP bind hash table entries: 32768 (order: 8, 1048576 bytes, linear)
+[    1.018162] TCP: Hash tables configured (established 32768 bind 32768)
+[    1.022544] UDP hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    1.026737] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    1.031115] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    1.035146] RPC: Registered named UNIX socket transport module.
+[    1.039175] RPC: Registered udp transport module.
+[    1.042304] RPC: Registered tcp transport module.
+[    1.045393] RPC: Registered tcp-with-tls transport module.
+[    1.048763] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.052616] pci 0000:00:03.0: ROM [mem 0x80080000-0x800fffff pref]: assigned
+[    1.056722] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+[    1.060121] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+[    1.063491] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+[    1.067041] pci_bus 0000:00: resource 7 [mem 0x80000000-0xdfffffff window]
+[    1.070521] pci_bus 0000:00: resource 8 [mem 0xf0000000-0xfebfffff window]
+[    1.074026] pci_bus 0000:00: resource 9 [mem 0x380000000000-0x3807ffffffff window]
+[    1.078005] PCI: CLS 0 bytes, default 64
+[    1.079890] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+[    1.080210] Trying to unpack rootfs image as initramfs...
+[    1.082749] software IO TLB: mapped [mem 0x000000006a503000-0x000000007a503000] (256MB)
+[    1.082909] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x22983777dd9, max_idle_ns: 440795300422 ns
+[    1.096106] clocksource: Switched to clocksource tsc
+[    1.098957] Initialise system trusted keyrings
+[    1.100760] workingset: timestamp_bits=46 max_order=20 bucket_order=0
+[    1.103329] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    1.105573] NFS: Registering the id_resolver key type
+[    1.107422] Key type id_resolver registered
+[    1.108400] Key type id_legacy registered
+[    1.110287] 9p: Installing v9fs 9p2000 file system support
+[    1.121734] Key type asymmetric registered
+[    1.123114] Asymmetric key parser 'x509' registered
+[    1.133341] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 250)
+[    1.136078] io scheduler mq-deadline registered
+[    1.137505] io scheduler kyber registered
+[    1.138937] hv_vmbus: registering driver hyperv_fb
+[    1.140583] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    1.142947] ACPI: button: Power Button [PWRF]
+[    1.144956] ACPI: \_SB_.GSIF: Enabled at IRQ 21
+[    1.149007] ACPI: \_SB_.GSIG: Enabled at IRQ 22
+[    1.152904] ACPI: \_SB_.GSIH: Enabled at IRQ 23
+[    1.156961] ACPI: \_SB_.GSIE: Enabled at IRQ 20
+[    1.163483] Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+[    1.165923] 00:02: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    1.169152] Linux agpgart interface v0.103
+[    1.170586] ACPI: bus type drm_connector registered
+[    1.173528] brd: module loaded
+[    1.174940] virtio_blk virtio0: 2/0/0 default/read/poll queues
+[    1.181610] virtio_blk virtio0: [vda] 274704 512-byte logical blocks (141 MB/134 MiB)
+[    1.185480] software IO TLB: Memory encryption is active and system is using DMA bounce buffers
+[    1.190649] virtio_blk virtio1: 2/0/0 default/read/poll queues
+[    1.202634] virtio_blk virtio1: [vdb] 83886080 512-byte logical blocks (42.9 GB/40.0 GiB)
+[    1.206914] hv_vmbus: registering driver hv_storvsc
+[    1.209311] ACPI: \_SB_.GSIA: Enabled at IRQ 16
+[    1.212638] ahci 0000:00:1f.2: AHCI vers 0001.0000, 32 command slots, 1.5 Gbps, SATA mode
+[    1.215261] ahci 0000:00:1f.2: 6/6 ports implemented (port mask 0x3f)
+[    1.217275] ahci 0000:00:1f.2: flags: 64bit ncq only 
+[    1.226561] scsi host0: ahci
+[    1.227744] scsi host1: ahci
+[    1.228870] scsi host2: ahci
+[    1.229792] scsi host3: ahci
+[    1.231072] scsi host4: ahci
+[    1.232178] scsi host5: ahci
+[    1.233269] ata1: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000100 irq 30 lpm-pol 0
+[    1.235947] ata2: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000180 irq 30 lpm-pol 0
+[    1.238542] ata3: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000200 irq 30 lpm-pol 0
+[    1.241221] ata4: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000280 irq 30 lpm-pol 0
+[    1.243800] ata5: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000300 irq 30 lpm-pol 0
+[    1.248003] ata6: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000380 irq 30 lpm-pol 0
+[    1.258722] wireguard: WireGuard 1.0.0 loaded. See www.wireguard.com for information.
+[    1.268786] wireguard: Copyright (C) 2015-2019 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
+[    1.283093] Freeing initrd memory: 7616K
+[    1.292730] e100: Intel(R) PRO/100 Network Driver
+[    1.298401] e100: Copyright(c) 1999-2006 Intel Corporation
+[    1.304519] e1000: Intel(R) PRO/1000 Network Driver
+[    1.309783] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    1.315721] e1000e: Intel(R) PRO/1000 Network Driver
+[    1.320219] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+[    1.325451] igb: Intel(R) Gigabit Ethernet Network Driver
+[    1.329987] igb: Copyright (c) 2007-2014 Intel Corporation.
+[    1.334775] hv_vmbus: registering driver hv_netvsc
+[    1.338575] usbcore: registered new interface driver usbserial_generic
+[    1.343513] usbserial: USB Serial support registered for generic
+[    1.347780] usbcore: registered new interface driver ftdi_sio
+[    1.351679] usbserial: USB Serial support registered for FTDI USB Serial Device
+[    1.356410] usbcore: registered new interface driver pl2303
+[    1.359998] usbserial: USB Serial support registered for pl2303
+[    1.364052] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    1.372992] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    1.375814] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    1.378608] hv_vmbus: registering driver hyperv_keyboard
+[    1.382033] mousedev: PS/2 mouse device common for all mice
+[    1.385890] input: AT Raw Set 2 keyboard as /devices/platform/i8042/serio0/input/input1
+[    1.387367] rtc_cmos 00:03: RTC can wake from S4
+[    1.401788] rtc_cmos 00:03: registered as rtc0
+[    1.407529] rtc_cmos 00:03: setting system clock to 2025-09-05T07:02:11 UTC (1757055731)
+[    1.415378] rtc_cmos 00:03: alarms up to one day, y3k, 242 bytes nvram
+[    1.421666] fail to initialize ptp_kvm
+[    1.421681] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@lists.linux.dev
+[    1.422232] i801_smbus 0000:00:1f.3: Enabling SMBus device
+[    1.425151] intel_pstate: CPU model not supported
+[    1.431713] i801_smbus 0000:00:1f.3: SMBus using PCI interrupt
+[    1.435593] hv_vmbus: registering driver hid_hyperv
+[    1.438701] i2c i2c-0: Memory type 0x07 not supported yet, not instantiating SPD
+[    1.442500] usbcore: registered new interface driver usbhid
+[    1.453505] usbhid: USB HID core driver
+[    1.456073] hv_utils: Registering HyperV Utility Driver
+[    1.459176] hv_vmbus: registering driver hv_utils
+[    1.462238] hv_vmbus: registering driver hv_balloon
+[    1.465086] Initializing XFRM netlink socket
+[    1.467591] NET: Registered PF_INET6 protocol family
+[    1.471010] Segment Routing with IPv6
+[    1.473087] In-situ OAM (IOAM) with IPv6
+[    1.475152] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    1.478367] NET: Registered PF_PACKET protocol family
+[    1.481006] 8021q: 802.1Q VLAN Support v1.8
+[    1.483118] 9pnet: Installing 9P2000 support
+[    1.489820] Key type dns_resolver registered
+[    1.492041] NET: Registered PF_VSOCK protocol family
+[    1.503663] mce: Unable to init MCE device (rc: -5)
+[    1.505773] IPI shorthand broadcast: enabled
+[    1.507484] AVX2 version of gcm_enc/dec engaged.
+[    1.509379] AES CTR mode by8 optimization enabled
+[    1.518677] sched_clock: Marking stable (1183636728, 334395036)->(2911227239, -1393195475)
+[    1.521668] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+[    1.524393] registered taskstats version 1
+[    1.526881] Loading compiled-in X.509 certificates
+[    1.530278] printk: legacy console [netcon0] enabled
+[    1.531995] netconsole: network logging started
+[    1.533577] clk: Disabling unused clocks
+[    1.566505] ata1: SATA link down (SStatus 0 SControl 300)
+[    1.578460] ata2: SATA link down (SStatus 0 SControl 300)
+[    1.592473] ata6: SATA link down (SStatus 0 SControl 300)
+[    1.594450] ata5: SATA link down (SStatus 0 SControl 300)
+[    1.597062] ata4: SATA link down (SStatus 0 SControl 300)
+[    1.599016] ata3: SATA link down (SStatus 0 SControl 300)
+[    1.609470] Freeing unused kernel image (initmem) memory: 2384K
+[    1.611667] Write protecting the kernel read-only data: 20480k
+[    1.615251] Freeing unused kernel image (rodata/data gap) memory: 1428K
+[    1.617655] Run /init as init process
+Setting up verity device:
+  Root device: /dev/vda
+  Root hash: 9d684404e3f9618671855a200d799c66eb871280dfe5a9ceb6d6e44ba4b216eb
+  Data size: 136339456
+[    1.644616] device-mapper: verity: sha256 using implementation "sha256-ni"
+Mounting rootfs...
+Switching to new root...
+[    1.814843] systemd[1]: Failed to find module 'autofs4'
+[    1.835419] systemd[1]: systemd 255.4^ running in system mode (-PAM -AUDIT -SELINUX -APPARMOR +IMA -SMACK +SECCOMP -GCRYPT -GNUTLS -OPENSSL -ACL +BLKID -CURL -ELFUTILS -FIDO2 -IDN2 -IDN -IPTC +KMOD -LIBCRYPTSETUP +LIBFDISK -PCRE2 -PWQUALITY -P11KIT -QRENCODE -TPM2 -BZIP2 -LZ4 -XZ -ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+[    1.841004] systemd[1]: Detected virtualization kvm.
+[    1.841942] systemd[1]: Detected confidential virtualization tdx.
+[    1.843089] systemd[1]: Detected architecture x86-64.
+
+Welcome to [1mDStack 0.5.3 (scarthgap)[0m!
+
+
+[    1.864840] systemd[1]: Hostname set to <tdx>.
+[    1.866622] systemd[1]: Initializing machine ID from random generator.
+[    1.867922] systemd[1]: Installed transient /etc/machine-id file.
+[    2.077633] systemd[1]: Queued start job for default target Multi-User System.
+[    2.103112] systemd[1]: Created slice Slice /system/modprobe.
+[[0;32m  OK  [0m] Created slice [0;1;39mSlice /system/modprobe[0m.
+
+[    2.111316] systemd[1]: Reached target Path Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mPath Units[0m.
+
+[    2.118005] systemd[1]: Reached target Remote File Systems.
+[[0;32m  OK  [0m] Reached target [0;1;39mRemote File Systems[0m.
+
+[    2.125691] systemd[1]: Reached target Slice Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mSlice Units[0m.
+
+[    2.132699] systemd[1]: Reached target Swaps.
+[[0;32m  OK  [0m] Reached target [0;1;39mSwaps[0m.
+
+[    2.139223] systemd[1]: Reached target System Time Set.
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Time Set[0m.
+
+[    2.150769] systemd[1]: Journal Audit Socket was skipped because of an unmet condition check (ConditionSecurity=audit).
+[    2.158117] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8042/serio1/input/input3
+[    2.158392] systemd[1]: Listening on Journal Socket (/dev/log).
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Socket (/dev/log)[0m.
+
+[    2.172011] systemd[1]: Listening on Journal Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Socket[0m.
+
+[    2.180852] systemd[1]: Listening on Network Service Netlink Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mNetwork Service Netlink Socket[0m.
+
+[    2.193309] systemd[1]: Listening on udev Control Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mudev Control Socket[0m.
+
+[    2.201279] systemd[1]: Listening on udev Kernel Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mudev Kernel Socket[0m.
+
+[    2.210689] systemd[1]: Listening on User Database Manager Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mUser Database Manager Socket[0m.
+
+[    2.218165] systemd[1]: Huge Pages File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/mm/hugepages).
+[    2.233243] systemd[1]: Mounting POSIX Message Queue File System...
+         Mounting [0;1;39mPOSIX Message Queue File System[0m...
+
+[    2.239558] systemd[1]: Kernel Debug File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/debug).
+[    2.262248] systemd[1]: Mounting Kernel Trace File System...
+         Mounting [0;1;39mKernel Trace File System[0m...
+
+[    2.269291] systemd[1]: Mounting Temporary Directory /tmp...
+         Mounting [0;1;39mTemporary Directory /tmp[0m...
+
+[    2.287351] systemd[1]: Starting Create List of Static Device Nodes...
+         Starting [0;1;39mCreate List of Static Device Nodes[0m...
+
+[    2.307455] systemd[1]: Starting Load Kernel Module configfs...
+         Starting [0;1;39mLoad Kernel Module configfs[0m...
+
+[    2.316451] systemd[1]: Starting Load Kernel Module fuse...
+         Starting [0;1;39mLoad Kernel Module fuse[0m...
+
+[    2.324368] systemd[1]: Starting Journal Service...
+         Starting [0;1;39mJournal Service[0m...
+
+[    2.331889] fuse: init (API version 7.40)
+[    2.340384] systemd[1]: Starting Load Kernel Modules...
+         Starting [0;1;39mLoad Kernel Modules[0m...
+
+[    2.347330] systemd[1]: Starting Generate network units from Kernel command line...
+         Starting [0;1;39mGenerate network units from Kernel command line[0m...
+
+[    2.364301] systemd[1]: Starting Remount Root and Kernel File Systems...
+         Starting [0;1;39mRemount Root and Kernel File Systems[0m...
+
+[    2.378324] systemd[1]: Starting Coldplug All udev Devices...
+         Starting [0;1;39mColdplug All udev Devices[0m...
+
+[    2.389231] systemd[1]: Mounted POSIX Message Queue File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mPOSIX Message Queue File System[0m.
+
+[    2.395927] systemd[1]: Mounted Kernel Trace File System.
+[    2.396387] systemd-journald[108]: Collecting audit messages is disabled.
+[[0;32m  OK  [0m] Mounted [0;1;39mKernel Trace File System[0m.
+
+[    2.402204] systemd[1]: Mounted Temporary Directory /tmp.
+[[0;32m  OK  [0m] Mounted [0;1;39mTemporary Directory /tmp[0m.
+
+[    2.414793] systemd[1]: Finished Create List of Static Device Nodes.
+[[0;32m  OK  [0m] Finished [0;1;39mCreate List of Static Device Nodes[0m.
+
+[    2.418697] systemd[1]: modprobe@configfs.service: Deactivated successfully.
+[    2.420340] systemd[1]: Finished Load Kernel Module configfs.
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Module configfs[0m.
+
+[    2.430169] systemd[1]: Started Journal Service.
+[[0;32m  OK  [0m] Started [0;1;39mJournal Service[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Module fuse[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Modules[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mGenerate network units from Kernel command line[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mRemount Root and Kernel File Systems[0m.
+
+         Mounting [0;1;39mFUSE Control File System[0m...
+
+         Starting [0;1;39mFlush Journal to Persistent Storage[0m...
+
+         Starting [0;1;39mApply Kernel Variables[0m...
+
+         Starting [0;1;39mCreate Static Device Nodes in /dev gracefully[0m...
+
+[    2.492195] systemd-journald[108]: Received client request to flush runtime journal.
+[[0;32m  OK  [0m] Mounted [0;1;39mFUSE Control File System[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mFlush Journal to Persistent Storage[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mApply Kernel Variables[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mColdplug All udev Devices[0m.
+
+         Starting [0;1;39mWait for udev To Complete Device Initialization[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Static Device Nodes in /dev gracefully[0m.
+
+         Starting [0;1;39mCreate Static Device Nodes in /dev[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Static Device Nodes in /dev[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mPreparation for Local File Systems[0m.
+
+         Mounting [0;1;39m/var/volatile[0m...
+
+         Starting [0;1;39mRule-based Manager for Device Events and Files[0m...
+
+[[0;32m  OK  [0m] Mounted [0;1;39m/var/volatile[0m.
+
+         Starting [0;1;39mBind mount volatile /var/cache[0m...
+
+         Starting [0;1;39mBind mount volatile /var/lib[0m...
+
+         Starting [0;1;39mBind mount volatile /var/spool[0m...
+
+         Starting [0;1;39mBind mount volatile /srv[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mRule-based Manager for Device Events and Files[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /srv[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /var/lib[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /var/cache[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /var/spool[0m.
+
+         Starting [0;1;39mLoad/Save OS Random Seed[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad/Save OS Random Seed[0m.
+
+[    2.759871] tdx_guest: loading out-of-tree module taints kernel.
+         Starting [0;1;39mVirtual Console Setup[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mWait for udev To Complete Device Initialization[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mZFS pool import target[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mLocal File Systems[0m.
+
+         Starting [0;1;39mCreate Volatile Files and Directories[0m...
+
+[[0;1;31mFAILED[0m] Failed to start [0;1;39mVirtual Console Setup[0m.
+
+See 'systemctl status systemd-vconsole-setup.service' for details.
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Volatile Files and Directories[0m.
+
+         Starting [0;1;39mNetwork Name Resolution[0m...
+
+         Starting [0;1;39mRecord System Boot/Shutdown in UTMP[0m...
+
+         Starting [0;1;39mUser Database Manager[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mRecord System Boot/Shutdown in UTMP[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mUser Database Manager[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Name Resolution[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mHost and Network Name Lookups[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Initialization[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mDaily Cleanup of Temporary Directories[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mTimer Units[0m.
+
+[[0;32m  OK  [0m] Listening on [0;1;39mD-Bus System Message Bus Socket[0m.
+
+         Starting [0;1;39mDocker Socket for the API[0m...
+
+[[0;32m  OK  [0m] Listening on [0;1;39mDocker Socket for the API[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSocket Units[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mBasic System[0m.
+
+         Starting [0;1;39mNTP client/server[0m...
+
+         Starting [0;1;39mD-Bus System Message Bus[0m...
+
+         Starting [0;1;39mIPv6 Packet Filtering Framework[0m...
+
+         Starting [0;1;39mIPv4 Packet Filtering Framework[0m...
+
+[[0;32m  OK  [0m] Reached target [0;1;39mZFS startup target[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mIPv6 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mIPv4 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mPreparation for Network[0m.
+
+         Starting [0;1;39mNetwork Configuration[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mD-Bus System Message Bus[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mNTP client/server[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Configuration[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mNetwork[0m.
+
+[    3.239526] 8021q: adding VLAN 0 to HW filter on device eth0
+         Starting [0;1;39mcontainerd container runtime[0m...
+
+         Starting [0;1;39mDStack Guest Preparation Service[0m...
+
+         Starting [0;1;39mWait for Network to be Configured[0m...
+
+[    3.172831] dstack-prepare.sh[249]: Syncing system time...
+[    3.185482] dstack-prepare.sh[266]: 200 OK
+[    3.191780] dstack-prepare.sh[249]: Preparing dstack system...
+[    3.312957] dstack-prepare.sh[268]: [2m2025-09-05T07:02:13.739213Z[0m [32m INFO[0m [2mcmd_lib::builtins[0m[2m:[0m Mounting host-shared
+[    3.325679] dstack-prepare.sh[268]: [2m2025-09-05T07:02:13.752413Z[0m [32m INFO[0m [2mcmd_lib::builtins[0m[2m:[0m Copying host-shared files
+[    3.335773] dstack-prepare.sh[268]: [2m2025-09-05T07:02:13.762581Z[0m [32m INFO[0m [2mcmd_lib::builtins[0m[2m:[0m Unmounting host-shared
+[    3.352713] dstack-prepare.sh[268]: [2m2025-09-05T07:02:13.779477Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Waiting for the system time to be synchronized
+[[0;32m  OK  [0m] Started [0;1;39mcontainerd container runtime[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mWait for Network to be Configured[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mNetwork is Online[0m.
+
+[   53.459166] dstack-prepare.sh[268]: {
+[   53.466294] dstack-prepare.sh[268]:   "app_id": "deb6a6c817efd909366fe33d993056d53035e814",
+[   53.474674] dstack-prepare.sh[268]:   "compose_hash": "653db45670bdf6e2e8a3f4e3653d29e3f634b6fbca06c5a81bb35bb7fe675811",
+[   53.484817] dstack-prepare.sh[268]:   "instance_id": "0069799c74edc20c22d0cc99ea64e733e52993cb",
+[   53.492826] dstack-prepare.sh[268]:   "device_id": "e5a0c70bb6503de2d31c11d85914fe3776ed5b33a078ed856327c371a60fe0fd",
+[   53.501203] dstack-prepare.sh[268]:   "mrtd": "f06dfda6dce1cf904d4e2bab1dc370634cf95cefa2ceb2de2eee127c9382698090d7a4a13e14c536ec6c9c3c8fa87077",
+[   53.510397] dstack-prepare.sh[268]:   "rtmr0": "027b610ab0555482f8a3868524093bdf3cdbe2539f81dfeeb886864654cb2fe3422f7fc36d4bab6fa46683aad11d1ba7",
+[   53.518938] dstack-prepare.sh[268]:   "rtmr1": "19d16ecd33220ee15965b4fb28a0661e85ec4cad0a20d920bf4028f58ad014b262af3c9b0530f283e7d032e7bdca6308",
+[   53.527048] dstack-prepare.sh[268]:   "rtmr2": "05ac95f479e23db627217ce58b2587483c9ee4f374a7d8ebee3b812b8cfd8fd8fca04696369c33bd5279590d83e713c0",
+[   53.534831] dstack-prepare.sh[268]:   "rtmr3": "a884eeef5ce0fcc1fda7d806e6e0e5d093e67b792826b6693f3e8ca559aeb4376b3264aeb37dd707d87d6ddd4e8e51a8",
+[   53.541915] dstack-prepare.sh[268]:   "mr_system": "bb5ac5d4dd644bd219af595533405a0eae86aa6da9890ee41ad70ef18326c9a4",
+[   53.549374] dstack-prepare.sh[268]:   "mr_aggregated": "d0fd1b18431dca6ed51dc92dfe652e13f6176889a133eee7e23240d237837bf8",
+[   53.555402] dstack-prepare.sh[268]:   "os_image_hash": "",
+[   53.558609] dstack-prepare.sh[268]:   "key_provider_info": ""
+[   53.561811] dstack-prepare.sh[268]: }
+[   53.563926] dstack-prepare.sh[268]: [2m2025-09-05T07:03:03.970289Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Requesting app keys from KMS: https://kms.dstack-pha-prod7.phala.network/prpc
+[   53.572234] dstack-prepare.sh[268]: [2m2025-09-05T07:03:03.970326Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Getting temp ca cert
+[   55.175221] dstack-prepare.sh[268]: [2m2025-09-05T07:03:05.601925Z[0m [32m INFO[0m [2mdstack_util::system_setup::config_id_verifier[0m[2m:[0m mr_config_id: 01653db45670bdf6e2e8a3f4e3653d29e3f634b6fbca06c5a81bb35bb7fe675811000000000000000000000000000000
+[   55.194128] dstack-prepare.sh[268]: [2m2025-09-05T07:03:05.602018Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Key provider info: KeyProviderInfo { name: "kms", id: "3059301306072a8648ce3d020106082a8648ce3d030107034200048844eb42ccdf8c52fd4f174f362fcb9bbd19c45fd48f1edec2d8f1ca23536ec1a74021b4cee610c074f8294d431b2b7fee2c39e5333fdaf0a4522d43fb159d9f" }
+[   55.222411] dstack-prepare.sh[268]: [2m2025-09-05T07:03:05.649055Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Mounting encrypted data disk
+[   56.897339] zfs: module license 'CDDL' taints kernel.
+[   56.898600] Disabling lock debugging due to kernel taint
+[   56.899634] zfs: module license taints kernel.
+[   58.839906] ZFS: Loaded module v2.2.5-1, ZFS pool version 5000, ZFS filesystem version 5
+[   59.909047] dstack-prepare.sh[420]:   pool: dstack
+[   59.911796] dstack-prepare.sh[420]:  state: ONLINE
+[   59.914096] dstack-prepare.sh[420]: config:
+[   59.916139] dstack-prepare.sh[420]: 	NAME                STATE     READ WRITE CKSUM
+[   59.919740] dstack-prepare.sh[420]: 	dstack              ONLINE       0     0     0
+[   59.923897] dstack-prepare.sh[420]: 	  dstack_data_disk  ONLINE       0     0     0
+[   59.928721] dstack-prepare.sh[420]: errors: No known data errors
+[   59.979960] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406146Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Processing encrypted env
+[   59.988136] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406815Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: NODE_ENV
+[   59.997037] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406829Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: TEE_MODE
+[   60.005178] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406837Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: USE_TEE_AUTH
+[   60.013038] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406842Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: CHAIN_ID
+[   60.020269] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406847Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: RPC_URL
+[   60.027053] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406851Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: SERVER_AGENT_SALT
+[   60.033775] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406856Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: VALIDATOR_AGENT_SALT
+[   60.040075] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.406871Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Writing env
+[   60.045922] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.472681Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up guest agent config
+[   60.052217] dstack-prepare.sh[268]: [2m2025-09-05T07:03:10.478975Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up dstack-gateway
+[   61.922997] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.348479Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Starting WireGuard
+[   61.953578] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.380270Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m Warning: `/etc/wireguard/wg0.conf' is world accessible
+[   61.976531] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.403259Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip link add wg0 type wireguard
+[   61.985844] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.408137Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] wg setconf wg0 /dev/fd/63
+[   61.992601] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.415339Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip -4 address add 10.4.0.43/32 dev wg0
+[   62.007965] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.434771Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip link set mtu 1420 up dev wg0
+[   62.019917] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.446735Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip -4 route add 10.4.0.1/32 dev wg0
+[   62.027348] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.454110Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up docker registry
+[   62.031798] dstack-prepare.sh[268]: [2m2025-09-05T07:03:12.454129Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up docker account
+[   62.036787] dstack-prepare.sh[249]: Mounting docker dirs to persistent storage
+[[0;32m  OK  [0m] Finished [0;1;39mDStack Guest Preparation Service[0m.
+
+         Starting [0;1;39mDstack Guest Agent Service[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mDstack Guest Agent Service[0m.
+
+         Starting [0;1;39mDocker Application Container Engine[0m...
+
+[   64.358643] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[[0;32m  OK  [0m] Started [0;1;39mDocker Application Container Engine[0m.
+
+         Starting [0;1;39mApp Compose Service[0m...
+
+[   65.412156] app-compose.sh[672]: Running pre-launch script
+[   65.434479] app-compose.sh[672]: ----------------------------------------------
+[   65.437777] app-compose.sh[672]: Running Phala Cloud Pre-Launch Script v0.0.7
+[   65.440214] app-compose.sh[672]: ----------------------------------------------
+[   65.443701] app-compose.sh[672]: Starting login process...
+[   65.445798] app-compose.sh[672]: Pruning unused images
+[   65.888785] app-compose.sh[680]: Total reclaimed space: 0B
+[   65.892093] app-compose.sh[672]: Pruning unused volumes
+[   65.937817] app-compose.sh[685]: Total reclaimed space: 0B
+[   66.023051] app-compose.sh[672]: ----------------------------------------------
+[   66.026474] app-compose.sh[672]: Script execution completed
+[   66.028892] app-compose.sh[672]: ----------------------------------------------
+[   66.031926] app-compose.sh[672]: Starting containers
+         Stopping [0;1;39mDocker Application Container Engine[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDocker Application Container Engine[0m.
+
+         Starting [0;1;39mDocker Application Container Engine[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mDocker Application Container Engine[0m.
+
+[   67.568836] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"USE_TEE_AUTH\" variable is not set. Defaulting to a blank string."
+[   67.578752] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"RPC_URL\" variable is not set. Defaulting to a blank string."
+[   67.587096] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"CHAIN_ID\" variable is not set. Defaulting to a blank string."
+[   67.595807] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"SERVER_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[   67.603545] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"VALIDATOR_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[   67.611126] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"NODE_ENV\" variable is not set. Defaulting to a blank string."
+[   67.617480] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="The \"TEE_MODE\" variable is not set. Defaulting to a blank string."
+[   67.623880] app-compose.sh[886]: time="2025-09-05T07:03:17Z" level=warning msg="/dstack/docker-compose.yaml: `version` is obsolete"
+[   67.630524] app-compose.sh[886]:  Container dstack-app-1  Recreate
+[   67.679214] app-compose.sh[886]:  Container dstack-app-1  Recreated
+[   67.682557] app-compose.sh[886]:  Container dstack-app-1  Starting
+[   67.073810] br-a0ae325efff1: port 1(vethd826082) entered blocking state
+[   67.075670] br-a0ae325efff1: port 1(vethd826082) entered disabled state
+[   67.077243] vethd826082: entered allmulticast mode
+[   67.078440] vethd826082: entered promiscuous mode
+[   67.529842] eth0: renamed from veth2de7629
+[   67.532955] br-a0ae325efff1: port 1(vethd826082) entered blocking state
+[   67.536406] br-a0ae325efff1: port 1(vethd826082) entered forwarding state
+[   68.264158] app-compose.sh[886]:  Container dstack-app-1  Started
+[   68.280564] app-compose.sh[672]: Pruning unused images
+[   68.326327] app-compose.sh[1037]: Total reclaimed space: 0B
+[   68.335767] app-compose.sh[672]: Pruning unused volumes
+[   68.387221] app-compose.sh[1046]: Total reclaimed space: 0B
+[[0;32m  OK  [0m] Finished [0;1;39mApp Compose Service[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mMulti-User System[0m.
+
+         Starting [0;1;39mRecord Runlevel Change in UTMP[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mRecord Runlevel Change in UTMP[0m.
+
+[vmm heartbeat]
+[vmm heartbeat]
+[vmm heartbeat]
+[vmm heartbeat]
+[vmm heartbeat]
+[vmm heartbeat]
+[vmm heartbeat]
+[vmm heartbeat]
+[  555.074826] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"NODE_ENV\" variable is not set. Defaulting to a blank string."
+[  555.079027] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"TEE_MODE\" variable is not set. Defaulting to a blank string."
+[  555.082349] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"USE_TEE_AUTH\" variable is not set. Defaulting to a blank string."
+[  555.085697] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"RPC_URL\" variable is not set. Defaulting to a blank string."
+[  555.088949] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"CHAIN_ID\" variable is not set. Defaulting to a blank string."
+[  555.092197] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"SERVER_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[  555.095593] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="The \"VALIDATOR_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[  555.101414] docker[1381]: time="2025-09-05T07:11:25Z" level=warning msg="/dstack/docker-compose.yaml: `version` is obsolete"
+[  555.111816] docker[1381]:  Container dstack-app-1  Stopping
+[  564.710865] br-a0ae325efff1: port 1(vethd826082) entered disabled state
+[  564.713242] veth2de7629: renamed from eth0
+[  564.733720] br-a0ae325efff1: port 1(vethd826082) entered disabled state
+[  564.737408] vethd826082 (unregistering): left allmulticast mode
+[  564.738721] vethd826082 (unregistering): left promiscuous mode
+[  564.739957] br-a0ae325efff1: port 1(vethd826082) entered disabled state
+[  565.418381] docker[1381]:  Container dstack-app-1  Stopped
+[[0;32m  OK  [0m] Removed slice [0;1;39mSlice /system/modprobe[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mMulti-User System[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mHost and Network Name Lookups[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mRemote File Systems[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mTimer Units[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDaily Cleanup of Temporary Directories[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mZFS startup target[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mZFS pool import target[0m.
+
+         Stopping [0;1;39mD-Bus System Message Bus[0m...
+
+         Stopping [0;1;39mDocker Application Container Engine[0m...
+
+         Stopping [0;1;39mLoad/Save OS Random Seed[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mD-Bus System Message Bus[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDocker Application Container Engine[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mLoad/Save OS Random Seed[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mNetwork is Online[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSystem Time Set[0m.
+
+         Stopping [0;1;39mcontainerd container runtime[0m...
+
+         Stopping [0;1;39mDstack Guest Agent Service[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mWait for Network to be Configured[0m.
+
+[  565.528201] dstack-guest-agent[485]: [2m2025-09-05T07:11:35.954705Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[  565.536134] dstack-guest-agent[485]: [2m2025-09-05T07:11:35.954786Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[  565.540417] dstack-guest-agent[485]: [2m2025-09-05T07:11:35.954796Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[  565.544522] dstack-guest-agent[485]: [2m2025-09-05T07:11:35.954807Z[0m [33m WARN[0m [2mrocket::shutdown::handle[0m[2m:[0m Received SIGTERM. Shutdown started.
+[[0;32m  OK  [0m] Stopped [0;1;39mcontainerd container runtime[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDstack Guest Agent Service[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDStack Guest Preparation Service[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mNetwork[0m.
+
+         Stopping [0;1;39mNTP client/server[0m...
+
+         Stopping [0;1;39mNetwork Configuration[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mNTP client/server[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mNetwork Configuration[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mPreparation for Network[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mIPv6 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mIPv4 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mBasic System[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mPath Units[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSlice Units[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSocket Units[0m.
+
+[[0;32m  OK  [0m] Closed [0;1;39mD-Bus System Message Bus Socket[0m.
+
+[[0;32m  OK  [0m] Closed [0;1;39mDocker Socket for the API[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSystem Initialization[0m.
+
+[[0;32m  OK  [0m] Closed [0;1;39mNetwork Service Netlink Socket[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mGenerate network units from Kernel command line[0m.
+
+         Stopping [0;1;39mNetwork Name Resolution[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mNetwork Name Resolution[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mApply Kernel Variables[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mLoad Kernel Modules[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mCreate Volatile Files and Directories[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mLocal File Systems[0m.
+
+         Unmounting [0;1;39m/dstack/persistent[0m...
+
+         Unmounting [0;1;39m/etc/docker[0m...
+
+         Unmounting [0;1;39m/etc/machine-id[0m...
+
+         Unmounting [0;1;39m/etc/wireguard[0m...
+
+         Unmounting [0;1;39m/home/root[0m...
+
+         Unmounting [0;1;39m/srv[0m...
+
+         Unmounting [0;1;39mTemporary Directory /tmp[0m...
+
+         Unmounting [0;1;39m/usr/bin[0m...
+
+         Unmounting [0;1;39m/var/cache[0m...
+
+         Unmounting [0;1;39m/var/lib/docker[0m...
+
+         Unmounting [0;1;39m/var/spool[0m...
+
+         Unmounting [0;1;39m/var/volatile/dstack/persistent[0m...
+
+         Stopping [0;1;39mBind mount volatile /var/cache[0m...
+
+         Stopping [0;1;39mBind mount volatile /var/lib[0m...
+
+         Stopping [0;1;39mBind mount volatile /var/spool[0m...
+
+         Stopping [0;1;39mBind mount volatile /srv[0m...
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/lib[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/dstack/persistent[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/etc/docker[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/etc/machine-id[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/etc/wireguard[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/home/root[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/srv[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39mTemporary Directory /tmp[0m.
+
+[[0;1;31mFAILED[0m] Failed unmounting [0;1;39m/usr/bin[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/cache[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/spool[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/volatile/dstack/persistent[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /var/cache[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /var/lib[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /var/spool[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mBind mount volatile /srv[0m.
+
+         Unmounting [0;1;39m/dstack[0m...
+
+         Unmounting [0;1;39m/var/volatile[0m...
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/volatile[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mSwaps[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/dstack[0m.
+
+[[0;32m  OK  [0m] Unmounted [0;1;39m/var/lib/docker[0m.
+
+[[0;32m  OK  [0m] Stopped target [0;1;39mPreparation for Local File Systems[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mUnmount All Filesystems[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mRemount Root and Kernel File Systems[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mCreate Static Device Nodes in /dev[0m.
+
+[[0;32m  OK  [0m] Stopped [0;1;39mCreate Static Device Nodes in /dev gracefully[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Shutdown[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mLate Shutdown Services[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mSystem Power Off[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Power Off[0m.
+
+[  565.323172] systemd-shutdown[1]: Syncing filesystems and block devices.
+[  565.324746] systemd-shutdown[1]: Sending SIGTERM to remaining processes...
+[  565.333291] systemd-journald[108]: Received SIGTERM from PID 1 (systemd-shutdow).
+[  565.342737] systemd-shutdown[1]: Sending SIGKILL to remaining processes...
+[  565.349033] systemd-shutdown[1]: Unmounting file systems.
+[  565.351211] (sd-remount)[1515]: Remounting '/usr/bin' read-only with options 'lowerdir=/usr/bin,upperdir=/var/volatile//usr/bin/upper,workdir=/var/volatile//usr/bin/work,uuid=on'.
+[  565.355896] (sd-umount)[1516]: Unmounting '/usr/bin'.
+[  565.359798] systemd-shutdown[1]: All filesystems unmounted.
+[  565.361228] systemd-shutdown[1]: Deactivating swaps.
+[  565.362482] systemd-shutdown[1]: All swaps deactivated.
+[  565.363824] systemd-shutdown[1]: Detaching loop devices.
+[  565.366398] systemd-shutdown[1]: All loop devices detached.
+[  565.367850] systemd-shutdown[1]: Stopping MD devices.
+[  565.369169] systemd-shutdown[1]: All MD devices stopped.
+[  565.370419] systemd-shutdown[1]: Detaching DM devices.
+[  565.371956] systemd-shutdown[1]: Detaching DM /dev/dm-1 (253:1).
+[  565.373559] systemd-shutdown[1]: Could not detach DM /dev/dm-1: Device or resource busy
+[  565.375403] systemd-shutdown[1]: Not all DM devices detached, 2 left.
+[  565.376988] systemd-shutdown[1]: Detaching DM devices.
+[  565.378478] systemd-shutdown[1]: Detaching DM /dev/dm-1 (253:1).
+[  565.379920] systemd-shutdown[1]: Could not detach DM /dev/dm-1: Device or resource busy
+[  565.381640] systemd-shutdown[1]: Not all DM devices detached, 2 left.
+[  565.383041] systemd-shutdown[1]: Detaching DM devices.
+[  565.384414] systemd-shutdown[1]: Detaching DM /dev/dm-1 (253:1).
+[  565.385765] systemd-shutdown[1]: Could not detach DM /dev/dm-1: Device or resource busy
+[  565.387435] systemd-shutdown[1]: Not all DM devices detached, 2 left.
+[  565.388746] systemd-shutdown[1]: Cannot finalize remaining DM devices, continuing.
+[  565.390941] systemd-shutdown[1]: Unable to finalize remaining DM devices, ignoring.
+[  565.392811] systemd-shutdown[1]: Syncing filesystems and block devices.
+[  565.394169] systemd-shutdown[1]: Powering off.
+[  565.396875] ACPI: PM: Preparing to enter system sleep state S5
+[  565.398160] reboot: Power down
+[2J[01;01H[=3h[2J[01;01HEFI stub: Loaded initrd from LINUX_EFI_INITRD_MEDIA_GUID device path
+EFI stub: Measured initrd data into PCR 9
+[    0.000000] tdx: Guest detected
+[    0.000000] Linux version 6.9.0-dstack (oe-user@oe-host) (x86_64-poky-linux-gcc (GCC) 13.3.0, GNU ld (GNU Binutils) 2.42.0.20240723) #1 SMP PREEMPT_DYNAMIC Thu May 30 14:26:20 UTC 2024
+[    0.000000] Command line: console=ttyS0 init=/init panic=1 systemd.unified_cgroup_hierarchy=0 net.ifnames=0 biosdevname=0 mce=off oops=panic pci=noearly pci=nommconf random.trust_cpu=y random.trust_bootloader=n tsc=reliable no-kvmclock dstack.rootfs_hash=9d684404e3f9618671855a200d799c66eb871280dfe5a9ceb6d6e44ba4b216eb dstack.rootfs_size=136339456 initrd=initrd
+[    0.000000] x86/split lock detection: #DB: warning on user-space bus_locks
+[    0.000000] BIOS-provided physical RAM map:
+[    0.000000] BIOS-e820: [mem 0x0000000000000000-0x00000000007fffff] usable
+[    0.000000] BIOS-e820: [mem 0x0000000000800000-0x0000000000805fff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x0000000000806000-0x000000000080bfff] usable
+[    0.000000] BIOS-e820: [mem 0x000000000080c000-0x000000000080cfff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x000000000080d000-0x000000007d673fff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007d674000-0x000000007d675fff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x000000007d676000-0x000000007d694fff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007d695000-0x000000007d695fff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x000000007d696000-0x000000007d698fff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000007d699000-0x000000007d6b0fff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x000000007d6b1000-0x000000007d73afff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000007d73b000-0x000000007e7bafff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007e7bb000-0x000000007e812fff] reserved
+[    0.000000] BIOS-e820: [mem 0x000000007e813000-0x000000007e81afff] ACPI data
+[    0.000000] BIOS-e820: [mem 0x000000007e81b000-0x000000007e81efff] ACPI NVS
+[    0.000000] BIOS-e820: [mem 0x000000007e81f000-0x000000007ff7bfff] usable
+[    0.000000] BIOS-e820: [mem 0x000000007ff7c000-0x000000007fffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x00000000e0000000-0x00000000efffffff] reserved
+[    0.000000] BIOS-e820: [mem 0x0000000100000000-0x000000017fffffff] usable
+[    0.000000] NX (Execute Disable) protection: active
+[    0.000000] APIC: Static calls initialized
+[    0.000000] efi: EFI v2.7 by EDK II
+[    0.000000] efi: CCFinalLog=0x7d699000 ACPI=0x7e81a000 ACPI 2.0=0x7e81a014 SMBIOS=0x7e7eb000 MEMATTR=0x7d789698 INITRD=0x7d694c18 TPMEventLog=0x7d694198 Unaccepted=0x7e813018 
+[    0.000000] [Firmware Bug]: Failed to parse event in TPM Final Events Log
+[    0.000000] SMBIOS 2.8 present.
+[    0.000000] DMI: QEMU Standard PC (Q35 + ICH9, 2009), BIOS unknown 02/02/2022
+[    0.000000] Hypervisor detected: KVM
+[    0.000000] tsc: Detected 2400.000 MHz processor
+[    0.000023] last_pfn = 0x180000 max_arch_pfn = 0x400000000
+[    0.000060] MTRRs disabled by BIOS
+[    0.000063] x86/PAT: Configuration [0-7]: WB  WC  UC- UC  WB  WP  UC- WT  
+[    0.000079] x2apic: enabled by BIOS, switching to x2apic ops
+[    0.000108] last_pfn = 0x7ff7c max_arch_pfn = 0x400000000
+[    0.004848] software IO TLB: SWIOTLB bounce buffer size adjusted to 245MB
+[    0.004857] Using GB pages for direct mapping
+[    0.008215] Secure boot disabled
+[    0.008217] RAMDISK: [mem 0x7a503000-0x7ac72fff]
+[    0.008221] ACPI: Early table checksum verification disabled
+[    0.008225] ACPI: RSDP 0x000000007E81A014 000024 (v02 BOCHS )
+[    0.008231] ACPI: XSDT 0x000000007E8190E8 00004C (v01 BOCHS  BXPC     00000001      01000013)
+[    0.008236] ACPI: FACP 0x000000007E814000 0000F4 (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008241] ACPI: DSDT 0x000000007E815000 00205D (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008244] ACPI: FACS 0x000000007E81D000 000040
+[    0.008247] ACPI: CCEL 0x000000007E818000 000038 (v01 INTEL  EDK2     00000002      01000013)
+[    0.008250] ACPI: MCFG 0x000000007D675000 00003C (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008252] ACPI: WAET 0x000000007D674000 000028 (v01 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008255] ACPI: APIC 0x000000007D695000 0000FE (v03 BOCHS  BXPC     00000001 BXPC 00000001)
+[    0.008257] ACPI: Reserving FACP table memory at [mem 0x7e814000-0x7e8140f3]
+[    0.008258] ACPI: Reserving DSDT table memory at [mem 0x7e815000-0x7e81705c]
+[    0.008259] ACPI: Reserving FACS table memory at [mem 0x7e81d000-0x7e81d03f]
+[    0.008260] ACPI: Reserving CCEL table memory at [mem 0x7e818000-0x7e818037]
+[    0.008261] ACPI: Reserving MCFG table memory at [mem 0x7d675000-0x7d67503b]
+[    0.008262] ACPI: Reserving WAET table memory at [mem 0x7d674000-0x7d674027]
+[    0.008263] ACPI: Reserving APIC table memory at [mem 0x7d695000-0x7d6950fd]
+[    0.008315] APIC: Switched APIC routing to: cluster x2apic
+[    0.095734] Zone ranges:
+[    0.095739]   DMA      [mem 0x0000000000001000-0x0000000000ffffff]
+[    0.095743]   DMA32    [mem 0x0000000001000000-0x00000000ffffffff]
+[    0.095745]   Normal   [mem 0x0000000100000000-0x000000017fffffff]
+[    0.095747] Movable zone start for each node
+[    0.095748] Early memory node ranges
+[    0.095748]   node   0: [mem 0x0000000000001000-0x000000000009ffff]
+[    0.095751]   node   0: [mem 0x0000000000100000-0x00000000007fffff]
+[    0.095753]   node   0: [mem 0x0000000000806000-0x000000000080bfff]
+[    0.095754]   node   0: [mem 0x000000000080d000-0x000000007d673fff]
+[    0.095756]   node   0: [mem 0x000000007d676000-0x000000007d694fff]
+[    0.095757]   node   0: [mem 0x000000007d73b000-0x000000007e7bafff]
+[    0.095758]   node   0: [mem 0x000000007e813000-0x000000007e813fff]
+[    0.095759]   node   0: [mem 0x000000007e81f000-0x000000007ff7bfff]
+[    0.095760]   node   0: [mem 0x0000000100000000-0x000000017fffffff]
+[    0.095763] Initmem setup node 0 [mem 0x0000000000001000-0x000000017fffffff]
+[    0.095774] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.095840] On node 0, zone DMA: 96 pages in unavailable ranges
+[    0.095842] On node 0, zone DMA: 6 pages in unavailable ranges
+[    0.095905] On node 0, zone DMA: 1 pages in unavailable ranges
+[    0.112192] On node 0, zone DMA32: 2 pages in unavailable ranges
+[    0.112350] On node 0, zone DMA32: 166 pages in unavailable ranges
+[    0.112355] On node 0, zone DMA32: 88 pages in unavailable ranges
+[    0.112547] On node 0, zone DMA32: 11 pages in unavailable ranges
+[    0.129266] On node 0, zone Normal: 132 pages in unavailable ranges
+[    0.129276] ACPI: PM-Timer IO Port: 0x608
+[    0.129318] ACPI: LAPIC_NMI (acpi_id[0xff] dfl dfl lint[0x1])
+[    0.129505] IOAPIC[0]: apic_id 0, version 32, address 0xfec00000, GSI 0-23
+[    0.129510] ACPI: INT_SRC_OVR (bus 0 bus_irq 0 global_irq 2 high edge)
+[    0.129513] ACPI: INT_SRC_OVR (bus 0 bus_irq 1 global_irq 1 high edge)
+[    0.129515] ACPI: INT_SRC_OVR (bus 0 bus_irq 2 global_irq 2 high edge)
+[    0.129517] ACPI: INT_SRC_OVR (bus 0 bus_irq 3 global_irq 3 high edge)
+[    0.129519] ACPI: INT_SRC_OVR (bus 0 bus_irq 4 global_irq 4 high edge)
+[    0.129520] ACPI: INT_SRC_OVR (bus 0 bus_irq 5 global_irq 5 high edge)
+[    0.129522] ACPI: INT_SRC_OVR (bus 0 bus_irq 6 global_irq 6 high edge)
+[    0.129523] ACPI: INT_SRC_OVR (bus 0 bus_irq 7 global_irq 7 high edge)
+[    0.129525] ACPI: INT_SRC_OVR (bus 0 bus_irq 8 global_irq 8 high edge)
+[    0.129527] ACPI: INT_SRC_OVR (bus 0 bus_irq 9 global_irq 9 high edge)
+[    0.129530] ACPI: INT_SRC_OVR (bus 0 bus_irq 10 global_irq 10 high edge)
+[    0.129531] ACPI: INT_SRC_OVR (bus 0 bus_irq 11 global_irq 11 high edge)
+[    0.129533] ACPI: INT_SRC_OVR (bus 0 bus_irq 12 global_irq 12 high edge)
+[    0.129534] ACPI: INT_SRC_OVR (bus 0 bus_irq 13 global_irq 13 high edge)
+[    0.129536] ACPI: INT_SRC_OVR (bus 0 bus_irq 14 global_irq 14 high edge)
+[    0.129537] ACPI: INT_SRC_OVR (bus 0 bus_irq 15 global_irq 15 high edge)
+[    0.129540] ACPI: Found unsupported MADT entry (type = 0x10)
+[    0.129544] ACPI: APIC: wakeup_secondary_cpu_64() replaced with acpi_wakeup_cpu()
+[    0.129555] ACPI: Using ACPI (MADT) for SMP configuration information
+[    0.129557] TSC deadline timer available
+[    0.129564] CPU topo: Max. logical packages:   1
+[    0.129565] CPU topo: Max. logical dies:       1
+[    0.129566] CPU topo: Max. dies per package:   1
+[    0.129571] CPU topo: Max. threads per core:   1
+[    0.129572] CPU topo: Num. cores per package:     2
+[    0.129573] CPU topo: Num. threads per package:   2
+[    0.129574] CPU topo: Allowing 2 present CPUs plus 0 hotplug CPUs
+[    0.129719] [mem 0x80000000-0xdfffffff] available for PCI devices
+[    0.129722] Booting paravirtualized kernel on KVM
+[    0.129726] clocksource: refined-jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1910969940391419 ns
+[    0.129735] setup_percpu: NR_CPUS:64 nr_cpumask_bits:2 nr_cpu_ids:2 nr_node_ids:1
+[    0.133588] percpu: Embedded 58 pages/cpu s197480 r8192 d31896 u1048576
+[    0.133652] kvm-guest: PV spinlocks enabled
+[    0.133656] PV qspinlock hash table entries: 256 (order: 0, 4096 bytes, linear)
+[    0.133658] Kernel command line: console=ttyS0 init=/init panic=1 systemd.unified_cgroup_hierarchy=0 net.ifnames=0 biosdevname=0 mce=off oops=panic pci=noearly pci=nommconf random.trust_cpu=y random.trust_bootloader=n tsc=reliable no-kvmclock dstack.rootfs_hash=9d684404e3f9618671855a200d799c66eb871280dfe5a9ceb6d6e44ba4b216eb dstack.rootfs_size=136339456 initrd=initrd
+[    0.133834] Unknown kernel command line parameters "biosdevname=0", will be passed to user space.
+[    0.133849] random: crng init done
+[    0.141205] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    0.144999] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    0.145076] Built 1 zonelists, mobility grouping on.  Total pages: 1031535
+[    0.145080] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.145086] software IO TLB: area num 2.
+[    0.145088] software IO TLB: SWIOTLB bounce buffer size roundup to 256MB
+[    0.392064] Memory: 3767444K/4192292K available (14336K kernel code, 2056K rwdata, 4716K rodata, 2384K init, 1584K bss, 424588K reserved, 0K cma-reserved)
+[    0.392124] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=2, Nodes=1
+[    0.392315] Dynamic Preempt: full
+[    0.398259] rcu: Preemptible hierarchical RCU implementation.
+[    0.398262] rcu: 	RCU event tracing is enabled.
+[    0.398263] rcu: 	RCU restricting CPUs from NR_CPUS=64 to nr_cpu_ids=2.
+[    0.398266] 	Trampoline variant of Tasks RCU enabled.
+[    0.398267] 	Tracing variant of Tasks RCU enabled.
+[    0.398268] rcu: RCU calculated value of scheduler-enlistment delay is 100 jiffies.
+[    0.398269] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=2
+[    0.398279] RCU Tasks: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1.
+[    0.398282] RCU Tasks Trace: Setting shift to 1 and lim to 1 rcu_task_cb_adjust=1.
+[    0.399946] NR_IRQS: 4352, nr_irqs: 440, preallocated irqs: 16
+[    0.400377] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.400779] Console: colour dummy device 80x25
+[    0.400905] printk: legacy console [ttyS0] enabled
+[    0.709571] ACPI: Core revision 20230628
+[    0.710983] APIC: Switch to symmetric I/O mode setup
+[    0.716307] APIC: Switched APIC routing to: physical x2apic
+[    0.718059] kvm-guest: APIC: send_IPI_mask() replaced with kvm_send_ipi_mask()
+[    0.720391] kvm-guest: APIC: send_IPI_mask_allbutself() replaced with kvm_send_ipi_mask_allbutself()
+[    0.723263] kvm-guest: setup PV IPIs
+[    0.730740] ..TIMER: vector=0x30 apic1=0 pin1=2 apic2=-1 pin2=-1
+[    0.732873] clocksource: tsc-early: mask: 0xffffffffffffffff max_cycles: 0x22983777dd9, max_idle_ns: 440795300422 ns
+[    0.736239] Calibrating delay loop (skipped), value calculated using timer frequency.. 4800.00 BogoMIPS (lpj=2400000)
+[    0.737452] x86/cpu: User Mode Instruction Prevention (UMIP) activated
+[    0.738245] Last level iTLB entries: 4KB 0, 2MB 0, 4MB 0
+[    0.739239] Last level dTLB entries: 4KB 0, 2MB 0, 4MB 0, 1GB 0
+[    0.740242] process: using TDX aware idle routine
+[    0.741243] Spectre V1 : Mitigation: usercopy/swapgs barriers and __user pointer sanitization
+[    0.742242] Spectre V2 : Mitigation: Enhanced / Automatic IBRS
+[    0.743239] Spectre V2 : Spectre v2 / SpectreRSB mitigation: Filling RSB on context switch
+[    0.744240] Spectre V2 : Spectre v2 / PBRSB-eIBRS: Retire a single CALL on VMEXIT
+[    0.745240] Spectre V2 : mitigation: Enabling conditional Indirect Branch Prediction Barrier
+[    0.746240] Speculative Store Bypass: Mitigation: Speculative Store Bypass disabled via prctl
+[    0.747261] x86/fpu: Supporting XSAVE feature 0x001: 'x87 floating point registers'
+[    0.748239] x86/fpu: Supporting XSAVE feature 0x002: 'SSE registers'
+[    0.749239] x86/fpu: Supporting XSAVE feature 0x004: 'AVX registers'
+[    0.750240] x86/fpu: Supporting XSAVE feature 0x200: 'Protection Keys User registers'
+[    0.751240] x86/fpu: xstate_offset[2]:  576, xstate_sizes[2]:  256
+[    0.752239] x86/fpu: xstate_offset[9]:  832, xstate_sizes[9]:    8
+[    0.753239] x86/fpu: Enabled xstate features 0x207, context size is 840 bytes, using 'compacted' format.
+[    0.772747] Freeing SMP alternatives memory: 24K
+[    0.793255] Memory Encryption Features active: Intel TDX
+[    0.794241] pid_max: default: 32768 minimum: 301
+[    0.797815] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.798272] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.799805] smpboot: CPU0: Intel 06/af (family: 0x6, model: 0xaf, stepping: 0x3)
+[    0.800533] Performance Events: unsupported p6 CPU model 175 no PMU driver, software events only.
+[    0.801278] signal: max sigframe size: 3632
+[    0.802238] rcu: Hierarchical SRCU implementation.
+[    0.802250] rcu: 	Max phase no-delay instances is 400.
+[    0.803433] smp: Bringing up secondary CPUs ...
+[    0.804238] smpboot: Parallel CPU startup disabled by the platform
+[    0.804417] smpboot: x86: Booting SMP configuration:
+[    0.805254] .... node  #0, CPUs:      #1
+[    0.805402] smp: Brought up 1 node, 2 CPUs
+[    0.807238] smpboot: Total of 2 processors activated (9600.00 BogoMIPS)
+[    0.807688] devtmpfs: initialized
+[    0.808622] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 1911260446275000 ns
+[    0.809254] futex hash table entries: 512 (order: 3, 32768 bytes, linear)
+[    0.810304] pinctrl core: initialized pinctrl subsystem
+[    0.811478] NET: Registered PF_NETLINK/PF_ROUTE protocol family
+[    0.812477] thermal_sys: Registered thermal governor 'step_wise'
+[    0.812478] thermal_sys: Registered thermal governor 'user_space'
+[    0.813270] cpuidle: using governor menu
+[    0.815238] PCI: Using configuration type 1 for base access
+[    0.817624] cryptd: max_cpu_qlen set to 1000
+[    0.823369] ACPI: Added _OSI(Module Device)
+[    0.824251] ACPI: Added _OSI(Processor Device)
+[    0.825238] ACPI: Added _OSI(3.0 _SCP Extensions)
+[    0.826250] ACPI: Added _OSI(Processor Aggregator Device)
+[    0.827995] ACPI: 1 ACPI AML tables successfully acquired and loaded
+[    0.832320] ACPI: _OSC evaluation for CPUs failed, trying _PDC
+[    0.833381] ACPI: Interpreter enabled
+[    0.834238] ACPI: PM: (supports S0 S5)
+[    0.835251] ACPI: Using IOAPIC for interrupt routing
+[    0.836254] PCI: Using host bridge windows from ACPI; if necessary, use "pci=nocrs" and report a bug
+[    0.837250] PCI: Using E820 reservations for host bridge windows
+[    0.838376] ACPI: Enabled 2 GPEs in block 00 to 3F
+[    0.840821] ACPI: PCI Root Bridge [PCI0] (domain 0000 [bus 00-ff])
+[    0.842259] acpi PNP0A08:00: _OSC: OS supports [ASPM ClockPM Segments MSI HPX-Type3]
+[    0.844251] acpi PNP0A08:00: _OSC: not requesting OS control; OS requires [ExtendedConfig ASPM ClockPM MSI]
+[    0.845283] acpi PNP0A08:00: MMCONFIG is disabled, can't access extended configuration space under this bridge
+[    0.847303] PCI host bridge to bus 0000:00
+[    0.848238] pci_bus 0000:00: root bus resource [io  0x0000-0x0cf7 window]
+[    0.849252] pci_bus 0000:00: root bus resource [io  0x0d00-0xffff window]
+[    0.851250] pci_bus 0000:00: root bus resource [mem 0x000a0000-0x000bffff window]
+[    0.852250] pci_bus 0000:00: root bus resource [mem 0x80000000-0xdfffffff window]
+[    0.854250] pci_bus 0000:00: root bus resource [mem 0xf0000000-0xfebfffff window]
+[    0.855250] pci_bus 0000:00: root bus resource [mem 0x380000000000-0x3807ffffffff window]
+[    0.857251] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    0.858366] pci 0000:00:00.0: [8086:29c0] type 00 class 0x060000 conventional PCI endpoint
+[    0.860238] pci 0000:00:01.0: [1af4:1042] type 00 class 0x010000 conventional PCI endpoint
+[    0.863254] pci 0000:00:01.0: BAR 1 [mem 0x80005000-0x80005fff]
+[    0.866715] pci 0000:00:01.0: BAR 4 [mem 0x380000000000-0x380000003fff 64bit pref]
+[    0.870238] pci 0000:00:02.0: [1af4:1042] type 00 class 0x010000 conventional PCI endpoint
+[    0.872238] pci 0000:00:02.0: BAR 1 [mem 0x80004000-0x80004fff]
+[    0.874805] pci 0000:00:02.0: BAR 4 [mem 0x380000004000-0x380000007fff 64bit pref]
+[    0.878095] pci 0000:00:03.0: [1af4:1041] type 00 class 0x020000 conventional PCI endpoint
+[    0.880238] pci 0000:00:03.0: BAR 1 [mem 0x80003000-0x80003fff]
+[    0.882238] pci 0000:00:03.0: BAR 4 [mem 0x380000008000-0x38000000bfff 64bit pref]
+[    0.884668] pci 0000:00:03.0: ROM [mem 0x00000000-0x0007ffff pref]
+[    0.886689] pci 0000:00:04.0: [1af4:1053] type 00 class 0x078000 conventional PCI endpoint
+[    0.889166] pci 0000:00:04.0: BAR 1 [mem 0x80002000-0x80002fff]
+[    0.891238] pci 0000:00:04.0: BAR 4 [mem 0x38000000c000-0x38000000ffff 64bit pref]
+[    0.894373] pci 0000:00:05.0: [1af4:1049] type 00 class 0x000200 conventional PCI endpoint
+[    0.897238] pci 0000:00:05.0: BAR 1 [mem 0x80001000-0x80001fff]
+[    0.899238] pci 0000:00:05.0: BAR 4 [mem 0x380000010000-0x380000013fff 64bit pref]
+[    0.902306] pci 0000:00:1f.0: [8086:2918] type 00 class 0x060100 conventional PCI endpoint
+[    0.905238] pci 0000:00:1f.0: quirk: [io  0x0600-0x067f] claimed by ICH6 ACPI/GPIO/TCO
+[    0.906918] pci 0000:00:1f.2: [8086:2922] type 00 class 0x010601 conventional PCI endpoint
+[    0.909993] pci 0000:00:1f.2: BAR 4 [io  0x6040-0x605f]
+[    0.910953] pci 0000:00:1f.2: BAR 5 [mem 0x80000000-0x80000fff]
+[    0.913238] pci 0000:00:1f.3: [8086:2930] type 00 class 0x0c0500 conventional PCI endpoint
+[    0.916238] pci 0000:00:1f.3: BAR 4 [io  0x6000-0x603f]
+[    0.918238] ACPI: PCI: Interrupt link LNKA configured for IRQ 10
+[    0.919429] ACPI: PCI: Interrupt link LNKB configured for IRQ 10
+[    0.920391] ACPI: PCI: Interrupt link LNKC configured for IRQ 11
+[    0.922387] ACPI: PCI: Interrupt link LNKD configured for IRQ 11
+[    0.923386] ACPI: PCI: Interrupt link LNKE configured for IRQ 10
+[    0.924388] ACPI: PCI: Interrupt link LNKF configured for IRQ 10
+[    0.925457] ACPI: PCI: Interrupt link LNKG configured for IRQ 11
+[    0.926387] ACPI: PCI: Interrupt link LNKH configured for IRQ 11
+[    0.928315] ACPI: PCI: Interrupt link GSIA configured for IRQ 16
+[    0.929260] ACPI: PCI: Interrupt link GSIB configured for IRQ 17
+[    0.930258] ACPI: PCI: Interrupt link GSIC configured for IRQ 18
+[    0.931258] ACPI: PCI: Interrupt link GSID configured for IRQ 19
+[    0.932259] ACPI: PCI: Interrupt link GSIE configured for IRQ 20
+[    0.933258] ACPI: PCI: Interrupt link GSIF configured for IRQ 21
+[    0.934258] ACPI: PCI: Interrupt link GSIG configured for IRQ 22
+[    0.935258] ACPI: PCI: Interrupt link GSIH configured for IRQ 23
+[    0.937425] iommu: Default domain type: Translated
+[    0.937425] iommu: DMA domain TLB invalidation policy: lazy mode
+[    0.939407] SCSI subsystem initialized
+[    0.940352] ACPI: bus type USB registered
+[    0.941238] usbcore: registered new interface driver usbfs
+[    0.941257] usbcore: registered new interface driver hub
+[    0.942261] usbcore: registered new device driver usb
+[    0.943274] pps_core: LinuxPPS API ver. 1 registered
+[    0.944238] pps_core: Software ver. 5.3.6 - Copyright 2005-2007 Rodolfo Giometti <giometti@linux.it>
+[    0.946254] PTP clock support registered
+[    0.947286] efivars: Registered efivars operations
+[    0.948587] PCI: Using ACPI for IRQ routing
+[    0.949758] vgaarb: loaded
+[    0.950398] clocksource: Switched to clocksource tsc-early
+[    0.952204] pnp: PnP ACPI init
+[    0.953411] system 00:04: [mem 0xe0000000-0xefffffff window] has been reserved
+[    0.956011] pnp: PnP ACPI: found 5 devices
+[    0.963203] clocksource: acpi_pm: mask: 0xffffff max_cycles: 0xffffff, max_idle_ns: 2085701024 ns
+[    0.966165] NET: Registered PF_INET protocol family
+[    0.967996] IP idents hash table entries: 65536 (order: 7, 524288 bytes, linear)
+[    0.971285] tcp_listen_portaddr_hash hash table entries: 2048 (order: 3, 32768 bytes, linear)
+[    0.973971] Table-perturb hash table entries: 65536 (order: 6, 262144 bytes, linear)
+[    0.976468] TCP established hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.979052] TCP bind hash table entries: 32768 (order: 8, 1048576 bytes, linear)
+[    0.981764] TCP: Hash tables configured (established 32768 bind 32768)
+[    0.990081] UDP hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    0.992472] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    0.994790] NET: Registered PF_UNIX/PF_LOCAL protocol family
+[    0.997300] RPC: Registered named UNIX socket transport module.
+[    0.999211] RPC: Registered udp transport module.
+[    1.000720] RPC: Registered tcp transport module.
+[    1.002218] RPC: Registered tcp-with-tls transport module.
+[    1.003954] RPC: Registered tcp NFSv4.1 backchannel transport module.
+[    1.005988] pci 0000:00:03.0: ROM [mem 0x80080000-0x800fffff pref]: assigned
+[    1.008226] pci_bus 0000:00: resource 4 [io  0x0000-0x0cf7 window]
+[    1.010183] pci_bus 0000:00: resource 5 [io  0x0d00-0xffff window]
+[    1.012156] pci_bus 0000:00: resource 6 [mem 0x000a0000-0x000bffff window]
+[    1.014349] pci_bus 0000:00: resource 7 [mem 0x80000000-0xdfffffff window]
+[    1.016531] pci_bus 0000:00: resource 8 [mem 0xf0000000-0xfebfffff window]
+[    1.018693] pci_bus 0000:00: resource 9 [mem 0x380000000000-0x3807ffffffff window]
+[    1.021345] PCI: CLS 0 bytes, default 64
+[    1.022634] PCI-DMA: Using software bounce buffering for IO (SWIOTLB)
+[    1.022806] Trying to unpack rootfs image as initramfs...
+[    1.024733] software IO TLB: mapped [mem 0x000000006a503000-0x000000007a503000] (256MB)
+[    1.024841] clocksource: tsc: mask: 0xffffffffffffffff max_cycles: 0x22983777dd9, max_idle_ns: 440795300422 ns
+[    1.032676] clocksource: Switched to clocksource tsc
+[    1.035011] Initialise system trusted keyrings
+[    1.036541] workingset: timestamp_bits=46 max_order=20 bucket_order=0
+[    1.038749] squashfs: version 4.0 (2009/01/31) Phillip Lougher
+[    1.040704] NFS: Registering the id_resolver key type
+[    1.042385] Key type id_resolver registered
+[    1.043733] Key type id_legacy registered
+[    1.044719] 9p: Installing v9fs 9p2000 file system support
+[    1.055867] Key type asymmetric registered
+[    1.057212] Asymmetric key parser 'x509' registered
+[    1.058816] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 250)
+[    1.061175] io scheduler mq-deadline registered
+[    1.062639] io scheduler kyber registered
+[    1.063985] hv_vmbus: registering driver hyperv_fb
+[    1.065648] input: Power Button as /devices/LNXSYSTM:00/LNXPWRBN:00/input/input0
+[    1.068066] ACPI: button: Power Button [PWRF]
+[    1.070126] ACPI: \_SB_.GSIF: Enabled at IRQ 21
+[    1.085725] ACPI: \_SB_.GSIG: Enabled at IRQ 22
+[    1.090207] ACPI: \_SB_.GSIH: Enabled at IRQ 23
+[    1.094325] ACPI: \_SB_.GSIE: Enabled at IRQ 20
+[    1.100788] Serial: 8250/16550 driver, 4 ports, IRQ sharing disabled
+[    1.103144] 00:02: ttyS0 at I/O 0x3f8 (irq = 4, base_baud = 115200) is a 16550A
+[    1.116276] Linux agpgart interface v0.103
+[    1.117991] ACPI: bus type drm_connector registered
+[    1.121565] brd: module loaded
+[    1.122962] virtio_blk virtio0: 2/0/0 default/read/poll queues
+[    1.130898] virtio_blk virtio0: [vda] 274704 512-byte logical blocks (141 MB/134 MiB)
+[    1.134804] software IO TLB: Memory encryption is active and system is using DMA bounce buffers
+[    1.140889] virtio_blk virtio1: 2/0/0 default/read/poll queues
+[    1.144965] virtio_blk virtio1: [vdb] 83886080 512-byte logical blocks (42.9 GB/40.0 GiB)
+[    1.148710] hv_vmbus: registering driver hv_storvsc
+[    1.151040] ACPI: \_SB_.GSIA: Enabled at IRQ 16
+[    1.154236] ahci 0000:00:1f.2: AHCI vers 0001.0000, 32 command slots, 1.5 Gbps, SATA mode
+[    1.156770] ahci 0000:00:1f.2: 6/6 ports implemented (port mask 0x3f)
+[    1.158778] ahci 0000:00:1f.2: flags: 64bit ncq only 
+[    1.164860] Freeing initrd memory: 7616K
+[    1.171147] scsi host0: ahci
+[    1.172533] scsi host1: ahci
+[    1.173747] scsi host2: ahci
+[    1.174991] scsi host3: ahci
+[    1.176253] scsi host4: ahci
+[    1.177477] scsi host5: ahci
+[    1.178509] ata1: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000100 irq 30 lpm-pol 0
+[    1.181067] ata2: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000180 irq 30 lpm-pol 0
+[    1.183619] ata3: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000200 irq 30 lpm-pol 0
+[    1.186205] ata4: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000280 irq 30 lpm-pol 0
+[    1.188767] ata5: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000300 irq 30 lpm-pol 0
+[    1.191343] ata6: SATA max UDMA/133 abar m4096@0x80000000 port 0x80000380 irq 30 lpm-pol 0
+[    1.193974] wireguard: WireGuard 1.0.0 loaded. See www.wireguard.com for information.
+[    1.196621] wireguard: Copyright (C) 2015-2019 Jason A. Donenfeld <Jason@zx2c4.com>. All Rights Reserved.
+[    1.204699] e100: Intel(R) PRO/100 Network Driver
+[    1.206467] e100: Copyright(c) 1999-2006 Intel Corporation
+[    1.208240] e1000: Intel(R) PRO/1000 Network Driver
+[    1.209762] e1000: Copyright (c) 1999-2006 Intel Corporation.
+[    1.211563] e1000e: Intel(R) PRO/1000 Network Driver
+[    1.212544] e1000e: Copyright(c) 1999 - 2015 Intel Corporation.
+[    1.214938] igb: Intel(R) Gigabit Ethernet Network Driver
+[    1.216620] igb: Copyright (c) 2007-2014 Intel Corporation.
+[    1.218384] hv_vmbus: registering driver hv_netvsc
+[    1.219962] usbcore: registered new interface driver usbserial_generic
+[    1.222014] usbserial: USB Serial support registered for generic
+[    1.223885] usbcore: registered new interface driver ftdi_sio
+[    1.225692] usbserial: USB Serial support registered for FTDI USB Serial Device
+[    1.227946] usbcore: registered new interface driver pl2303
+[    1.229717] usbserial: USB Serial support registered for pl2303
+[    1.231614] i8042: PNP: PS/2 Controller [PNP0303:KBD,PNP0f13:MOU] at 0x60,0x64 irq 1,12
+[    1.236410] serio: i8042 KBD port at 0x60,0x64 irq 1
+[    1.238032] serio: i8042 AUX port at 0x60,0x64 irq 12
+[    1.239693] hv_vmbus: registering driver hyperv_keyboard
+[    1.241425] mousedev: PS/2 mouse device common for all mice
+[    1.243734] input: AT Raw Set 2 keyboard as /devices/platform/i8042/serio0/input/input1
+[    1.246312] rtc_cmos 00:03: RTC can wake from S4
+[    1.249874] rtc_cmos 00:03: registered as rtc0
+[    1.251694] rtc_cmos 00:03: setting system clock to 2025-09-05T07:11:50 UTC (1757056310)
+[    1.254471] rtc_cmos 00:03: alarms up to one day, y3k, 242 bytes nvram
+[    1.257329] fail to initialize ptp_kvm
+[    1.257463] device-mapper: ioctl: 4.48.0-ioctl (2023-03-01) initialised: dm-devel@lists.linux.dev
+[    1.258332] i801_smbus 0000:00:1f.3: Enabling SMBus device
+[    1.258806] intel_pstate: CPU model not supported
+[    1.265770] i801_smbus 0000:00:1f.3: SMBus using PCI interrupt
+[    1.267150] hv_vmbus: registering driver hid_hyperv
+[    1.270493] i2c i2c-0: Memory type 0x07 not supported yet, not instantiating SPD
+[    1.272138] usbcore: registered new interface driver usbhid
+[    1.279232] usbhid: USB HID core driver
+[    1.280589] hv_utils: Registering HyperV Utility Driver
+[    1.282293] hv_vmbus: registering driver hv_utils
+[    1.283904] hv_vmbus: registering driver hv_balloon
+[    1.285583] Initializing XFRM netlink socket
+[    1.287020] NET: Registered PF_INET6 protocol family
+[    1.290452] Segment Routing with IPv6
+[    1.293274] In-situ OAM (IOAM) with IPv6
+[    1.296320] sit: IPv6, IPv4 and MPLS over IPv4 tunneling driver
+[    1.300701] NET: Registered PF_PACKET protocol family
+[    1.304060] 8021q: 802.1Q VLAN Support v1.8
+[    1.306800] 9pnet: Installing 9P2000 support
+[    1.313302] Key type dns_resolver registered
+[    1.316338] NET: Registered PF_VSOCK protocol family
+[    1.333023] mce: Unable to init MCE device (rc: -5)
+[    1.335606] IPI shorthand broadcast: enabled
+[    1.337745] AVX2 version of gcm_enc/dec engaged.
+[    1.340210] AES CTR mode by8 optimization enabled
+[    1.344686] sched_clock: Marking stable (1009642291, 334523247)->(2739173943, -1395008405)
+[    1.348565] Timer migration: 1 hierarchy levels; 8 children per group; 1 crossnode level
+[    1.352217] registered taskstats version 1
+[    1.378734] Loading compiled-in X.509 certificates
+[    1.384076] printk: legacy console [netcon0] enabled
+[    1.386505] netconsole: network logging started
+[    1.388802] clk: Disabling unused clocks
+[    1.502794] ata5: SATA link down (SStatus 0 SControl 300)
+[    1.506373] ata3: SATA link down (SStatus 0 SControl 300)
+[    1.511330] ata6: SATA link down (SStatus 0 SControl 300)
+[    1.515489] ata4: SATA link down (SStatus 0 SControl 300)
+[    1.522478] ata1: SATA link down (SStatus 0 SControl 300)
+[    1.528033] ata2: SATA link down (SStatus 0 SControl 300)
+[    1.539972] Freeing unused kernel image (initmem) memory: 2384K
+[    1.542707] Write protecting the kernel read-only data: 20480k
+[    1.546928] Freeing unused kernel image (rodata/data gap) memory: 1428K
+[    1.549697] Run /init as init process
+Setting up verity device:
+  Root device: /dev/vda
+  Root hash: 9d684404e3f9618671855a200d799c66eb871280dfe5a9ceb6d6e44ba4b216eb
+  Data size: 136339456
+[    1.599815] device-mapper: verity: sha256 using implementation "sha256-ni"
+Mounting rootfs...
+Switching to new root...
+[    1.826371] systemd[1]: Failed to find module 'autofs4'
+[    1.848324] systemd[1]: systemd 255.4^ running in system mode (-PAM -AUDIT -SELINUX -APPARMOR +IMA -SMACK +SECCOMP -GCRYPT -GNUTLS -OPENSSL -ACL +BLKID -CURL -ELFUTILS -FIDO2 -IDN2 -IDN -IPTC +KMOD -LIBCRYPTSETUP +LIBFDISK -PCRE2 -PWQUALITY -P11KIT -QRENCODE -TPM2 -BZIP2 -LZ4 -XZ -ZLIB +ZSTD -BPF_FRAMEWORK -XKBCOMMON +UTMP +SYSVINIT default-hierarchy=unified)
+[    1.854115] systemd[1]: Detected virtualization kvm.
+[    1.855037] systemd[1]: Detected confidential virtualization tdx.
+[    1.856219] systemd[1]: Detected architecture x86-64.
+
+Welcome to [1mDStack 0.5.3 (scarthgap)[0m!
+
+
+[    1.877490] systemd[1]: Hostname set to <tdx>.
+[    1.878859] systemd[1]: Initializing machine ID from random generator.
+[    1.880184] systemd[1]: Installed transient /etc/machine-id file.
+[    1.952611] input: ImExPS/2 Generic Explorer Mouse as /devices/platform/i8042/serio1/input/input3
+[    1.998680] systemd[1]: Queued start job for default target Multi-User System.
+[    2.020818] systemd[1]: Created slice Slice /system/modprobe.
+[[0;32m  OK  [0m] Created slice [0;1;39mSlice /system/modprobe[0m.
+
+[    2.023869] systemd[1]: Reached target Path Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mPath Units[0m.
+
+[    2.026205] systemd[1]: Reached target Remote File Systems.
+[[0;32m  OK  [0m] Reached target [0;1;39mRemote File Systems[0m.
+
+[    2.028817] systemd[1]: Reached target Slice Units.
+[[0;32m  OK  [0m] Reached target [0;1;39mSlice Units[0m.
+
+[    2.031149] systemd[1]: Reached target Swaps.
+[[0;32m  OK  [0m] Reached target [0;1;39mSwaps[0m.
+
+[    2.033279] systemd[1]: Reached target System Time Set.
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Time Set[0m.
+
+[    2.039205] systemd[1]: Journal Audit Socket was skipped because of an unmet condition check (ConditionSecurity=audit).
+[    2.041846] systemd[1]: Listening on Journal Socket (/dev/log).
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Socket (/dev/log)[0m.
+
+[    2.044873] systemd[1]: Listening on Journal Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mJournal Socket[0m.
+
+[    2.047397] systemd[1]: Listening on Network Service Netlink Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mNetwork Service Netlink Socket[0m.
+
+[    2.053830] systemd[1]: Listening on udev Control Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mudev Control Socket[0m.
+
+[    2.057317] systemd[1]: Listening on udev Kernel Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mudev Kernel Socket[0m.
+
+[    2.061469] systemd[1]: Listening on User Database Manager Socket.
+[[0;32m  OK  [0m] Listening on [0;1;39mUser Database Manager Socket[0m.
+
+[    2.065058] systemd[1]: Huge Pages File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/mm/hugepages).
+[    2.078288] systemd[1]: Mounting POSIX Message Queue File System...
+         Mounting [0;1;39mPOSIX Message Queue File System[0m...
+
+[    2.081117] systemd[1]: Kernel Debug File System was skipped because of an unmet condition check (ConditionPathExists=/sys/kernel/debug).
+[    2.086321] systemd[1]: Mounting Kernel Trace File System...
+         Mounting [0;1;39mKernel Trace File System[0m...
+
+[    2.094138] systemd[1]: Mounting Temporary Directory /tmp...
+         Mounting [0;1;39mTemporary Directory /tmp[0m...
+
+[    2.110333] systemd[1]: Starting Create List of Static Device Nodes...
+         Starting [0;1;39mCreate List of Static Device Nodes[0m...
+
+[    2.119636] systemd[1]: Starting Load Kernel Module configfs...
+         Starting [0;1;39mLoad Kernel Module configfs[0m...
+
+[    2.128594] systemd[1]: Starting Load Kernel Module fuse...
+         Starting [0;1;39mLoad Kernel Module fuse[0m...
+
+[    2.138413] systemd[1]: Starting Journal Service...
+         Starting [0;1;39mJournal Service[0m...
+
+[    2.145485] fuse: init (API version 7.40)
+[    2.151696] systemd[1]: Starting Load Kernel Modules...
+         Starting [0;1;39mLoad Kernel Modules[0m...
+
+[    2.167560] systemd[1]: Starting Generate network units from Kernel command line...
+         Starting [0;1;39mGenerate network units from Kernel command line[0m...
+
+[    2.178477] systemd[1]: Starting Remount Root and Kernel File Systems...
+         Starting [0;1;39mRemount Root and Kernel File Systems[0m...
+
+[    2.186514] systemd-journald[108]: Collecting audit messages is disabled.
+[    2.187852] systemd[1]: Starting Coldplug All udev Devices...
+         Starting [0;1;39mColdplug All udev Devices[0m...
+
+[    2.219974] systemd[1]: Mounted POSIX Message Queue File System.
+[[0;32m  OK  [0m] Mounted [0;1;39mPOSIX Message Queue File System[0m.
+
+[    2.233249] systemd[1]: Started Journal Service.
+[[0;32m  OK  [0m] Started [0;1;39mJournal Service[0m.
+
+[[0;32m  OK  [0m] Mounted [0;1;39mKernel Trace File System[0m.
+
+[[0;32m  OK  [0m] Mounted [0;1;39mTemporary Directory /tmp[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate List of Static Device Nodes[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Module configfs[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Module fuse[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad Kernel Modules[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mGenerate network units from Kernel command line[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mRemount Root and Kernel File Systems[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mColdplug All udev Devices[0m.
+
+         Mounting [0;1;39mFUSE Control File System[0m...
+
+         Starting [0;1;39mFlush Journal to Persistent Storage[0m...
+
+         Starting [0;1;39mApply Kernel Variables[0m...
+
+         Starting [0;1;39mCreate Static Device Nodes in /dev gracefully[0m...
+
+[    2.355500] systemd-journald[108]: Received client request to flush runtime journal.
+         Starting [0;1;39mWait for udev To Complete Device Initialization[0m...
+
+[[0;32m  OK  [0m] Mounted [0;1;39mFUSE Control File System[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mFlush Journal to Persistent Storage[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mApply Kernel Variables[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Static Device Nodes in /dev gracefully[0m.
+
+         Starting [0;1;39mCreate Static Device Nodes in /dev[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Static Device Nodes in /dev[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mPreparation for Local File Systems[0m.
+
+         Mounting [0;1;39m/var/volatile[0m...
+
+         Starting [0;1;39mRule-based Manager for Device Events and Files[0m...
+
+[[0;32m  OK  [0m] Mounted [0;1;39m/var/volatile[0m.
+
+         Starting [0;1;39mBind mount volatile /var/cache[0m...
+
+         Starting [0;1;39mBind mount volatile /var/lib[0m...
+
+         Starting [0;1;39mBind mount volatile /var/spool[0m...
+
+         Starting [0;1;39mBind mount volatile /srv[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mRule-based Manager for Device Events and Files[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /srv[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /var/cache[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /var/lib[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mBind mount volatile /var/spool[0m.
+
+         Starting [0;1;39mLoad/Save OS Random Seed[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mLoad/Save OS Random Seed[0m.
+
+[    2.648297] tdx_guest: loading out-of-tree module taints kernel.
+         Starting [0;1;39mVirtual Console Setup[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mWait for udev To Complete Device Initialization[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mZFS pool import target[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mLocal File Systems[0m.
+
+         Starting [0;1;39mCreate Volatile Files and Directories[0m...
+
+[[0;1;31mFAILED[0m] Failed to start [0;1;39mVirtual Console Setup[0m.
+
+See 'systemctl status systemd-vconsole-setup.service' for details.
+
+[[0;32m  OK  [0m] Finished [0;1;39mCreate Volatile Files and Directories[0m.
+
+         Starting [0;1;39mNetwork Name Resolution[0m...
+
+         Starting [0;1;39mRecord System Boot/Shutdown in UTMP[0m...
+
+         Starting [0;1;39mUser Database Manager[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mRecord System Boot/Shutdown in UTMP[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mUser Database Manager[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Name Resolution[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mHost and Network Name Lookups[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSystem Initialization[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mDaily Cleanup of Temporary Directories[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mTimer Units[0m.
+
+[[0;32m  OK  [0m] Listening on [0;1;39mD-Bus System Message Bus Socket[0m.
+
+         Starting [0;1;39mDocker Socket for the API[0m...
+
+[[0;32m  OK  [0m] Listening on [0;1;39mDocker Socket for the API[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mSocket Units[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mBasic System[0m.
+
+         Starting [0;1;39mNTP client/server[0m...
+
+         Starting [0;1;39mD-Bus System Message Bus[0m...
+
+         Starting [0;1;39mIPv6 Packet Filtering Framework[0m...
+
+         Starting [0;1;39mIPv4 Packet Filtering Framework[0m...
+
+[[0;32m  OK  [0m] Reached target [0;1;39mZFS startup target[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mIPv6 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mIPv4 Packet Filtering Framework[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mPreparation for Network[0m.
+
+         Starting [0;1;39mNetwork Configuration[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mD-Bus System Message Bus[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mNTP client/server[0m.
+
+[[0;32m  OK  [0m] Started [0;1;39mNetwork Configuration[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mNetwork[0m.
+
+[    3.074542] 8021q: adding VLAN 0 to HW filter on device eth0
+         Starting [0;1;39mcontainerd container runtime[0m...
+
+         Starting [0;1;39mDStack Guest Preparation Service[0m...
+
+         Starting [0;1;39mWait for Network to be Configured[0m...
+
+[    3.028243] dstack-prepare.sh[244]: Syncing system time...
+[    3.041368] dstack-prepare.sh[261]: 200 OK
+[    3.045875] dstack-prepare.sh[244]: Preparing dstack system...
+[    3.191317] dstack-prepare.sh[263]: [2m2025-09-05T07:11:52.772563Z[0m [32m INFO[0m [2mcmd_lib::builtins[0m[2m:[0m Mounting host-shared
+[    3.202938] dstack-prepare.sh[263]: [2m2025-09-05T07:11:52.785574Z[0m [32m INFO[0m [2mcmd_lib::builtins[0m[2m:[0m Copying host-shared files
+[    3.222928] dstack-prepare.sh[263]: [2m2025-09-05T07:11:52.805715Z[0m [32m INFO[0m [2mcmd_lib::builtins[0m[2m:[0m Unmounting host-shared
+[    3.242965] dstack-prepare.sh[263]: [2m2025-09-05T07:11:52.825621Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Waiting for the system time to be synchronized
+[[0;32m  OK  [0m] Started [0;1;39mcontainerd container runtime[0m.
+
+[[0;32m  OK  [0m] Finished [0;1;39mWait for Network to be Configured[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mNetwork is Online[0m.
+
+[   53.346120] dstack-prepare.sh[263]: {
+[   53.353276] dstack-prepare.sh[263]:   "app_id": "deb6a6c817efd909366fe33d993056d53035e814",
+[   53.361533] dstack-prepare.sh[263]:   "compose_hash": "bb9203e93c23e58904a83ae6168a00ca192a2c71002251eca8913ef3420cf67b",
+[   53.371283] dstack-prepare.sh[263]:   "instance_id": "0069799c74edc20c22d0cc99ea64e733e52993cb",
+[   53.378597] dstack-prepare.sh[263]:   "device_id": "e5a0c70bb6503de2d31c11d85914fe3776ed5b33a078ed856327c371a60fe0fd",
+[   53.387309] dstack-prepare.sh[263]:   "mrtd": "f06dfda6dce1cf904d4e2bab1dc370634cf95cefa2ceb2de2eee127c9382698090d7a4a13e14c536ec6c9c3c8fa87077",
+[   53.397192] dstack-prepare.sh[263]:   "rtmr0": "027b610ab0555482f8a3868524093bdf3cdbe2539f81dfeeb886864654cb2fe3422f7fc36d4bab6fa46683aad11d1ba7",
+[   53.406354] dstack-prepare.sh[263]:   "rtmr1": "19d16ecd33220ee15965b4fb28a0661e85ec4cad0a20d920bf4028f58ad014b262af3c9b0530f283e7d032e7bdca6308",
+[   53.414629] dstack-prepare.sh[263]:   "rtmr2": "05ac95f479e23db627217ce58b2587483c9ee4f374a7d8ebee3b812b8cfd8fd8fca04696369c33bd5279590d83e713c0",
+[   53.422291] dstack-prepare.sh[263]:   "rtmr3": "c3629768a877152d74dab9be464bd00256880a7cc4848382e436ba493f0e1c5a49c0bd5ff13a3dc282b444e37cc4d747",
+[   53.429788] dstack-prepare.sh[263]:   "mr_system": "bb5ac5d4dd644bd219af595533405a0eae86aa6da9890ee41ad70ef18326c9a4",
+[   53.435820] dstack-prepare.sh[263]:   "mr_aggregated": "370ac09721be0da1c62b4df486c4471ea403d8ff9cd2c7e7dde58f4116bd9059",
+[   53.441590] dstack-prepare.sh[263]:   "os_image_hash": "",
+[   53.445721] dstack-prepare.sh[263]:   "key_provider_info": ""
+[   53.449123] dstack-prepare.sh[263]: }
+[   53.454910] dstack-prepare.sh[263]: [2m2025-09-05T07:12:43.037570Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Requesting app keys from KMS: https://kms.dstack-pha-prod7.phala.network/prpc
+[   53.463094] dstack-prepare.sh[263]: [2m2025-09-05T07:12:43.037618Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Getting temp ca cert
+[   54.820081] dstack-prepare.sh[263]: [2m2025-09-05T07:12:44.402654Z[0m [32m INFO[0m [2mdstack_util::system_setup::config_id_verifier[0m[2m:[0m mr_config_id: 01bb9203e93c23e58904a83ae6168a00ca192a2c71002251eca8913ef3420cf67b000000000000000000000000000000
+[   54.844093] dstack-prepare.sh[263]: [2m2025-09-05T07:12:44.402766Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Key provider info: KeyProviderInfo { name: "kms", id: "3059301306072a8648ce3d020106082a8648ce3d030107034200048844eb42ccdf8c52fd4f174f362fcb9bbd19c45fd48f1edec2d8f1ca23536ec1a74021b4cee610c074f8294d431b2b7fee2c39e5333fdaf0a4522d43fb159d9f" }
+[   54.872089] dstack-prepare.sh[263]: [2m2025-09-05T07:12:44.407207Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Mounting encrypted data disk
+[   56.974233] zfs: module license 'CDDL' taints kernel.
+[   56.975575] Disabling lock debugging due to kernel taint
+[   56.976729] zfs: module license taints kernel.
+[   58.789121] ZFS: Loaded module v2.2.5-1, ZFS pool version 5000, ZFS filesystem version 5
+[   59.527881] dstack-prepare.sh[414]:   pool: dstack
+[   59.531245] dstack-prepare.sh[414]:  state: ONLINE
+[   59.534247] dstack-prepare.sh[414]: config:
+[   59.537616] dstack-prepare.sh[414]: 	NAME                STATE     READ WRITE CKSUM
+[   59.544183] dstack-prepare.sh[414]: 	dstack              ONLINE       0     0     0
+[   59.549637] dstack-prepare.sh[414]: 	  dstack_data_disk  ONLINE       0     0     0
+[   59.554696] dstack-prepare.sh[414]: errors: No known data errors
+[   59.604030] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186126Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Processing encrypted env
+[   59.611149] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186786Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: NODE_ENV
+[   59.618837] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186802Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: TEE_MODE
+[   59.626176] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186808Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: USE_TEE_AUTH
+[   59.633333] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186812Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: CHAIN_ID
+[   59.639830] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186816Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: RPC_URL
+[   59.646132] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186821Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: SERVER_AGENT_SALT
+[   59.652369] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186825Z[0m [33m WARN[0m [2mdstack_util::parse_env_file[0m[2m:[0m Skipping unauthorized environment variable: VALIDATOR_AGENT_SALT
+[   59.658434] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.186840Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Writing env
+[   59.665565] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.248271Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up guest agent config
+[   59.671231] dstack-prepare.sh[263]: [2m2025-09-05T07:12:49.253830Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up dstack-gateway
+[   61.490416] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.072000Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Starting WireGuard
+[   61.529823] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.112284Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m Warning: `/etc/wireguard/wg0.conf' is world accessible
+[   61.550361] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.133024Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip link add wg0 type wireguard
+[   61.569270] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.140622Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] wg setconf wg0 /dev/fd/63
+[   61.584356] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.164669Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip -4 address add 10.4.0.43/32 dev wg0
+[   61.596734] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.168444Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip link set mtu 1420 up dev wg0
+[   61.603793] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.184663Z[0m [32m INFO[0m [2mcmd_lib::child[0m[2m:[0m [#] ip -4 route add 10.4.0.1/32 dev wg0
+[   61.611003] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.189660Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up docker registry
+[   61.618405] dstack-prepare.sh[263]: [2m2025-09-05T07:12:51.189718Z[0m [32m INFO[0m [2mdstack_util::system_setup[0m[2m:[0m Setting up docker account
+[   61.624015] dstack-prepare.sh[244]: Mounting docker dirs to persistent storage
+[[0;32m  OK  [0m] Finished [0;1;39mDStack Guest Preparation Service[0m.
+
+         Starting [0;1;39mDstack Guest Agent Service[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mDstack Guest Agent Service[0m.
+
+         Starting [0;1;39mDocker Application Container Engine[0m...
+
+[   64.598998] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[[0;32m  OK  [0m] Started [0;1;39mDocker Application Container Engine[0m.
+
+         Starting [0;1;39mApp Compose Service[0m...
+
+[   65.314029] app-compose.sh[670]: Running pre-launch script
+[   65.329358] app-compose.sh[670]: ----------------------------------------------
+[   65.332956] app-compose.sh[670]: Running Phala Cloud Pre-Launch Script v0.0.7
+[   65.336048] app-compose.sh[670]: ----------------------------------------------
+[   65.339138] app-compose.sh[670]: Starting login process...
+[   65.341378] app-compose.sh[670]: Pruning unused images
+[   65.643816] app-compose.sh[678]: Total reclaimed space: 0B
+[   65.650335] app-compose.sh[670]: Pruning unused volumes
+[   65.676016] app-compose.sh[683]: Total reclaimed space: 0B
+[   65.763392] app-compose.sh[670]: ----------------------------------------------
+[   65.767338] app-compose.sh[670]: Script execution completed
+[   65.770150] app-compose.sh[670]: ----------------------------------------------
+[   65.773716] app-compose.sh[670]: Starting containers
+         Stopping [0;1;39mDocker Application Container Engine[0m...
+
+[[0;32m  OK  [0m] Stopped [0;1;39mDocker Application Container Engine[0m.
+
+         Starting [0;1;39mDocker Application Container Engine[0m...
+
+[[0;32m  OK  [0m] Started [0;1;39mDocker Application Container Engine[0m.
+
+[   67.239442] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"USE_TEE_AUTH\" variable is not set. Defaulting to a blank string."
+[   67.248221] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"RPC_URL\" variable is not set. Defaulting to a blank string."
+[   67.260501] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"CHAIN_ID\" variable is not set. Defaulting to a blank string."
+[   67.267256] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"SERVER_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[   67.274060] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"VALIDATOR_AGENT_SALT\" variable is not set. Defaulting to a blank string."
+[   67.280358] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"NODE_ENV\" variable is not set. Defaulting to a blank string."
+[   67.285848] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="The \"TEE_MODE\" variable is not set. Defaulting to a blank string."
+[   67.291127] app-compose.sh[892]: time="2025-09-05T07:12:56Z" level=warning msg="/dstack/docker-compose.yaml: `version` is obsolete"
+[   67.295652] app-compose.sh[892]:  Container dstack-app-1  Recreate
+[   67.380495] app-compose.sh[892]:  Container dstack-app-1  Recreated
+[   67.382900] app-compose.sh[892]:  Container dstack-app-1  Starting
+[   67.155283] br-a0ae325efff1: port 1(veth05b8362) entered blocking state
+[   67.156932] br-a0ae325efff1: port 1(veth05b8362) entered disabled state
+[   67.158444] veth05b8362: entered allmulticast mode
+[   67.159498] veth05b8362: entered promiscuous mode
+[   67.679039] eth0: renamed from vethe8fc992
+[   67.681014] br-a0ae325efff1: port 1(veth05b8362) entered blocking state
+[   67.683322] br-a0ae325efff1: port 1(veth05b8362) entered forwarding state
+[   68.003984] app-compose.sh[892]:  Container dstack-app-1  Started
+[   68.014358] app-compose.sh[670]: Pruning unused images
+[   68.045682] app-compose.sh[1042]: Total reclaimed space: 0B
+[   68.048216] app-compose.sh[670]: Pruning unused volumes
+[   68.076895] app-compose.sh[1049]: Total reclaimed space: 0B
+[[0;32m  OK  [0m] Finished [0;1;39mApp Compose Service[0m.
+
+[[0;32m  OK  [0m] Reached target [0;1;39mMulti-User System[0m.
+
+         Starting [0;1;39mRecord Runlevel Change in UTMP[0m...
+
+[[0;32m  OK  [0m] Finished [0;1;39mRecord Runlevel Change in UTMP[0m.
