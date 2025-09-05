@@ -18,6 +18,7 @@ import {
 import CodeEditor from '../components/CodeEditor';
 import ReviewResults from '../components/ReviewResults';
 import ValidationPanel from '../components/ValidationPanel';
+// import EnhancedReviewDisplay from '../components/EnhancedReviewDisplay';  // Temporarily disabled
 import AgentStatus from '../components/AgentStatus';
 import TrustScore from '../components/TrustScore';
 import BlockchainStatus from '../components/BlockchainStatus';
@@ -50,9 +51,44 @@ interface ReviewData {
     message: string;
     line?: number;
     severity: string;
+    source_phase?: string;
   }>;
   recommendations: string[];
   analysis_details: any;
+  
+  // Enhanced fields from expert analysis
+  expert_analysis?: any;
+  improved_code?: string;
+  vulnerability_report?: {
+    total_vulnerabilities: number;
+    severity_breakdown: {
+      critical: number;
+      high: number;
+      medium: number;
+      low: number;
+    };
+    risk_score: number;
+    vulnerabilities: Array<{
+      id: string;
+      type: string;
+      severity: string;
+      description: string;
+      location: string;
+      remediation: string;
+      source_phase: string;
+    }>;
+  };
+  compliance_assessment?: {
+    frameworks: any;
+    overall_compliance_score: number;
+    recommendations: string[];
+  };
+  cost_breakdown?: {
+    total_cost_usd: number;
+    total_tokens: number;
+    processing_time: number;
+    phases_completed: number;
+  };
 }
 
 interface ValidationData {
@@ -552,7 +588,7 @@ if __name__ == '__main__':
         headers,
         body: JSON.stringify({
           user_address: walletAddress || 'demo_user',
-          prompt: `Professional security analysis for ${language} code. Focus on vulnerabilities, performance issues, and security best practices.`,
+          prompt: `Comprehensive expert-level security analysis for ${language} code using multi-phase AI workflow. Analyze vulnerabilities, performance issues, architecture patterns, and generate production-ready improved code with compliance assessment.`,
           code: code,
           language: language,
           user_public_key: walletAddress || 'demo_user',
@@ -1800,10 +1836,13 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
                               Multi-model AI provides comprehensive code analysis with expert-level insights.
                             </p>
                             <ul className="mt-4 space-y-1 text-xs text-green-200">
-                              <li>• Grok AI for primary analysis (cost-optimized)</li>
-                              <li>• Claude for independent validation</li>
-                              <li>• Detects security vulnerabilities & performance issues</li>
-                              <li>• Supports Python, JavaScript, TypeScript, Solidity</li>
+                              <li>• Grok 3-Mini for rapid security scanning</li>
+                              <li>• Grok 3 for code improvement & performance analysis</li>
+                              <li>• Claude 3.5 Sonnet for deep security & architecture</li>
+                              <li>• 6-phase expert analysis workflow</li>
+                              <li>• CVSS 3.1 vulnerability scoring</li>
+                              <li>• Production-ready improved code generation</li>
+                              <li>• OWASP, NIST, PCI DSS compliance checking</li>
                             </ul>
                           </div>
                         </div>

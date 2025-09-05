@@ -1,0 +1,535 @@
+#!/usr/bin/env python3
+"""
+Expert-Level AI Prompt System for ERC-8004 Code Analysis
+
+This module demonstrates a production-ready, multi-model prompt system for
+professional code review using Grok (xAI) and Claude (Anthropic).
+
+Key updates (2025-09-05):
+- xAI: uses official xai-sdk (Client → chat.create → append(system|user) → sample()).
+- Anthropic: uses Messages API with claude-sonnet-4-20250514.
+- Optional OpenAI fallback via Responses API.
+- Async-safe execution (wrap sync Grok call with asyncio.to_thread).
+"""
+
+import os
+import sys
+import json
+import asyncio
+import time
+from typing import Dict, List, Any, Optional, Tuple
+from dataclasses import dataclass
+from enum import Enum
+
+# === Third-party clients (all optional) ===
+# xAI (Grok)
+try:
+    from xai_sdk import Client as XAIClient
+    from xai_sdk.chat import user as xai_user, system as xai_system
+    XAI_AVAILABLE = True
+except Exception:
+    XAI_AVAILABLE = False
+
+# Anthropic (Claude)
+try:
+    import anthropic
+    ANTHROPIC_AVAILABLE = True
+except Exception:
+    ANTHROPIC_AVAILABLE = False
+
+# OpenAI fallback (Responses API)
+try:
+    from openai import OpenAI as OpenAIClient
+    OPENAI_AVAILABLE = True
+except Exception:
+    OPENAI_AVAILABLE = False
+
+
+class AnalysisPhase(Enum):
+    INITIAL_SCAN = "initial_scan"
+    DEEP_SECURITY = "deep_security"
+    PERFORMANCE_ANALYSIS = "performance_analysis"
+    ARCHITECTURE_REVIEW = "architecture_review"
+    CODE_IMPROVEMENT = "code_improvement"
+    FINAL_VALIDATION = "final_validation"
+
+
+@dataclass
+class AIModelConfig:
+    model_name: str
+    max_tokens: int
+    temperature: float
+    use_for_phases: List[AnalysisPhase]
+    # Pricing changes often; keep optional
+    cost_per_1k_input: Optional[float] = None
+    cost_per_1k_output: Optional[float] = None
+
+
+@dataclass
+class ExpertAnalysisResult:
+    phase: AnalysisPhase
+    model_used: str
+    analysis_data: Dict[str, Any]
+    processing_time: float
+    token_usage: int
+    confidence_score: int
+
+
+class ExpertPromptSystem:
+    """Expert-level prompt engineering system for code analysis"""
+
+    def __init__(self):
+        # Clients
+        self.xai_client: Optional[XAIClient] = None
+        self.claude_client: Optional[anthropic.Anthropic] = None
+        self.openai_client: Optional[OpenAIClient] = None
+
+        self._init_ai_clients()
+
+        # Model configurations (curated for 2025-09)
+        self.model_configs: Dict[str, AIModelConfig] = {
+            # Fast triage / initial scan
+            "grok-fast": AIModelConfig(
+                model_name=os.getenv("GROK_FAST_MODEL", "grok-3-mini"),
+                max_tokens=2000,
+                temperature=0.1,
+                use_for_phases=[AnalysisPhase.INITIAL_SCAN],
+                # optional public ballpark; keep None by default
+                cost_per_1k_input=None,
+                cost_per_1k_output=None,
+            ),
+            # Standard Grok for code work / perf
+            "grok-standard": AIModelConfig(
+                model_name=os.getenv("GROK_STANDARD_MODEL", "grok-3"),
+                max_tokens=4000,
+                temperature=0.15,
+                use_for_phases=[AnalysisPhase.CODE_IMPROVEMENT, AnalysisPhase.PERFORMANCE_ANALYSIS],
+                cost_per_1k_input=None,
+                cost_per_1k_output=None,
+            ),
+            # Claude for deep/security/arch/final
+            "claude": AIModelConfig(
+                # Anthropic recommends Sonnet 4; 3.5 Sonnet is being retired
+                model_name=os.getenv("CLAUDE_MODEL", "claude-sonnet-4-20250514"),
+                max_tokens=8000,
+                temperature=0.2,
+                use_for_phases=[
+                    AnalysisPhase.DEEP_SECURITY,
+                    AnalysisPhase.ARCHITECTURE_REVIEW,
+                    AnalysisPhase.FINAL_VALIDATION,
+                ],
+                cost_per_1k_input=None,
+                cost_per_1k_output=None,
+            ),
+        }
+
+        # Optional OpenAI fallback (not used unless both xAI & Anthropic absent)
+        self.openai_fallback_model = os.getenv("OPENAI_FALLBACK_MODEL", "gpt-4o-mini")
+
+        print("🧠 Expert AI Prompt System initialized")
+        print(f"   xAI (Grok): {'✅' if self.xai_client else '❌'}")
+        print(f"   Anthropic (Claude): {'✅' if self.claude_client else '❌'}")
+        print(f"   OpenAI fallback: {'✅' if self.openai_client else '⚪ optional'}")
+
+    def _init_ai_clients(self):
+        """Initialize AI clients with API keys"""
+
+        # xAI (Grok) — expects XAI_API_KEY; SDK handles default base URL
+        if XAI_AVAILABLE and os.getenv("XAI_API_KEY"):
+            try:
+                self.xai_client = XAIClient(api_key=os.getenv("XAI_API_KEY"))
+                print("✅ xAI SDK initialized (Grok)")
+            except Exception as e:
+                print(f"⚠️ xAI init failed: {e}")
+                self.xai_client = None
+
+        # Anthropic (Claude) — Messages API
+        if ANTHROPIC_AVAILABLE and os.getenv("ANTHROPIC_API_KEY"):
+            try:
+                self.claude_client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
+                print("✅ Anthropic client initialized")
+            except Exception as e:
+                print(f"⚠️ Anthropic init failed: {e}")
+                self.claude_client = None
+
+        # OpenAI fallback — Responses API
+        if OPENAI_AVAILABLE and os.getenv("OPENAI_API_KEY"):
+            try:
+                self.openai_client = OpenAIClient(api_key=os.getenv("OPENAI_API_KEY"))
+                print("✅ OpenAI client available as fallback")
+            except Exception as e:
+                print(f"⚠️ OpenAI init failed: {e}")
+                self.openai_client = None
+
+    # ---------- Prompt constructors (unchanged in spirit) ----------
+    def create_expert_system_prompt(self, phase: AnalysisPhase) -> str:
+        base_expertise = """You are a world-class cybersecurity expert and senior software architect with 20+ years of experience in:
+- Advanced penetration testing and vulnerability assessment
+- Enterprise software architecture and design patterns
+- Performance optimization and scalability engineering
+- Code security auditing for Fortune 500 companies
+- OWASP Top 10 and advanced attack vectors
+- Secure coding standards (SANS, NIST, ISO 27001)
+
+Your analysis must be thorough, actionable, and demonstrate deep technical expertise."""
+
+        phase_specific = {
+            AnalysisPhase.INITIAL_SCAN: """
+**PHASE: INITIAL SECURITY SCAN**
+[...trimmed for brevity in code sample...]
+""",
+            AnalysisPhase.DEEP_SECURITY: """
+**PHASE: DEEP SECURITY ANALYSIS**
+[...]
+""",
+            AnalysisPhase.PERFORMANCE_ANALYSIS: """
+**PHASE: PERFORMANCE & SCALABILITY ANALYSIS**
+[...]
+""",
+            AnalysisPhase.ARCHITECTURE_REVIEW: """
+**PHASE: ARCHITECTURE & DESIGN REVIEW**
+[...]
+""",
+            AnalysisPhase.CODE_IMPROVEMENT: """
+**PHASE: CODE IMPROVEMENT & REMEDIATION**
+[...]
+""",
+            AnalysisPhase.FINAL_VALIDATION: """
+**PHASE: FINAL VALIDATION & COMPLIANCE**
+[...]
+""",
+        }
+        return f"{base_expertise}\n\n{phase_specific[phase]}"
+
+    def create_analysis_prompt(
+        self,
+        phase: AnalysisPhase,
+        code: str,
+        language: str,
+        previous_findings: Optional[Dict] = None,
+    ) -> str:
+        # (kept identical to your original for brevity)
+        # -- SNIP -- All the JSON-spec response templates you had remain intact.
+        # I’m omitting here to keep this file readable, but you can paste your full blocks back in.
+        # The important change is API usage below.
+        return "..."  # replace with your original large prompt blocks (unchanged)
+
+    # ---------- Execution ----------
+    async def run_expert_analysis_phase(
+        self,
+        phase: AnalysisPhase,
+        code: str,
+        language: str,
+        previous_findings: Optional[Dict] = None,
+    ) -> ExpertAnalysisResult:
+        start_time = time.time()
+        model_key = self._select_optimal_model(phase)
+        if not model_key:
+            raise RuntimeError(f"No AI model available for phase {phase}")
+
+        config = self.model_configs[model_key]
+
+        system_prompt = self.create_expert_system_prompt(phase)
+        analysis_prompt = self.create_analysis_prompt(phase, code, language, previous_findings)
+
+        analysis_data, token_usage = await self._execute_ai_analysis(
+            model_key, config, system_prompt, analysis_prompt, phase
+        )
+
+        processing_time = time.time() - start_time
+        confidence_score = self._calculate_confidence_score(model_key, analysis_data, phase)
+
+        return ExpertAnalysisResult(
+            phase=phase,
+            model_used=model_key,
+            analysis_data=analysis_data,
+            processing_time=processing_time,
+            token_usage=token_usage,
+            confidence_score=confidence_score,
+        )
+
+    def _select_optimal_model(self, phase: AnalysisPhase) -> Optional[str]:
+        available: List[str] = []
+        for k, cfg in self.model_configs.items():
+            if phase in cfg.use_for_phases:
+                if k.startswith("grok") and self.xai_client:
+                    available.append(k)
+                elif k == "claude" and self.claude_client:
+                    available.append(k)
+
+        if not available:
+            # allow OpenAI only if nothing else is configured
+            if self.openai_client:
+                return "openai-fallback"
+            return None
+
+        if phase == AnalysisPhase.INITIAL_SCAN and "grok-fast" in available:
+            return "grok-fast"
+        if phase in [AnalysisPhase.CODE_IMPROVEMENT, AnalysisPhase.PERFORMANCE_ANALYSIS] and "grok-standard" in available:
+            return "grok-standard"
+        if phase in [AnalysisPhase.DEEP_SECURITY, AnalysisPhase.ARCHITECTURE_REVIEW, AnalysisPhase.FINAL_VALIDATION] and "claude" in available:
+            return "claude"
+        return available[0]
+
+    async def _execute_ai_analysis(
+        self,
+        model_key: str,
+        config: AIModelConfig,
+        system_prompt: str,
+        analysis_prompt: str,
+        phase: AnalysisPhase,
+    ) -> Tuple[Dict[str, Any], int]:
+
+        # ---- xAI (Grok) path ----
+        if model_key in ("grok-fast", "grok-standard") and self.xai_client:
+            # xai-sdk is sync; to keep our coroutine non-blocking, offload to a thread.
+            def _call_xai():
+                chat = self.xai_client.chat.create(
+                    model=config.model_name,
+                    temperature=config.temperature,
+                    # Note: xai-sdk manages history internally; we pass messages via append
+                )
+                chat.append(xai_system(system_prompt))
+                chat.append(xai_user(analysis_prompt))
+                resp = chat.sample()
+                # SDK returns .content as a string
+                content = getattr(resp, "content", "") or ""
+                # Token usage isn’t always exposed; estimate roughly by whitespace count
+                est_tokens = len((system_prompt + analysis_prompt + content).split())
+                return content, est_tokens
+
+            content, token_usage = await asyncio.to_thread(_call_xai)
+            return self._safe_parse(content, phase, model_key), token_usage
+
+        # ---- Anthropic (Claude) path ----
+        if model_key == "claude" and self.claude_client:
+            try:
+                # Messages API; system goes in top-level 'system', content goes in 'messages'
+                response = await asyncio.to_thread(
+                    self.claude_client.messages.create,
+                    model=config.model_name,
+                    max_tokens=config.max_tokens,
+                    temperature=config.temperature,
+                    system=system_prompt,
+                    messages=[{"role": "user", "content": analysis_prompt}],
+                )
+                # response.content is a list of blocks; join text blocks
+                text = "".join(
+                    block.text for block in getattr(response, "content", []) if getattr(block, "type", "") == "text"
+                )
+                token_usage = 0
+                if hasattr(response, "usage"):
+                    token_usage = int(getattr(response.usage, "input_tokens", 0)) + int(
+                        getattr(response.usage, "output_tokens", 0)
+                    )
+                return self._safe_parse(text, phase, model_key), token_usage
+            except Exception as e:
+                return {"error": str(e), "phase": phase.value, "model": model_key}, 0
+
+        # ---- OpenAI fallback (Responses API) ----
+        if model_key == "openai-fallback" and self.openai_client:
+            try:
+                # Responses API supports an 'input' list of role messages
+                msgs = [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": analysis_prompt},
+                ]
+                resp = await asyncio.to_thread(
+                    self.openai_client.responses.create,
+                    model=self.openai_fallback_model,
+                    input=msgs,
+                )
+                # Unified convenience field
+                content = getattr(resp, "output_text", None)
+                if not content:
+                    # Try to stitch together from output array if needed
+                    content = ""
+                    if getattr(resp, "output", None):
+                        for item in resp.output:
+                            if getattr(item, "content", None):
+                                for chunk in item.content:
+                                    if getattr(chunk, "text", None):
+                                        content += chunk.text
+                # Token usage (if present)
+                token_usage = 0
+                if getattr(resp, "usage", None):
+                    token_usage = int(resp.usage.total_tokens or 0)
+                return self._safe_parse(content or "", phase, model_key), token_usage
+            except Exception as e:
+                return {"error": str(e), "phase": phase.value, "model": model_key}, 0
+
+        # If nothing matched:
+        return {"error": "No configured model client available", "phase": phase.value, "model": model_key}, 0
+
+    def _safe_parse(self, content: str, phase: AnalysisPhase, model_key: str) -> Dict[str, Any]:
+        try:
+            return self._parse_ai_response(content)
+        except json.JSONDecodeError:
+            return {"raw_response": content, "parsing_error": "Failed to parse JSON response", "phase": phase.value, "model": model_key}
+
+    def _parse_ai_response(self, content: str) -> Dict[str, Any]:
+        # Your original JSON-or-markdown-JSON extraction kept
+        try:
+            return json.loads(content)
+        except json.JSONDecodeError:
+            pass
+
+        import re
+        for pattern in [r'```json\s*(.*?)\s*```', r'```\s*(.*?)\s*```', r'`([^`]*)`']:
+            for match in re.findall(pattern, content, re.DOTALL | re.IGNORECASE):
+                try:
+                    return json.loads(match.strip())
+                except json.JSONDecodeError:
+                    continue
+
+        analysis_data = {"raw_response": content}
+        for pattern, key in [
+            (r'security[_\s]*score[^0-9]*([0-9]+)', 'security_score'),
+            (r'performance[_\s]*score[^0-9]*([0-9]+)', 'performance_score'),
+            (r'maintainability[_\s]*score[^0-9]*([0-9]+)', 'maintainability_score'),
+            (r'overall[_\s]*score[^0-9]*([0-9]+)', 'overall_score'),
+        ]:
+            m = re.search(pattern, content, re.IGNORECASE)
+            if m:
+                analysis_data[key] = int(m.group(1))
+
+        if re.search(r'critical|vulnerability|security|exploit', content, re.IGNORECASE):
+            critical_count = len(re.findall(r'critical', content, re.IGNORECASE))
+            high_count = len(re.findall(r'high.*severity', content, re.IGNORECASE))
+            analysis_data['critical_vulnerabilities'] = [{
+                'type': 'parsed_from_text',
+                'severity': 'critical' if critical_count > 0 else 'high',
+                'count': critical_count + high_count,
+                'description': 'Vulnerabilities detected in text analysis'
+            }]
+        return analysis_data
+
+    def _calculate_confidence_score(self, model_key: str, analysis_data: Dict, phase: AnalysisPhase) -> int:
+        base = {"grok-fast": 82, "grok-standard": 87, "claude": 92, "openai-fallback": 78}.get(model_key, 75)
+        if "error" in analysis_data:
+            return max(20, base - 50)
+        if "parsing_error" in analysis_data:
+            return max(40, base - 30)
+
+        expected = {
+            AnalysisPhase.INITIAL_SCAN: ["critical_vulnerabilities", "security_score"],
+            AnalysisPhase.DEEP_SECURITY: ["advanced_vulnerabilities", "security_architecture_issues"],
+            AnalysisPhase.PERFORMANCE_ANALYSIS: ["performance_issues", "performance_score"],
+            AnalysisPhase.ARCHITECTURE_REVIEW: ["architecture_issues", "maintainability_score"],
+            AnalysisPhase.CODE_IMPROVEMENT: ["improved_code", "security_improvements"],
+            AnalysisPhase.FINAL_VALIDATION: ["validation_summary", "final_recommendations"],
+        }
+        if phase in expected:
+            found = sum(1 for k in expected[phase] if k in analysis_data)
+            base += (found / len(expected[phase])) * 10
+        return min(100, int(base))
+
+    async def run_comprehensive_analysis(self, code: str, language: str = "python") -> Dict[str, Any]:
+        print(f"🔥 Starting comprehensive expert analysis for {language} code")
+        results: Dict[str, Any] = {}
+        previous_findings = None
+        total_tokens = 0
+        total_cost = 0.0
+
+        analysis_phases = [
+            AnalysisPhase.INITIAL_SCAN,
+            AnalysisPhase.DEEP_SECURITY,
+            AnalysisPhase.PERFORMANCE_ANALYSIS,
+            AnalysisPhase.ARCHITECTURE_REVIEW,
+            AnalysisPhase.CODE_IMPROVEMENT,
+            AnalysisPhase.FINAL_VALIDATION,
+        ]
+
+        for phase in analysis_phases:
+            print(f"   🧠 Running {phase.value} ...")
+            try:
+                result = await self.run_expert_analysis_phase(phase, code, language, previous_findings)
+                results[phase.value] = {
+                    "model_used": result.model_used,
+                    "processing_time": result.processing_time,
+                    "token_usage": result.token_usage,
+                    "confidence_score": result.confidence_score,
+                    "analysis": result.analysis_data,
+                }
+                cfg = self.model_configs.get(result.model_used)
+                if cfg and result.token_usage and cfg.cost_per_1k_input is not None and cfg.cost_per_1k_output is not None:
+                    # Crude 50/50 split if unknown; prefer your own accounting if provider exposes usage split
+                    phase_cost = (result.token_usage / 2000.0) * (cfg.cost_per_1k_input + cfg.cost_per_1k_output)
+                else:
+                    phase_cost = 0.0
+                total_cost += phase_cost
+                total_tokens += result.token_usage
+                previous_findings = result.analysis_data
+                print(f"   ✅ {phase.value} done (conf {result.confidence_score}%)")
+            except Exception as e:
+                print(f"   ❌ {phase.value} failed: {e}")
+                results[phase.value] = {"error": str(e), "model_used": "none", "processing_time": 0, "confidence_score": 0}
+
+        summary = self._generate_comprehensive_summary(results)
+        final = {
+            "analysis_timestamp": time.time(),
+            "language": language,
+            "total_processing_time": sum(r.get("processing_time", 0) for r in results.values()),
+            "total_tokens_used": total_tokens,
+            "total_cost_usd": total_cost,
+            "phase_results": results,
+            "comprehensive_summary": summary,
+        }
+        print("🎉 Comprehensive analysis completed")
+        return final
+
+    def _generate_comprehensive_summary(self, results: Dict[str, Any]) -> Dict[str, Any]:
+        critical_issues = []
+        security_scores = []
+        performance_scores = []
+        recommendations = []
+        for _, phase_result in results.items():
+            if "error" in phase_result:
+                continue
+            analysis = phase_result.get("analysis", {})
+            critical_issues += analysis.get("critical_vulnerabilities", [])
+            critical_issues += analysis.get("advanced_vulnerabilities", [])
+            if "security_score" in analysis:
+                security_scores.append(analysis["security_score"])
+            if "performance_score" in analysis:
+                performance_scores.append(analysis["performance_score"])
+            recommendations += analysis.get("immediate_actions", [])
+            recommendations += analysis.get("final_recommendations", [])
+
+        crit_count = len([i for i in critical_issues if i.get("severity") == "critical"])
+        high_count = len([i for i in critical_issues if i.get("severity") == "high"])
+        return {
+            "overall_security_score": int(sum(security_scores) / len(security_scores)) if security_scores else 0,
+            "overall_performance_score": int(sum(performance_scores) / len(performance_scores)) if performance_scores else 0,
+            "critical_issue_count": crit_count,
+            "high_issue_count": high_count,
+            "top_priority_actions": recommendations[:10],
+            "deployment_readiness": "needs_critical_fixes" if crit_count > 0 else "ready_with_improvements",
+            "analysis_quality": "expert_level",
+        }
+
+
+# ---------- Example usage ----------
+async def test_expert_prompt_system():
+    # Load env (optional)
+    try:
+        from dotenv import load_dotenv
+        load_dotenv()
+    except Exception:
+        pass
+
+    system = ExpertPromptSystem()
+
+    sample_code = '''
+import os
+def vulnerable_function(user_input):
+    os.system(f"ls {user_input}")  # command injection
+    query = f"SELECT * FROM users WHERE name = '{user_input}'"  # sql injection
+    return "executed"
+'''
+    results = await system.run_comprehensive_analysis(sample_code, "python")
+    print(json.dumps(results, indent=2, default=str))
+
+
+if __name__ == "__main__":
+    asyncio.run(test_expert_prompt_system())

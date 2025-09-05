@@ -66,8 +66,13 @@ spec:
               name: erc8004-config
               key: validation-registry
         
-        # AI Configuration
+        # Enhanced AI Configuration
         - name: GROK_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: ai-secrets
+              key: grok-key
+        - name: XAI_API_KEY  # XAI SDK compatibility
           valueFrom:
             secretKeyRef:
               name: ai-secrets
@@ -82,6 +87,14 @@ spec:
             secretKeyRef:
               name: ai-secrets
               key: anthropic-key
+        
+        # AI Model Selection
+        - name: GROK_FAST_MODEL
+          value: "grok-3-mini"
+        - name: GROK_STANDARD_MODEL
+          value: "grok-3"
+        - name: CLAUDE_MODEL
+          value: "claude-3-5-sonnet-20241022"
         
         resources:
           requests:

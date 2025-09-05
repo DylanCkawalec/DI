@@ -10,7 +10,7 @@ py-solc-x>=2.0.0
 python-dotenv>=1.1.0
 
 # FastAPI and Web Framework (CRITICAL - Fixed)
-fastapi>=0.116.0
+fastapi>=0.114.2  # Allow newer versions for enhanced features
 uvicorn[standard]>=0.35.0
 websockets>=12.0
 
@@ -18,16 +18,23 @@ websockets>=12.0
 pydantic>=2.11.0
 pydantic-core>=2.33.0
 
-# AI and Agent Orchestration
+# AI Client Libraries (UPDATED)
+# xAI SDK for Grok models
+xai-sdk>=1.1.0
+
+# Anthropic Claude
+anthropic>=0.7.0
+
+# OpenAI (fallback only)
+openai>=1.0.0
+
+# Legacy AI orchestration (optional)
 crewai>=0.165.1
 langchain>=0.1.0
 langchain-openai>=0.1.0
 langchain-anthropic>=0.1.0
-pydantic>=2.0.0
-openai>=1.0.0
-anthropic>=0.7.0
 
-# Grok API Support (using OpenAI-compatible client)
+# HTTP clients
 httpx>=0.25.0
 
 # Code Analysis Tools
@@ -44,16 +51,12 @@ dstack-sdk>=0.1.0
 # Cryptography for A2A Protocol
 cryptography>=41.0.0
 
-# API and Web Framework
-fastapi>=0.104.0
-uvicorn>=0.24.0
-httpx>=0.25.0
+# API and Web Framework (removed duplicates)
 requests>=2.31.0
-websockets>=11.0.0
 
-# Data Processing
+# Data Processing (compatible with max-engine)
 pandas>=2.0.0
-numpy>=1.24.0
+numpy>=1.18,<2.0  # Pin to avoid max-engine conflicts
 
 # File Handling
 gitpython>=3.1.40

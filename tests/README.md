@@ -1,5 +1,9 @@
 # Test Suite Organization
 
+```bash
+./quick_launch.sh
+```
+
 ## Structure
 
 ```

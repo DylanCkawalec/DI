@@ -60,6 +60,10 @@ COPY WORKING_VALIDATOR_AGENT.py ./
 COPY deployed_contracts.json ./
 COPY base_contract_example.csv ./
 
+# Copy enhanced AI system
+COPY expert_prompt_system.py ./
+COPY test_enhanced_agent.py ./
+
 # Copy essential documentation
 COPY ERC8004-spec.md README.md ./
 

@@ -45,10 +45,16 @@ services:
       - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
       - CONTRACT_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
       
-      # AI model configuration
+      # Enhanced AI model configuration
       - GROK_API_KEY=${GROK_API_KEY}
+      - XAI_API_KEY=${GROK_API_KEY}  # XAI SDK compatibility
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      
+      # AI model selection
+      - GROK_FAST_MODEL=${GROK_FAST_MODEL:-grok-3-mini}
+      - GROK_STANDARD_MODEL=${GROK_STANDARD_MODEL:-grok-3}
+      - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-3-5-sonnet-20241022}
       
       # Phala TEE configuration
       - PHALA_API_KEY=${PHALA_API_KEY}
@@ -102,15 +108,14 @@ services:
     # Production restart policy
     restart: unless-stopped
     
-    # Enhanced health check for complete system
+    # Enhanced health check for backend services only (avoid disrupting frontend)
     healthcheck:
       test: |
         curl -f http://localhost:8080/api/health &&
-        curl -f http://localhost:8081/health &&
-        curl -f http://localhost:3000
-      interval: 30s
-      timeout: 15s
-      retries: 5
+        curl -f http://localhost:8081/health
+      interval: 60s  # Less frequent checks
+      timeout: 10s
+      retries: 3
       start_period: 60s
     
     # Resource limits optimized for Phala TEE

@@ -39,11 +39,17 @@ except ImportError as e:
 # Local imports with error handling
 try:
     from agents.a2a_oracle_service import A2AOracleService
-    from agents.code_review_server_agent import CodeReviewServerAgent, CodeReviewRequest
-    print(f"✅ Local agent modules successfully imported")
+    # Use enhanced agent instead of basic agent
+    from agents.enhanced_code_review_agent import EnhancedCodeReviewAgent, CodeReviewRequest
+    print(f"✅ Enhanced agent modules successfully imported")
 except ImportError as e:
-    print(f"⚠️ Warning: Agent imports failed: {e}")
-    print("Will use fallback implementations")
+    print(f"⚠️ Warning: Enhanced agent imports failed, trying fallback: {e}")
+    try:
+        from agents.code_review_server_agent import CodeReviewServerAgent as EnhancedCodeReviewAgent, CodeReviewRequest
+        print(f"✅ Fallback agent modules imported")
+    except ImportError as e2:
+        print(f"❌ Critical: All agent imports failed: {e2}")
+        print("Will use minimal implementations")
 
 # Pydantic models
 class A2ASessionRequest(BaseModel):
@@ -71,7 +77,7 @@ class DecryptPayloadRequest(BaseModel):
 
 # Global services
 oracle_service: Optional[A2AOracleService] = None
-code_review_agent: Optional[CodeReviewServerAgent] = None
+code_review_agent: Optional[EnhancedCodeReviewAgent] = None
 
 def initialize_services():
     """Initialize A2A services with proper error handling"""
@@ -85,8 +91,8 @@ def initialize_services():
         print("🔮 Initializing A2A Oracle Service...")
         oracle_service = A2AOracleService(private_key)
         
-        print("🤖 Initializing Code Review Agent...")
-        code_review_agent = CodeReviewServerAgent(
+        print("🤖 Initializing Enhanced Code Review Agent...")
+        code_review_agent = EnhancedCodeReviewAgent(
             private_key,
             "alice-base-sepolia.erc8004.dev"
         )
@@ -204,8 +210,8 @@ async def process_code_review_async(session_id: str, request: A2ASessionRequest)
             focus_areas=["security", "performance", "maintainability", "style"]
         )
         
-        # Perform AI analysis
-        review_result = await code_review_agent._perform_code_review(review_request)
+        # Perform enhanced AI analysis
+        review_result = await code_review_agent._perform_enhanced_code_review(review_request)
         
         # Convert to dict for oracle processing
         review_dict = review_result.model_dump()

@@ -14,12 +14,19 @@ echo
 mkdir -p logs data sessions validations 2>/dev/null || true
 chmod 755 logs data sessions validations 2>/dev/null || true
 
+# Load .env file if it exists (for local development)
+if [[ -f ".env" && -z "$CONTAINER_MODE" ]]; then
+    echo "📁 Loading environment from .env file..."
+    export $(grep -v '^#' .env | xargs) 2>/dev/null || true
+    echo "   Environment variables loaded"
+fi
+
 # Validate environment variables are available (no hardcoded keys)
 if [[ -z "$PRIVATE_KEY" ]]; then
     echo "❌ ERROR: PRIVATE_KEY not found in environment"
-    echo "   Environment variables must be exported before starting services"
-    echo "   In Docker: handled by load_env.sh"
-    echo "   Local: export environment variables or use .env file"
+    echo "   For local: Ensure .env file exists with PRIVATE_KEY"
+    echo "   For Docker: handled by load_env.sh"
+    echo "   For Phala TEE: set via KMS secrets"
     exit 1
 fi
 
@@ -178,12 +185,18 @@ while true; do
         validator_status="✅(AI:$ai_available)"
     fi
     
-    # Check Frontend with HTTP status
-    frontend_code=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 2>/dev/null)
-    if [[ "$frontend_code" == "200" ]]; then
-        frontend_status="✅(200)"
-    elif [[ "$frontend_code" == "500" ]]; then
-        frontend_status="⚠️(500)"
+    # Check Frontend with less aggressive monitoring (every 3rd cycle only)
+    if [[ $((monitoring_cycles % 3)) -eq 0 ]]; then
+        frontend_code=$(timeout 5s curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 2>/dev/null || echo "000")
+        if [[ "$frontend_code" == "200" ]]; then
+            frontend_status="✅(200)"
+        elif [[ "$frontend_code" == "500" ]]; then
+            frontend_status="⚠️(500)"
+        else
+            frontend_status="⏳(loading)"
+        fi
+    else
+        frontend_status="⏸️(skip)"
     fi
     
     # Status display with cycle counter
