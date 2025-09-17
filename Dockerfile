@@ -48,21 +48,20 @@ RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
 # Set working directory
 WORKDIR /app
 
-# Copy and install Python requirements
+# Copy and install Python requirements (with TEE dependencies)
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt \
-    && pip install --no-cache-dir gunicorn uvloop httptools
+    && pip install --no-cache-dir gunicorn uvloop httptools \
+    && pip install --no-cache-dir dstack-sdk>=0.5.0 aiohttp
 
 # Copy application code
 COPY agents/ ./agents/
 COPY contracts/out/ ./contracts/out/
 COPY WORKING_VALIDATOR_AGENT.py ./
 COPY deployed_contracts.json ./
-COPY base_contract_example.csv ./
 
 # Copy enhanced AI system
 COPY expert_prompt_system.py ./
-COPY test_enhanced_agent.py ./
 
 # Copy essential documentation
 COPY ERC8004-spec.md README.md ./

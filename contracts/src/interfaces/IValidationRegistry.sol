@@ -27,6 +27,27 @@ interface IValidationRegistry {
         bytes32 indexed dataHash,
         uint8 response
     );
+    
+    /**
+     * @dev Emitted when a TEE attestation validation is requested
+     */
+    event TEEValidationRequestEvent(
+        uint256 indexed agentValidatorId,
+        uint256 indexed agentServerId,
+        bytes32 indexed dataHash,
+        bytes32 measurementHash
+    );
+    
+    /**
+     * @dev Emitted when a TEE attestation validation is completed
+     */
+    event TEEValidationResponseEvent(
+        uint256 indexed agentValidatorId,
+        uint256 indexed agentServerId,
+        bytes32 indexed dataHash,
+        uint8 response,
+        bool attestationValid
+    );
 
     // ============ Structs ============
     
@@ -40,6 +61,28 @@ interface IValidationRegistry {
         uint256 timestamp;
         bool responded;
     }
+    
+    /**
+     * @dev TEE validation request structure
+     */
+    struct TEEValidationRequest {
+        uint256 agentValidatorId;
+        uint256 agentServerId;
+        bytes32 dataHash;
+        bytes32 measurementHash;
+        bytes attestationProof;
+        uint256 timestamp;
+        bool responded;
+    }
+    
+    /**
+     * @dev Validator type enumeration
+     */
+    enum ValidatorType {
+        STANDARD,           // Standard crypto-economic validation
+        TEE_ATTESTATION,    // TEE attestation verification
+        ZK_PROOF           // Zero-knowledge proof verification
+    }
 
     // ============ Errors ============
     
@@ -50,6 +93,10 @@ interface IValidationRegistry {
     error RequestExpired();
     error InvalidResponse();
     error InvalidDataHash();
+    error InvalidTEEAttestation();
+    error TEEValidationNotFound();
+    error InvalidMeasurementHash();
+    error UnsupportedValidatorType();
 
     // ============ Write Functions ============
     
@@ -104,4 +151,64 @@ interface IValidationRegistry {
      * @return slots Number of storage slots a request remains valid
      */
     function getExpirationSlots() external view returns (uint256 slots);
+    
+    /**
+     * @dev Submit a TEE attestation validation request
+     * @param agentValidatorId The ID of the TEE validator agent
+     * @param agentServerId The ID of the server agent whose work needs validation
+     * @param dataHash Hash of the data to be validated
+     * @param measurementHash Expected TEE measurement hash
+     * @param attestationProof TEE attestation proof/quote
+     * @notice Creates a TEE-specific validation request
+     */
+    function teeValidationRequest(
+        uint256 agentValidatorId,
+        uint256 agentServerId,
+        bytes32 dataHash,
+        bytes32 measurementHash,
+        bytes calldata attestationProof
+    ) external;
+    
+    /**
+     * @dev Submit a TEE attestation validation response
+     * @param dataHash Hash of the data that was validated
+     * @param response Validation score (0-100)
+     * @param attestationValid Whether the TEE attestation is valid
+     * @notice Only callable by the designated TEE validator agent's address
+     */
+    function teeValidationResponse(
+        bytes32 dataHash, 
+        uint8 response, 
+        bool attestationValid
+    ) external;
+    
+    /**
+     * @dev Get TEE validation request details
+     * @param dataHash The hash of the data being validated
+     * @return request The TEE validation request details
+     */
+    function getTEEValidationRequest(bytes32 dataHash) external view returns (TEEValidationRequest memory request);
+    
+    /**
+     * @dev Check if a TEE validation request exists and is pending
+     * @param dataHash The hash of the data being validated
+     * @return exists True if the request exists
+     * @return pending True if the request is still pending response
+     */
+    function isTEEValidationPending(bytes32 dataHash) external view returns (bool exists, bool pending);
+    
+    /**
+     * @dev Get validator type for an agent
+     * @param agentId The validator agent ID
+     * @return validatorType The type of validator
+     */
+    function getValidatorType(uint256 agentId) external view returns (ValidatorType validatorType);
+    
+    /**
+     * @dev Set validator type for an agent
+     * @param agentId The validator agent ID
+     * @param validatorType The type of validator
+     * @notice Only callable by the agent's registered address
+     */
+    function setValidatorType(uint256 agentId, ValidatorType validatorType) external;
 }

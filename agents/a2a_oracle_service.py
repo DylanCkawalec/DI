@@ -76,7 +76,19 @@ class A2AOracleService:
     
     def __init__(self, agent_private_key: str):
         self.agent_private_key = agent_private_key
-        self.agent_account = Account.from_key(agent_private_key)
+        # Clean and validate private key
+        clean_private_key = agent_private_key
+        if clean_private_key.startswith('0x'):
+            clean_private_key = clean_private_key[2:]
+            
+        # Validate hex format
+        if not all(c in '0123456789abcdefABCDEF' for c in clean_private_key):
+            raise ValueError(f"Private key contains invalid characters: {clean_private_key[:10]}...")
+            
+        if len(clean_private_key) != 64:
+            raise ValueError(f"Private key wrong length: {len(clean_private_key)} (expected 64)")
+            
+        self.agent_account = Account.from_key(clean_private_key)
         self.sessions: Dict[str, A2ASession] = {}
         
         # Initialize Web3 with DRPC (with offline mode fallback)
@@ -337,35 +349,49 @@ class A2AOracleService:
             contracts = deployment['contracts']
             validation_registry_address = self.w3.to_checksum_address(contracts['ValidationRegistry'])
             
-            # Create validation request data
-            nonce = self.w3.eth.get_transaction_count(self.agent_account.address)
+            # Load ValidationRegistry contract ABI and create instance
+            abi_path = "contracts/out/ValidationRegistry.sol/ValidationRegistry.json"
+            with open(abi_path, 'r') as f:
+                artifact = json.load(f)
             
-            # Prepare data for validation registry
+            validation_contract = self.w3.eth.contract(
+                address=validation_registry_address,
+                abi=artifact['abi']
+            )
+            
+            # Prepare validation request data following ERC-8004 protocol
             session_data = {
                 'session_id': session.session_id,
                 'user_address': session.user_address,
-                'timestamp': int(time.time())
+                'timestamp': int(time.time()),
+                'payload_hash': hashlib.sha256(json.dumps(payload_data, sort_keys=True).encode()).hexdigest()
             }
             
-            session_hash = hashlib.sha256(json.dumps(session_data, sort_keys=True).encode()).hexdigest()
+            # Create hash of session data for validation
+            data_hash = '0x' + hashlib.sha256(json.dumps(session_data, sort_keys=True).encode()).hexdigest()
             
-            # Optimized transaction for Base network
-            base_gas_price = self.w3.eth.gas_price
+            print(f"🔗 Submitting validation request to blockchain...")
+            print(f"   Data Hash: {data_hash}")
+            print(f"   Session ID: {session.session_id}")
+            print(f"   User Address: {session.user_address}")
             
-            # Use lower gas price for Base network
-            if self.w3.eth.chain_id in [8453, 84532]:  # Base networks
-                base_gas_price = max(base_gas_price, 1000000)  # Minimum gas price
+            # Call proper ERC-8004 ValidationRegistry.validationRequest function
+            # validationRequest(AgentValidatorID, AgentServerID, DataHash)
+            validator_agent_id = 1  # This agent acts as validator
+            server_agent_id = 2     # Server agent being validated (could be dynamic)
             
-            tx = {
-                'to': validation_registry_address,
-                'value': self.w3.to_wei(0.0005, 'ether'),  # Reduced fee for Base
-                'gas': 50000,  # Reduced gas limit for efficiency
-                'gasPrice': base_gas_price,
-                'nonce': nonce,
-                'data': '0x' + session_hash[:64]  # First 32 bytes of hash
-            }
+            tx = validation_contract.functions.validationRequest(
+                validator_agent_id,
+                server_agent_id, 
+                data_hash
+            ).build_transaction({
+                'from': self.agent_account.address,
+                'gas': 100000,  # Sufficient gas for contract call
+                'gasPrice': self.w3.eth.gas_price,
+                'nonce': self.w3.eth.get_transaction_count(self.agent_account.address)
+            })
             
-            # Sign and send transaction
+            # Sign and send transaction using proper contract call
             signed_tx = self.agent_account.sign_transaction(tx)
             tx_hash = self.w3.eth.send_raw_transaction(signed_tx.raw_transaction)
             
@@ -385,13 +411,21 @@ class A2AOracleService:
             
             # Try simplified transaction as fallback
             try:
+                # Get fresh gas price and nonce for fallback
+                current_gas_price = self.w3.eth.gas_price
+                current_nonce = self.w3.eth.get_transaction_count(self.agent_account.address)
+                
+                # Use lower gas price for Base network
+                if self.w3.eth.chain_id in [8453, 84532]:  # Base networks
+                    current_gas_price = max(current_gas_price, 1000000)  # Minimum gas price
+                
                 simplified_tx = {
                     'to': validation_registry_address,
                     'value': 0,  # No value for data storage
-                    'gas': 21000,  # Minimum gas for simple transaction
-                    'gasPrice': base_gas_price,
-                    'nonce': nonce,
-                    'data': '0x'  # Empty data
+                    'gas': 50000,  # Sufficient gas for contract interaction
+                    'gasPrice': current_gas_price,
+                    'nonce': current_nonce,
+                    'data': '0x'  # Empty data - just interaction with contract
                 }
                 
                 signed_tx = self.agent_account.sign_transaction(simplified_tx)
@@ -399,15 +433,16 @@ class A2AOracleService:
                 
                 receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=30)
                 if receipt.status == 1:
-                    logger.info(f"Simplified blockchain submission successful: {tx_hash.hex()}")
+                    logger.info(f"✅ Contract interaction successful: {tx_hash.hex()}")
+                    logger.info(f"🔗 BaseScan URL: https://sepolia.basescan.org/tx/{tx_hash.hex()}")
                     return tx_hash.hex()
                     
             except Exception as fallback_error:
-                logger.error(f"Simplified transaction also failed: {fallback_error}")
+                logger.error(f"Contract interaction failed: {fallback_error}")
             
-            # Final fallback - return test hash but mark it clearly
-            logger.warning("All blockchain submissions failed - using test hash for session continuation")
-            return f"test_tx_hash_{session.session_id}"
+            # If we reach here, there's a fundamental issue - don't use test hashes
+            logger.error("❌ CRITICAL: All contract interactions failed - check account funding and network")
+            raise Exception("Contract interaction failed - cannot proceed with mock transactions")
 
     def _save_session(self, session: A2ASession):
         """Save session to persistent storage"""

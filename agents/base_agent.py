@@ -62,7 +62,19 @@ class ERC8004BaseAgent:
         
         # Load account from private key
         from eth_account import Account
-        self.account = Account.from_key(private_key)
+        # Clean and validate private key
+        clean_private_key = private_key
+        if clean_private_key.startswith('0x'):
+            clean_private_key = clean_private_key[2:]
+            
+        # Validate hex format
+        if not all(c in '0123456789abcdefABCDEF' for c in clean_private_key):
+            raise ValueError(f"Private key contains invalid characters")
+            
+        if len(clean_private_key) != 64:
+            raise ValueError(f"Private key wrong length: {len(clean_private_key)} (expected 64)")
+            
+        self.account = Account.from_key(clean_private_key)
         self.address = self.account.address
         
         # Load contract addresses from deployment
@@ -79,16 +91,19 @@ class ERC8004BaseAgent:
         """Load contract addresses from deployed_contracts.json or environment"""
         try:
             # Try environment variables first (for production)
+            tee_verifier_addr = os.getenv('TEE_VERIFIER_ADDRESS')
             identity_addr = os.getenv('IDENTITY_REGISTRY_ADDRESS')
             reputation_addr = os.getenv('REPUTATION_REGISTRY_ADDRESS') 
             validation_addr = os.getenv('VALIDATION_REGISTRY_ADDRESS')
             
-            if identity_addr and reputation_addr and validation_addr:
+            if tee_verifier_addr and identity_addr and reputation_addr and validation_addr:
                 print("📝 Using contract addresses from environment variables")
+                self.tee_verifier_address = self.w3.to_checksum_address(tee_verifier_addr)
                 self.identity_registry_address = self.w3.to_checksum_address(identity_addr)
                 self.reputation_registry_address = self.w3.to_checksum_address(reputation_addr)
                 self.validation_registry_address = self.w3.to_checksum_address(validation_addr)
                 
+                print(f"   TEE Verifier: {self.tee_verifier_address}")
                 print(f"   Identity Registry: {self.identity_registry_address}")
                 print(f"   Reputation Registry: {self.reputation_registry_address}")
                 print(f"   Validation Registry: {self.validation_registry_address}")
@@ -101,20 +116,23 @@ class ERC8004BaseAgent:
                 contracts = deployment['contracts']
                 
                 # Ensure addresses are checksummed
+                self.tee_verifier_address = self.w3.to_checksum_address(contracts['TEEVerifier'])
                 self.identity_registry_address = self.w3.to_checksum_address(contracts['IdentityRegistry'])
                 self.reputation_registry_address = self.w3.to_checksum_address(contracts['ReputationRegistry'])
                 self.validation_registry_address = self.w3.to_checksum_address(contracts['ValidationRegistry'])
                 
+                print(f"   TEE Verifier: {self.tee_verifier_address}")
                 print(f"   Identity Registry: {self.identity_registry_address}")
                 print(f"   Reputation Registry: {self.reputation_registry_address}")
                 print(f"   Validation Registry: {self.validation_registry_address}")
                 
         except FileNotFoundError:
-            # Last resort - use Base Sepolia addresses
-            print("⚠️ No contract deployment found, using Base Sepolia fallback addresses")
-            self.identity_registry_address = "0x35656CaD817aD468260dE1bA029fF919E5a40f75"
-            self.reputation_registry_address = "0x5796Cf09CF7E0F27A6Fb1489a7e5f9414f95F17B"
-            self.validation_registry_address = "0x6731b3be764B33a4E94D148410f1f551CE91dA61"
+            # Last resort - use TEE-enhanced Base Sepolia addresses
+            print("⚠️ No contract deployment found, using TEE-enhanced Base Sepolia fallback addresses")
+            self.tee_verifier_address = "0x75e8FEb5820DC4d0E795F0517646212BBB4fB41A"
+            self.identity_registry_address = "0x4bE957cceC6aEc4258F2419BcAF5B5341B14052f"
+            self.reputation_registry_address = "0xCd42dF97D96CB4aB35f985F8133786386BBbFc5d"
+            self.validation_registry_address = "0x4EB31a7bB1134872c980d6cfbd8A9DFF5b39f795"
             
         except Exception as e:
             raise Exception(f"Failed to load contract addresses: {e}")
@@ -149,6 +167,7 @@ class ERC8004BaseAgent:
         """Initialize contract instances (only when Web3 connection available)"""
         if self.offline_mode:
             print("⚠️ Offline mode: Contract instances not available")
+            self.tee_verifier = None
             self.identity_registry = None
             self.reputation_registry = None
             self.validation_registry = None
@@ -156,11 +175,17 @@ class ERC8004BaseAgent:
             
         try:
             # Load ABIs
+            tee_verifier_abi = self._load_contract_abi('TEEVerifier')
             identity_abi = self._load_contract_abi('IdentityRegistry')
             reputation_abi = self._load_contract_abi('ReputationRegistry')
             validation_abi = self._load_contract_abi('ValidationRegistry')
             
             # Create contract instances
+            self.tee_verifier = self.w3.eth.contract(
+                address=self.tee_verifier_address,
+                abi=tee_verifier_abi
+            )
+            
             self.identity_registry = self.w3.eth.contract(
                 address=self.identity_registry_address,
                 abi=identity_abi
@@ -176,14 +201,75 @@ class ERC8004BaseAgent:
                 abi=validation_abi
             )
             
-            print("✅ Contract instances initialized successfully")
+            print("✅ All contract instances initialized successfully (including TEE Verifier)")
             
         except Exception as e:
             print(f"⚠️ Contract initialization failed: {e}")
             print("   Running without contract instances")
+            self.tee_verifier = None
             self.identity_registry = None
             self.reputation_registry = None
             self.validation_registry = None
+    
+    async def register_agent(self, use_tee: bool = False) -> Optional[int]:
+        """Register this agent on the blockchain"""
+        if self.offline_mode or not self.identity_registry:
+            print("⚠️ Cannot register agent - offline mode or no contract")
+            return None
+        
+        try:
+            print(f"🔐 Registering agent: {self.agent_domain}")
+            
+            if use_tee and self.tee_verifier:
+                # TEE-enhanced registration (requires TEE attestation)
+                print("   Using TEE-enhanced registration...")
+                # This would integrate with TEE agent service
+                # For now, fall back to regular registration
+                use_tee = False
+            
+            if not use_tee:
+                # Regular ERC-8004 agent registration
+                registration_fee = self.identity_registry.functions.REGISTRATION_FEE().call()
+                print(f"   Registration fee: {Web3.from_wei(registration_fee, 'ether')} ETH")
+                
+                # Build transaction
+                tx = self.identity_registry.functions.newAgent(
+                    self.agent_domain,
+                    self.address
+                ).build_transaction({
+                    'from': self.address,
+                    'value': registration_fee,
+                    'gas': 200000,
+                    'gasPrice': self.w3.eth.gas_price,
+                    'nonce': self.w3.eth.get_transaction_count(self.address)
+                })
+                
+                # Sign and send transaction
+                signed_tx = self.account.sign_transaction(tx)
+                tx_hash = self.w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+                print(f"   Transaction sent: {tx_hash.hex()}")
+                
+                # Wait for confirmation
+                receipt = self.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=60)
+                
+                if receipt.status == 1:
+                    # Extract agent ID from logs
+                    for log in receipt.logs:
+                        try:
+                            decoded_log = self.identity_registry.events.AgentRegistered().processLog(log)
+                            agent_id = decoded_log['args']['agentId']
+                            self.agent_id = agent_id
+                            print(f"✅ Agent registered successfully with ID: {agent_id}")
+                            return agent_id
+                        except:
+                            continue
+                            
+                print("⚠️ Registration completed but could not extract agent ID")
+                return None
+                
+        except Exception as e:
+            print(f"❌ Agent registration failed: {e}")
+            return None
     
     def _check_registration(self):
         """Check if this agent is already registered"""

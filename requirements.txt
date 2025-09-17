@@ -20,7 +20,7 @@ pydantic-core>=2.33.0
 
 # AI Client Libraries (UPDATED)
 # xAI SDK for Grok models
-xai-sdk>=1.1.0
+# xai-sdk>=1.1.0  # Temporarily disabled: not available on PyPI in this environment
 
 # Anthropic Claude
 anthropic>=0.7.0
@@ -45,11 +45,11 @@ radon>=6.0.1
 flake8>=6.0.0
 mypy>=1.6.0
 
-# Phala Cloud TEE SDK
-dstack-sdk>=0.1.0
+# Phala dstack TEE SDK (CRITICAL for TEE attestation)
+dstack-sdk>=0.5.0
 
-# Cryptography for A2A Protocol
-cryptography>=41.0.0
+# Additional TEE and cryptographic dependencies
+pycryptodome>=3.19.0
 
 # API and Web Framework (removed duplicates)
 requests>=2.31.0
@@ -57,6 +57,7 @@ requests>=2.31.0
 # Data Processing (compatible with max-engine)
 pandas>=2.0.0
 numpy>=1.18,<2.0  # Pin to avoid max-engine conflicts
+scipy>=1.10.0
 
 # File Handling
 gitpython>=3.1.40

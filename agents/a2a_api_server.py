@@ -12,12 +12,17 @@ import asyncio
 import json
 import traceback
 import time
+import logging
 from pathlib import Path
 from typing import Dict, Any, Optional
 
 # Load environment first
 from dotenv import load_dotenv
 load_dotenv()
+
+# Logger
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
@@ -51,6 +56,16 @@ except ImportError as e:
         print(f"❌ Critical: All agent imports failed: {e2}")
         print("Will use minimal implementations")
 
+# TEE Agent Service import (optional)
+try:
+    from agents.tee_agent_service import TEEAgentService
+    TEE_AVAILABLE = True
+    print(f"✅ TEE Agent Service imported successfully")
+except ImportError as e:
+    TEE_AVAILABLE = False
+    print(f"⚠️ TEE Agent Service not available: {e}")
+    print("   TEE features will be disabled")
+
 # Pydantic models
 class A2ASessionRequest(BaseModel):
     user_address: str
@@ -70,6 +85,20 @@ class SessionStatusResponse(BaseModel):
     agent_address: str
     user_address: str
 
+# TEE-related models
+class TEERegistrationRequest(BaseModel):
+    domain: str
+    measurement_hash: Optional[str] = None
+    attestation_proof: Optional[str] = None
+
+class TEEStatusResponse(BaseModel):
+    tee_available: bool
+    agent_id: Optional[int] = None
+    domain: Optional[str] = None
+    measurement_hash: Optional[str] = None
+    domain_verified: bool = False
+    trust_weight: int = 10
+
 class DecryptPayloadRequest(BaseModel):
     session_id: str
     user_address: str
@@ -87,6 +116,19 @@ def initialize_services():
         private_key = os.getenv('PRIVATE_KEY')
         if not private_key:
             raise ValueError("PRIVATE_KEY not set in environment")
+        
+        # Clean and validate private key
+        if private_key.startswith('0x'):
+            private_key = private_key[2:]  # Remove 0x prefix
+        
+        # Validate hex format
+        if not all(c in '0123456789abcdefABCDEF' for c in private_key):
+            raise ValueError(f"PRIVATE_KEY contains invalid characters: {private_key[:10]}...")
+            
+        if len(private_key) != 64:
+            raise ValueError(f"PRIVATE_KEY wrong length: {len(private_key)} (expected 64)")
+        
+        print(f"✅ Private key validated: {private_key[:10]}...")
         
         print("🔮 Initializing A2A Oracle Service...")
         oracle_service = A2AOracleService(private_key)
@@ -159,6 +201,139 @@ async def health_check():
             "chain_id": oracle_service.w3.eth.chain_id if oracle_service else None
         } if oracle_service else {"connected": False}
     }
+
+# ============ TEE ENDPOINTS ============
+
+def _get_web3_and_verifier():
+    """Fallback setup for read-only TEE verifier calls via DRPC"""
+    from web3 import Web3
+    rpc_url = os.getenv('RPC_URL')
+    tee_verifier_address = os.getenv('TEE_VERIFIER_ADDRESS')
+    if not rpc_url or not tee_verifier_address:
+        return None, None
+    w3 = Web3(Web3.HTTPProvider(rpc_url))
+    if not w3.is_connected():
+        return None, None
+    tee_verifier_abi = [
+        {
+            "inputs": [],
+            "name": "getTrustedMeasurements",
+            "outputs": [{"components": [{"name": "measurementHash", "type": "bytes32"}, {"name": "description", "type": "string"},
+                       {"name": "addedAt", "type": "uint256"}, {"name": "active", "type": "bool"}],
+                       "name": "measurements", "type": "tuple[]"}],
+            "stateMutability": "view",
+            "type": "function"
+        },
+        {
+            "inputs": [{"name": "measurementHash", "type": "bytes32"}],
+            "name": "isTrustedMeasurement",
+            "outputs": [{"name": "trusted", "type": "bool"}],
+            "stateMutability": "view",
+            "type": "function"
+        }
+    ]
+    contract = w3.eth.contract(address=Web3.to_checksum_address(tee_verifier_address), abi=tee_verifier_abi)
+    return w3, contract
+
+@app.get("/api/tee/status")
+async def tee_status():
+    """Get TEE attestation status"""
+    try:
+        # Check contract envs and chain connectivity (fallback via DRPC)
+        contracts_available = all([
+            os.getenv('TEE_VERIFIER_ADDRESS'),
+            os.getenv('IDENTITY_REGISTRY_ADDRESS'),
+            os.getenv('REPUTATION_REGISTRY_ADDRESS'),
+            os.getenv('VALIDATION_REGISTRY_ADDRESS')
+        ])
+        w3, verifier = _get_web3_and_verifier()
+        chain_connected = bool(w3)
+        measurements_count = 0
+        if verifier:
+            try:
+                measurements = verifier.functions.getTrustedMeasurements().call()
+                measurements_count = len(measurements)
+            except Exception as ce:
+                logger.warning(f"TEE status: could not fetch measurements: {ce}")
+        return {
+            "tee_available": bool(TEE_AVAILABLE),
+            "contracts_deployed": contracts_available,
+            "chain_connected": chain_connected,
+            "trusted_measurements": measurements_count,
+            "tee_verifier": os.getenv('TEE_VERIFIER_ADDRESS'),
+            "identity_registry": os.getenv('IDENTITY_REGISTRY_ADDRESS'),
+            "reputation_registry": os.getenv('REPUTATION_REGISTRY_ADDRESS'),
+            "validation_registry": os.getenv('VALIDATION_REGISTRY_ADDRESS'),
+            "phala_endpoint": os.getenv('PHALA_ATTESTATION_ENDPOINT'),
+            "chain_id": int(os.getenv('CHAIN_ID', '84532')),
+            "rpc_url": os.getenv('RPC_URL', 'Not configured')
+        }
+    except Exception as e:
+        logger.error(f"TEE status check failed: {e}")
+        return {"tee_available": False, "error": str(e)}
+
+@app.post("/api/tee/register")
+async def register_tee_agent(request: TEERegistrationRequest):
+    """Register agent with TEE attestation"""
+    try:
+        if not TEE_AVAILABLE:
+            raise HTTPException(status_code=503, detail="TEE service not available")
+            
+        # Initialize TEE service
+        tee_service = TEEAgentService()
+        
+        # Override domain if provided
+        if request.domain:
+            tee_service.agent_domain = request.domain
+            
+        # Register agent
+        agent_id = await tee_service.register_tee_agent()
+        
+        if agent_id:
+            return {
+                "success": True,
+                "agent_id": agent_id,
+                "domain": tee_service.agent_domain,
+                "address": tee_service.account.address,
+                "trust_weight": tee_service.agent_info.trust_weight if tee_service.agent_info else 10
+            }
+        else:
+            raise HTTPException(status_code=400, detail="TEE agent registration failed")
+            
+    except Exception as e:
+        logger.error(f"TEE registration failed: {e}")
+        raise HTTPException(status_code=500, detail=f"Registration error: {str(e)}")
+
+@app.get("/api/tee/measurements")
+async def get_trusted_measurements():
+    """Get list of trusted TEE measurements"""
+    try:
+        # Prefer TEE service if available; else fallback to DRPC read-only
+        if TEE_AVAILABLE:
+            try:
+                tee_service = TEEAgentService()
+                measurements = await tee_service.get_trusted_measurements()
+                return {"success": True, "measurements": measurements, "count": len(measurements)}
+            except Exception as te:
+                logger.warning(f"TEE service unavailable, falling back: {te}")
+        # Fallback path
+        w3, verifier = _get_web3_and_verifier()
+        if not verifier:
+            return {"success": False, "error": "Chain or contract unavailable"}
+        raw = verifier.functions.getTrustedMeasurements().call()
+        measurements = [
+            {
+                "measurement_hash": m[0].hex() if hasattr(m[0], 'hex') else Web3.to_hex(m[0]),
+                "description": m[1],
+                "added_at": int(m[2]),
+                "active": bool(m[3])
+            }
+            for m in raw
+        ]
+        return {"success": True, "measurements": measurements, "count": len(measurements)}
+    except Exception as e:
+        logger.error(f"Failed to get trusted measurements: {e}")
+        return {"success": False, "error": str(e)}
 
 @app.post("/api/a2a/create-session")
 async def create_a2a_session(request: A2ASessionRequest):

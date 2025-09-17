@@ -1,13 +1,24 @@
 {
   "network": "Base Sepolia",
   "chain_id": 84532,
-  "rpc_url": "https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IleqhnKxixj",
+  "rpc_url": "https://sepolia.base.org",
   "deployer": "0xEAB8FD32c2D69867661518dD1CEbFFA6EF20ccAc",
-  "timestamp": 1756959067.352373,
-  "total_cost_eth": 0.00000187318838456,
+  "timestamp": 1758136205,
+  "total_cost_eth": 0.000005933004092148,
+  "tee_enhanced": true,
+  "deployment_method": "Production Deployment v2",
   "contracts": {
-    "IdentityRegistry": "0x35656CaD817aD468260dE1bA029fF919E5a40f75",
-    "ReputationRegistry": "0x5796Cf09CF7E0F27A6Fb1489a7e5f9414f95F17B",
-    "ValidationRegistry": "0x6731b3be764B33a4E94D148410f1f551CE91dA61"
-  }
+    "TEEVerifier": "0x1b841e88ba786027f39ecf9Cd160176b22E3603c",
+    "IdentityRegistry": "0x000c5A70B7269c5eD4238DcC6576e598614d3f70",
+    "ReputationRegistry": "0xa7b860b16a41Aa8b6990EB3Fec0dB34686f7EAde",
+    "ValidationRegistry": "0xA455e56CBE75aaa3F692d28d0fBFD1D44B64F70d"
+  },
+  "transaction_hashes": {
+    "TEEVerifier": "0xd743f2bc7671307ca59673d54f822f96944ed44eca49922a083c804d3d56b2fb",
+    "IdentityRegistry": "0x6514f9c135e31a08cb3965314091a06aeadbdf21e5191a85a476e66c3191ff73",
+    "ReputationRegistry": "0xe282fd941d1c158cc98205cc0ad150e72770f630ee97b887a8e4c51becedc6bb",
+    "ValidationRegistry": "0xa7edd0061b4afe6213b43ccdba31b9f85b7dc88dc395ce6cd85b049328c6c95d"
+  },
+  "verification_status": "deployed_but_not_verified",
+  "note": "Contracts deployed successfully. Verification failed due to missing BASESCAN_API_KEY."
 }

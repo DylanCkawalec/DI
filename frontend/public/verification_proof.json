@@ -1,0 +1,76 @@
+{
+  "protocol_name": "ERC-8004 TEE-Enhanced Trustless Agents",
+  "demonstration_timestamp": "2025-09-06T11:25:55.484581",
+  "blockchain_network": "Base Sepolia (84532)",
+  "demonstration_type": "Complete System Demo",
+  "contract_addresses": {
+    "tee_verifier": "0x75e8FEb5820DC4d0E795F0517646212BBB4fB41A",
+    "identity_registry": "0x4bE957cceC6aEc4258F2419BcAF5B5341B14052f",
+    "reputation_registry": "0xCd42dF97D96CB4aB35f985F8133786386BBbFc5d",
+    "validation_registry": "0x4EB31a7bB1134872c980d6cFBd8A9DFF5b39f795"
+  },
+  "contract_verification": {
+    "all_deployed": true,
+    "all_verified_on_basescan": true,
+    "drpc_connectivity": true,
+    "read_functions_working": true
+  },
+  "tee_integration": {
+    "dstack_sdk_available": true,
+    "phala_api_accessible": true,
+    "attestation_structure_valid": true,
+    "measurement_validation_working": true
+  },
+  "existing_agents": [],
+  "trusted_measurements": [
+    {
+      "index": 0,
+      "measurement_hash": "34b660721f05f166d7884f2b6982d73d022d2335a2ee89b7437416751a69d0c0",
+      "description": "dstack v0.4.0 base measurement",
+      "added_at": 1757119950,
+      "active": true,
+      "added_date": "2025-09-05 17:52:30"
+    },
+    {
+      "index": 1,
+      "measurement_hash": "7eff438ea8dedd6b0a5bfb78691123c0dc1217d5852f1685af7a97bc7b5b2780",
+      "description": "Medical AI v1.0.0 certified measurement",
+      "added_at": 1757119950,
+      "active": true,
+      "added_date": "2025-09-05 17:52:30"
+    },
+    {
+      "index": 2,
+      "measurement_hash": "b79dcc70abdd701608a89c1903bfd2ef5eb5a06d5284f05549665b1e35bd850f",
+      "description": "Financial AI v2.1.0 certified measurement",
+      "added_at": 1757119950,
+      "active": true,
+      "added_date": "2025-09-05 17:52:30"
+    }
+  ],
+  "security_model": {
+    "cryptographic_verification": true,
+    "governance_controls": true,
+    "progressive_trust": true,
+    "attack_resistance": true
+  },
+  "test_results": {
+    "tee_attestation_demo": true,
+    "agent_verification": true,
+    "measurement_analysis": true,
+    "phala_integration": true,
+    "contract_match_proof": true,
+    "system_integration": true
+  },
+  "basescan_links": {
+    "tee_verifier": "https://sepolia.basescan.org/address/0x75e8FEb5820DC4d0E795F0517646212BBB4fB41A",
+    "identity_registry": "https://sepolia.basescan.org/address/0x4bE957cceC6aEc4258F2419BcAF5B5341B14052f",
+    "reputation_registry": "https://sepolia.basescan.org/address/0xCd42dF97D96CB4aB35f985F8133786386BBbFc5d",
+    "validation_registry": "https://sepolia.basescan.org/address/0x4EB31a7bB1134872c980d6cFBd8A9DFF5b39f795"
+  },
+  "frontend_access": {
+    "main_app": "https://5ccc452d7df7de942d06dfcb56fe75c1a205d03d-3000.dstack-prod5.phala.network",
+    "tee_demo": "https://5ccc452d7df7de942d06dfcb56fe75c1a205d03d-3000.dstack-prod5.phala.network/tee",
+    "api_docs": "https://5ccc452d7df7de942d06dfcb56fe75c1a205d03d-8080.dstack-prod5.phala.network/docs"
+  }
+}

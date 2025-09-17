@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "forge-std/Test.sol";
+import {TEEVerifier} from "../src/TEEVerifier.sol";
 import {IdentityRegistry} from "../src/IdentityRegistry.sol";
 import {ReputationRegistry} from "../src/ReputationRegistry.sol";
 import {ValidationRegistry} from "../src/ValidationRegistry.sol";
@@ -17,9 +18,12 @@ contract RegistryTest is Test {
     address charlie = address(0xC0FFEE);
 
     function setUp() public {
-        identity = new IdentityRegistry();
+        // Deploy TEE verifier for testing (simplified)
+        TEEVerifier teeVerifier = new TEEVerifier(address(this), "test-endpoint");
+        
+        identity = new IdentityRegistry(address(teeVerifier));
         reputation = new ReputationRegistry(address(identity));
-        validation = new ValidationRegistry(address(identity));
+        validation = new ValidationRegistry(address(identity), address(teeVerifier));
 
         // Fund our test addresses
         vm.deal(deployer, 100 ether);

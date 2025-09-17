@@ -14,11 +14,12 @@ const nextConfig = {
     // Only include non-sensitive environment variables here
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080',
     NEXT_PUBLIC_VALIDATOR_URL: process.env.NEXT_PUBLIC_VALIDATOR_URL || 'http://localhost:8081',
-    NEXT_PUBLIC_RPC_URL: process.env.NEXT_PUBLIC_RPC_URL,
+    NEXT_PUBLIC_RPC_URL: process.env.NEXT_PUBLIC_RPC_URL || 'https://sepolia.base.org',
     NEXT_PUBLIC_CHAIN_ID: process.env.NEXT_PUBLIC_CHAIN_ID || '84532',
-    NEXT_PUBLIC_IDENTITY_REGISTRY: process.env.NEXT_PUBLIC_IDENTITY_REGISTRY,
-    NEXT_PUBLIC_VALIDATION_REGISTRY: process.env.NEXT_PUBLIC_VALIDATION_REGISTRY,
-    // Note: Etherscan API key is passed via server-side API routes only
+    NEXT_PUBLIC_TEE_VERIFIER: process.env.NEXT_PUBLIC_TEE_VERIFIER || '0x1b841e88ba786027f39ecf9Cd160176b22E3603c',
+    NEXT_PUBLIC_IDENTITY_REGISTRY: process.env.NEXT_PUBLIC_IDENTITY_REGISTRY || '0x000c5A70B7269c5eD4238DcC6576e598614d3f70',
+    NEXT_PUBLIC_REPUTATION_REGISTRY: process.env.NEXT_PUBLIC_REPUTATION_REGISTRY || '0xa7b860b16a41Aa8b6990EB3Fec0dB34686f7EAde',
+    NEXT_PUBLIC_VALIDATION_REGISTRY: process.env.NEXT_PUBLIC_VALIDATION_REGISTRY || '0xA455e56CBE75aaa3F692d28d0fBFD1D44B64F70d',
     NEXT_PUBLIC_NETWORK_NAME: 'Base Sepolia'
   },
   
@@ -82,7 +83,8 @@ const nextConfig = {
     dangerouslyAllowSVG: true,
     contentDispositionType: 'attachment',
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  }
+  },
+
 };
 
 module.exports = nextConfig;

@@ -2,6 +2,7 @@
 pragma solidity ^0.8.19;
 
 import "./interfaces/IIdentityRegistry.sol";
+import "./interfaces/ITEEVerifier.sol";
 
 /**
  * @title IdentityRegistry
@@ -28,12 +29,25 @@ contract IdentityRegistry is IIdentityRegistry {
     
     /// @dev Mapping from address to agent ID
     mapping(address => uint256) private _addressToAgentId;
+    
+    /// @dev Mapping from agent ID to TEE attestation data
+    mapping(uint256 => IIdentityRegistry.TEEAttestation) private _teeAttestations;
+    
+    /// @dev Mapping from measurement hash to array of agent IDs
+    mapping(bytes32 => uint256[]) private _measurementToAgents;
+    
+    /// @dev Mapping from measurement hash to whether it exists
+    mapping(bytes32 => bool) private _measurementExists;
+    
+    /// @dev Reference to the TEE verifier for cryptographic validation
+    ITEEVerifier public immutable teeVerifier;
 
     // ============ Constructor ============
     
-    constructor() {
+    constructor(address _teeVerifier) {
         // Start agent IDs from 1 (0 is reserved for "not found")
         _agentIdCounter = 1;
+        teeVerifier = ITEEVerifier(_teeVerifier);
     }
 
     // ============ Write Functions ============
@@ -73,7 +87,10 @@ contract IdentityRegistry is IIdentityRegistry {
         _agents[agentId] = AgentInfo({
             agentId: agentId,
             agentDomain: agentDomain,
-            agentAddress: agentAddress
+            agentAddress: agentAddress,
+            teeMeasurementHash: bytes32(0),
+            domainVerified: false,
+            rootPubKeyHash: bytes32(0)
         });
         
         // Create lookup mappings
@@ -189,6 +206,179 @@ contract IdentityRegistry is IIdentityRegistry {
      */
     function agentExists(uint256 agentId) external view returns (bool exists) {
         return _agents[agentId].agentId != 0;
+    }
+    
+    /**
+     * @inheritdoc IIdentityRegistry
+     */
+    function newAgentWithTEE(
+        string calldata agentDomain,
+        address agentAddress,
+        bytes32 measurementHash,
+        bytes calldata attestationProof
+    ) external payable returns (uint256 agentId) {
+        // Validate fee
+        if (msg.value != REGISTRATION_FEE) {
+            revert InsufficientFee();
+        }
+        
+        // Validate inputs
+        if (bytes(agentDomain).length == 0) {
+            revert InvalidDomain();
+        }
+        if (agentAddress == address(0)) {
+            revert InvalidAddress();
+        }
+        if (measurementHash == bytes32(0)) {
+            revert InvalidMeasurementHash();
+        }
+        if (attestationProof.length == 0) {
+            revert InvalidTEEAttestation();
+        }
+        
+        // Check for duplicates
+        if (_domainToAgentId[agentDomain] != 0) {
+            revert DomainAlreadyRegistered();
+        }
+        if (_addressToAgentId[agentAddress] != 0) {
+            revert AddressAlreadyRegistered();
+        }
+        
+        // CRITICAL: Verify TEE attestation cryptographically
+        bytes32 expectedReportData = keccak256(abi.encodePacked(agentDomain, agentAddress));
+        (bool verified, bytes32 verifiedMeasurement, bytes32 quoteHash) = teeVerifier.verifyTEEQuote(
+            attestationProof,
+            expectedReportData,
+            3600 // Max 1 hour old quote
+        );
+        
+        if (!verified) {
+            revert InvalidTEEAttestation();
+        }
+        
+        // Verify the measurement hash matches what was verified
+        if (verifiedMeasurement != measurementHash) {
+            revert InvalidMeasurementHash();
+        }
+        
+        // Assign new agent ID
+        agentId = _agentIdCounter++;
+        
+        // Store agent info with TEE data
+        _agents[agentId] = AgentInfo({
+            agentId: agentId,
+            agentDomain: agentDomain,
+            agentAddress: agentAddress,
+            teeMeasurementHash: measurementHash,
+            domainVerified: false,
+            rootPubKeyHash: bytes32(0)
+        });
+        
+        // Store cryptographically verified TEE attestation
+        _teeAttestations[agentId] = IIdentityRegistry.TEEAttestation({
+            measurementHash: measurementHash,
+            attestationProof: attestationProof,
+            timestamp: block.timestamp,
+            verified: verified // Now actually verified!
+        });
+        
+        // Create lookup mappings
+        _domainToAgentId[agentDomain] = agentId;
+        _addressToAgentId[agentAddress] = agentId;
+        
+        // Track agents by measurement hash
+        _measurementToAgents[measurementHash].push(agentId);
+        _measurementExists[measurementHash] = true;
+        
+        emit AgentRegistered(agentId, agentDomain, agentAddress);
+        emit TEEAttestationVerified(agentId, measurementHash);
+    }
+    
+    /**
+     * @inheritdoc IIdentityRegistry
+     */
+    function verifyDomain(
+        uint256 agentId,
+        bytes32 rootPubKeyHash,
+        bytes calldata certificateProof
+    ) external returns (bool success) {
+        // Validate agent exists
+        AgentInfo storage agent = _agents[agentId];
+        if (agent.agentId == 0) {
+            revert AgentNotFound();
+        }
+        
+        // Check authorization
+        if (msg.sender != agent.agentAddress) {
+            revert UnauthorizedUpdate();
+        }
+        
+        // Validate inputs
+        if (rootPubKeyHash == bytes32(0)) {
+            revert InvalidRootPubKey();
+        }
+        if (certificateProof.length == 0) {
+            revert DomainVerificationFailed();
+        }
+        
+        // CRITICAL: Verify RA-TLS certificate cryptographically
+        (bool verified, bytes32 verifiedRootCA) = teeVerifier.verifyRATLSCertificate(
+            certificateProof,
+            agent.agentDomain
+        );
+        
+        if (!verified) {
+            revert DomainVerificationFailed();
+        }
+        
+        // Verify the root CA hash matches what was provided
+        if (verifiedRootCA != rootPubKeyHash) {
+            revert InvalidRootPubKey();
+        }
+        
+        // Now we can safely mark as verified
+        agent.domainVerified = true;
+        agent.rootPubKeyHash = rootPubKeyHash;
+        
+        emit DomainVerified(agentId, rootPubKeyHash);
+        return true;
+    }
+    
+    /**
+     * @inheritdoc IIdentityRegistry
+     */
+    function getTEEAttestation(uint256 agentId) external view returns (IIdentityRegistry.TEEAttestation memory attestation) {
+        if (!this.agentExists(agentId)) {
+            revert AgentNotFound();
+        }
+        attestation = _teeAttestations[agentId];
+    }
+    
+    /**
+     * @inheritdoc IIdentityRegistry
+     */
+    function hasTEEAttestation(uint256 agentId) external view returns (bool hasAttestation) {
+        if (!this.agentExists(agentId)) {
+            return false;
+        }
+        return _teeAttestations[agentId].verified;
+    }
+    
+    /**
+     * @inheritdoc IIdentityRegistry
+     */
+    function isDomainVerified(uint256 agentId) external view returns (bool isVerified) {
+        if (!this.agentExists(agentId)) {
+            return false;
+        }
+        return _agents[agentId].domainVerified;
+    }
+    
+    /**
+     * @inheritdoc IIdentityRegistry
+     */
+    function getAgentsByMeasurement(bytes32 measurementHash) external view returns (uint256[] memory agentIds) {
+        return _measurementToAgents[measurementHash];
     }
 
     // ============ Internal Functions ============

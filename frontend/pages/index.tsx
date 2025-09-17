@@ -28,6 +28,8 @@ import AuditDownloader from '../components/AuditDownloader';
 import ErrorRecoveryBanner from '../components/ErrorRecoveryBanner';
 import UserDeploymentPanel from '../components/UserDeploymentPanel';
 import SessionHistory from '../components/SessionHistory';
+import TEEProtocolDemo from '../components/TEEProtocolDemo';
+import TEEAgentPanel from '../components/TEEAgentPanel';
 import LauncherModal from '../components/LauncherModal';
 import RevenueExplanation from '../components/RevenueExplanation';
 import RealTimeProgress from '../components/RealTimeProgress';
@@ -38,6 +40,9 @@ import AgentDiscovery from '../components/AgentDiscovery';
 import PhalaKMSBanner from '../components/PhalaKMSBanner';
 import ClientOnlyWrapper from '../components/ClientOnlyWrapper';
 import TransactionStatus from '../components/TransactionStatus';
+import ContractStatusMonitor from '../components/ContractStatusMonitor';
+import AgentRegistration from '../components/AgentRegistration';
+import A2AProtocolDemo from '../components/A2AProtocolDemo';
 
 interface ReviewData {
   review_id: string;
@@ -136,6 +141,7 @@ export default function Home() {
   const [isWalletConnected, setIsWalletConnected] = useState(false);
   const [walletAddress, setWalletAddress] = useState<string>('');
   const [web3Instance, setWeb3Instance] = useState<any>(null);
+  const [activeTab, setActiveTab] = useState<'overview' | 'register' | 'protocol'>('overview');
   const [networkId, setNetworkId] = useState<number | null>(null);
   const [estimatedCost, setEstimatedCost] = useState<number>(0);
   const [userConfig, setUserConfig] = useState<any>(null);

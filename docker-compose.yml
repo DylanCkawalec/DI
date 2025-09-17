@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: dylanckawalec/trustless-ai-erc-8004:latest
-    container_name: erc8004-trustless-agent
+    container_name: trustless-Decrypt-A2a
     
     # Environment configuration for Phala Cloud TEE
     environment:
@@ -34,50 +34,54 @@ services:
       - GRANT_SUDO=yes
       - HEALTHCHECK_INTERVAL=30000
       
-      # Blockchain configuration
-      - RPC_URL=${RPC_URL}
-      - PRIVATE_KEY=${PRIVATE_KEY}
-      - CHAIN_ID=${CHAIN_ID:-84532}
+      # Blockchain configuration (injected at runtime from TEE environment)
+      - RPC_URL
+      - PRIVATE_KEY
+      - CHAIN_ID
       
-      # ERC-8004 contract addresses
-      - IDENTITY_REGISTRY_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
-      - REPUTATION_REGISTRY_ADDRESS=${REPUTATION_REGISTRY_ADDRESS}
-      - VALIDATION_REGISTRY_ADDRESS=${VALIDATION_REGISTRY_ADDRESS}
-      - CONTRACT_ADDRESS=${IDENTITY_REGISTRY_ADDRESS}
+      # TEE-Enhanced ERC-8004 contract addresses (injected at runtime)
+      - TEE_VERIFIER_ADDRESS
+      - IDENTITY_REGISTRY_ADDRESS
+      - REPUTATION_REGISTRY_ADDRESS
+      - VALIDATION_REGISTRY_ADDRESS
+      - CONTRACT_ADDRESS
       
-      # Enhanced AI model configuration
-      - GROK_API_KEY=${GROK_API_KEY}
-      - XAI_API_KEY=${GROK_API_KEY}  # XAI SDK compatibility
-      - OPENAI_API_KEY=${OPENAI_API_KEY}
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      # Enhanced AI model configuration (injected at runtime from TEE)
+      - GROK_API_KEY
+      - XAI_API_KEY
+      - OPENAI_API_KEY
+      - ANTHROPIC_API_KEY
       
       # AI model selection
       - GROK_FAST_MODEL=${GROK_FAST_MODEL:-grok-3-mini}
       - GROK_STANDARD_MODEL=${GROK_STANDARD_MODEL:-grok-3}
       - CLAUDE_MODEL=${CLAUDE_MODEL:-claude-3-5-sonnet-20241022}
       
-      # Phala TEE configuration
-      - PHALA_API_KEY=${PHALA_API_KEY}
+      # Phala TEE configuration (injected at runtime from TEE KMS)
+      - PHALA_API_KEY
       - TEE_ATTESTATION_ENABLED=true
       - PHALA_ENDPOINT=https://api.phala.network
+      - PHALA_ATTESTATION_ENDPOINT=https://api.phala.network/api/v1/attestations
       
-      # A2A Agent Keys (for multi-agent deployment)
-      - SERVER_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
-      - VALIDATOR_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
-      - CLIENT_AGENT_PRIVATE_KEY=${PRIVATE_KEY}
-      - SERVER_AGENT_SALT=${SERVER_AGENT_SALT:-server_salt_001}
-      - VALIDATOR_AGENT_SALT=${VALIDATOR_AGENT_SALT:-validator_salt_001}
-      - CLIENT_AGENT_SALT=${CLIENT_AGENT_SALT:-client_salt_001}
+      # A2A Agent Keys (derived at runtime from TEE KMS)
+      - SERVER_AGENT_PRIVATE_KEY
+      - VALIDATOR_AGENT_PRIVATE_KEY
+      - CLIENT_AGENT_PRIVATE_KEY
+      - SERVER_AGENT_SALT
+      - VALIDATOR_AGENT_SALT
+      - CLIENT_AGENT_SALT
       
-      # Frontend configuration
+      # Frontend configuration (public values only)
       - NEXT_PUBLIC_API_URL=http://localhost:8080
       - NEXT_PUBLIC_VALIDATOR_URL=http://localhost:8081
-      - NEXT_PUBLIC_RPC_URL=${NEXT_PUBLIC_RPC_URL}
-      - NEXT_PUBLIC_CHAIN_ID=${NEXT_PUBLIC_CHAIN_ID:-84532}
-      - NEXT_PUBLIC_IDENTITY_REGISTRY=${NEXT_PUBLIC_IDENTITY_REGISTRY}
-      - NEXT_PUBLIC_VALIDATION_REGISTRY=${NEXT_PUBLIC_VALIDATION_REGISTRY}
-      - NEXT_PUBLIC_ETHERSCAN_API_KEY=${NEXT_PUBLIC_ETHERSCAN_API_KEY}
-      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
+      - NEXT_PUBLIC_RPC_URL
+      - NEXT_PUBLIC_CHAIN_ID
+      - NEXT_PUBLIC_TEE_VERIFIER
+      - NEXT_PUBLIC_IDENTITY_REGISTRY
+      - NEXT_PUBLIC_REPUTATION_REGISTRY
+      - NEXT_PUBLIC_VALIDATION_REGISTRY
+      - NEXT_PUBLIC_ETHERSCAN_API_KEY
+      - ETHERSCAN_API_KEY
     
     # Port mapping
     ports:

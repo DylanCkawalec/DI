@@ -5,20 +5,34 @@
 
 set -e  # Exit on any error
 
-echo "🚀 FINAL ERC-8004 A2A LAUNCHER"
-echo "=============================="
-echo "🎯 Starting bulletproof system for production use..."
+echo "🔐 TEE-ENHANCED ERC-8004 A2A LAUNCHER"
+echo "====================================="
+echo "🎯 Starting cryptographically secured TEE system..."
 echo
 
 # Enhanced setup with better error handling
 mkdir -p logs data sessions validations 2>/dev/null || true
 chmod 755 logs data sessions validations 2>/dev/null || true
 
-# Load .env file if it exists (for local development)
+# TEE-Secure Environment Loading
 if [[ -f ".env" && -z "$CONTAINER_MODE" ]]; then
-    echo "📁 Loading environment from .env file..."
+    echo "📁 Loading environment from .env file (local development)..."
     export $(grep -v '^#' .env | xargs) 2>/dev/null || true
     echo "   Environment variables loaded"
+elif [[ "$TEE_MODE" == "production" ]]; then
+    echo "🔐 TEE Production Mode - Environment injected at runtime"
+    echo "   Secrets loaded from TEE KMS/Environment"
+    
+    # Validate TEE-specific environment variables
+    tee_vars=("TEE_VERIFIER_ADDRESS" "IDENTITY_REGISTRY_ADDRESS" "PHALA_API_KEY")
+    for var in "${tee_vars[@]}"; do
+        if [[ -z "${!var}" ]]; then
+            echo "❌ ERROR: TEE variable $var not found in environment"
+            echo "   This should be injected by the TEE runtime"
+            exit 1
+        fi
+    done
+    echo "✅ TEE environment variables validated"
 fi
 
 # Validate environment variables are available (no hardcoded keys)
@@ -49,6 +63,25 @@ else
 fi
 
 echo "✅ All required environment variables validated"
+
+# TEE Socket Detection (critical for dstack SDK)
+if [[ "$TEE_MODE" == "production" || "$PHALA_DEPLOYMENT" == "true" ]]; then
+    echo "🔍 Checking TEE socket availability..."
+    
+    # Check for dstack socket (current) or legacy tappd socket
+    if [[ -S "/var/run/dstack.sock" ]]; then
+        echo "✅ dstack TEE socket found: /var/run/dstack.sock"
+        export DSTACK_SOCKET_PATH="/var/run/dstack.sock"
+    elif [[ -S "/var/run/tappd.sock" ]]; then
+        echo "✅ Legacy tappd TEE socket found: /var/run/tappd.sock"
+        export DSTACK_SOCKET_PATH="/var/run/tappd.sock"
+    else
+        echo "⚠️ WARNING: No TEE socket found"
+        echo "   Expected: /var/run/dstack.sock (current) or /var/run/tappd.sock (legacy)"
+        echo "   TEE features will use simulation mode"
+        export TEE_SIMULATION_MODE="true"
+    fi
+fi
 
 # Enhanced process cleanup with better targeting
 echo "🧹 Enhanced cleanup..."
