@@ -27,8 +27,7 @@ This is a **complete, deployable template** for building your own Trustless AI p
 
 ## 🚀 **Quick Start**
 
-### **1. Local Development & Testing**
-```bash
+### **1. Local Development & Testing**```bash
 git clone <your-repo>
 cd DI
 chmod +x quick_launch.sh

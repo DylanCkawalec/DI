@@ -10,9 +10,8 @@ WORKDIR /app/frontend
 # Copy package files first (better caching)
 COPY frontend/package*.json ./
 
-# Install dependencies with build tools
-RUN apk add --no-cache python3 make g++ \
-    && npm ci --omit=dev
+# Install dependencies - use production only and avoid problematic native modules
+RUN npm install --production --no-optional --ignore-scripts
 
 # Copy frontend source
 COPY frontend/ ./
