@@ -1,308 +1,357 @@
 import React, { useState, useEffect } from 'react';
-import { ethers } from 'ethers';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  CheckCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+  ArrowPathIcon,
+  WalletIcon,
+  CpuChipIcon
+} from '@heroicons/react/24/outline';
+
+interface RegistrationStatus {
+  isRegistered: boolean;
+  agentId: number | null;
+  walletAddress: string;
+  isTEE: boolean;
+  registrationFee: string;
+  balance: string;
+  needsFunding: boolean;
+  error: string | null;
+}
 
 interface AgentRegistrationProps {
   web3Provider?: any;
-  isWalletConnected: boolean;
+  isWalletConnected?: boolean;
   onRegistrationSuccess?: (agentId: number) => void;
+  onRegistrationComplete?: (agentId: number) => void;
 }
 
-interface RegistrationFormData {
-  agentDomain: string;
-  agentAddress: string;
-  useTEE: boolean;
-  measurementHash?: string;
-  attestationProof?: string;
-}
-
-const AgentRegistration: React.FC<AgentRegistrationProps> = ({
+export default function AgentRegistration({
   web3Provider,
   isWalletConnected,
-  onRegistrationSuccess
-}) => {
-  const [formData, setFormData] = useState<RegistrationFormData>({
-    agentDomain: '',
-    agentAddress: '',
-    useTEE: false
+  onRegistrationSuccess,
+  onRegistrationComplete
+}: AgentRegistrationProps) {
+  const [status, setStatus] = useState<RegistrationStatus>({
+    isRegistered: false,
+    agentId: null,
+    walletAddress: '',
+    isTEE: false,
+    registrationFee: '0',
+    balance: '0',
+    needsFunding: false,
+    error: null
   });
+  const [isChecking, setIsChecking] = useState(true);
   const [isRegistering, setIsRegistering] = useState(false);
-  const [registrationStatus, setRegistrationStatus] = useState<string>('');
-  const [registrationFee, setRegistrationFee] = useState<string>('0.005');
-  const [txHash, setTxHash] = useState<string>('');
 
-  // Contract configuration
-  const IDENTITY_REGISTRY_ADDRESS = process.env.NEXT_PUBLIC_IDENTITY_REGISTRY || '0x4bE957cceC6aEc4258F2419BcAF5B5341B14052f';
-  const IDENTITY_REGISTRY_ABI = [
-    'function newAgent(string calldata agentDomain, address agentAddress) external payable returns (uint256 agentId)',
-    'function newAgentWithTEE(string calldata agentDomain, address agentAddress, bytes32 measurementHash, bytes calldata attestationProof) external payable returns (uint256 agentId)',
-    'function REGISTRATION_FEE() external pure returns (uint256 fee)',
-    'function getAgent(uint256 agentId) external view returns (tuple(uint256 agentId, string agentDomain, address agentAddress, uint256 timestamp))',
-    'event AgentRegistered(uint256 indexed agentId, string agentDomain, address indexed agentAddress)',
-    'event TEEAttestationVerified(uint256 indexed agentId, bytes32 measurementHash, bool verified)'
-  ];
-
-  // Load registration fee on component mount
   useEffect(() => {
-    const loadRegistrationFee = async () => {
-      try {
-        const rpcUrl = process.env.NEXT_PUBLIC_RPC_URL || 'https://lb.drpc.org/base-sepolia/ArTAkftTl0UdjDU4KTEz4ohhAEm9iRER8IleqhnKxixj';
-        const provider = new ethers.JsonRpcProvider(rpcUrl);
-        const contract = new ethers.Contract(IDENTITY_REGISTRY_ADDRESS, IDENTITY_REGISTRY_ABI, provider);
-        
-        const fee = await contract.REGISTRATION_FEE();
-        setRegistrationFee(ethers.formatEther(fee));
-      } catch (error) {
-        console.error('Failed to load registration fee:', error);
-        setRegistrationStatus('Failed to load registration fee from contract');
-      }
-    };
-
-    loadRegistrationFee();
+    checkRegistrationStatus();
   }, []);
 
-  // Auto-populate agent address from connected wallet
-  useEffect(() => {
-    const populateAgentAddress = async () => {
-      if (isWalletConnected && web3Provider && !formData.agentAddress) {
-        try {
-          const signer = await web3Provider.getSigner();
-          const address = await signer.getAddress();
-          setFormData(prev => ({ ...prev, agentAddress: address }));
-        } catch (error) {
-          console.error('Failed to get wallet address:', error);
-        }
+  const checkRegistrationStatus = async () => {
+    try {
+      setIsChecking(true);
+
+      // Get wallet address from TEE environment
+      const response = await fetch('http://localhost:8080/api/agent/info');
+      if (!response.ok) {
+        throw new Error('Failed to get agent info');
       }
-    };
 
-    populateAgentAddress();
-  }, [isWalletConnected, web3Provider]);
+      const agentInfo = await response.json();
 
-  const handleInputChange = (field: keyof RegistrationFormData, value: any) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+      // Check if agent is registered on blockchain
+      const registrationResponse = await fetch('http://localhost:8080/api/registration/status');
+      if (!registrationResponse.ok) {
+        throw new Error('Failed to check registration status');
+      }
+
+      const registrationData = await registrationResponse.json();
+
+      setStatus({
+        isRegistered: registrationData.isRegistered,
+        agentId: registrationData.agentId,
+        walletAddress: agentInfo.agent_address || '0x...',
+        isTEE: agentInfo.tee_enabled || false,
+        registrationFee: registrationData.registrationFee || '0.005',
+        balance: registrationData.balance || '0',
+        needsFunding: registrationData.needsFunding || false,
+        error: null
+      });
+
+      if (registrationData.isRegistered && onRegistrationComplete) {
+        onRegistrationComplete(registrationData.agentId);
+      }
+
+    } catch (error) {
+      console.error('Registration check failed:', error);
+      setStatus(prev => ({
+        ...prev,
+        error: error instanceof Error ? error.message : 'Unknown error'
+      }));
+    } finally {
+      setIsChecking(false);
+    }
   };
 
-  const generateMockTEEData = (): { measurementHash: string; attestationProof: string } => {
-    // Generate mock TEE data for demonstration
-    const mockMeasurement = ethers.keccak256(ethers.toUtf8Bytes(`tee-measurement-${Date.now()}`));
-    const mockAttestation = ethers.hexlify(ethers.randomBytes(128)); // Mock 128-byte attestation
-    
-    return {
-      measurementHash: mockMeasurement,
-      attestationProof: mockAttestation
-    };
-  };
-
-  const registerAgent = async () => {
-    if (!isWalletConnected || !web3Provider) {
-      setRegistrationStatus('❌ Please connect your wallet first');
+  const handleRegister = async () => {
+    if (status.needsFunding) {
+      alert(`Please fund your wallet address: ${status.walletAddress}`);
       return;
     }
-
-    if (!formData.agentDomain || !formData.agentAddress) {
-      setRegistrationStatus('❌ Please fill in all required fields');
-      return;
-    }
-
-    setIsRegistering(true);
-    setRegistrationStatus('🔄 Calling IdentityRegistry.newAgent() function...');
 
     try {
-      const signer = await web3Provider.getSigner();
-      const contract = new ethers.Contract(IDENTITY_REGISTRY_ADDRESS, IDENTITY_REGISTRY_ABI, signer);
+      setIsRegistering(true);
 
-      // Get exact registration fee from contract
-      const exactRegistrationFee = await contract.REGISTRATION_FEE();
-      setRegistrationStatus('💰 Registration fee verified: 0.005 ETH (from contract)');
+      const response = await fetch('http://localhost:8080/api/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          useTEE: status.isTEE
+        })
+      });
 
-      let tx;
-      
-      if (formData.useTEE) {
-        // Generate mock TEE data for demonstration
-        const teeData = generateMockTEEData();
-        setRegistrationStatus('🔐 Calling IdentityRegistry.newAgentWithTEE()...');
-        
-        tx = await contract.newAgentWithTEE(
-          formData.agentDomain,
-          formData.agentAddress,
-          teeData.measurementHash,
-          teeData.attestationProof,
-          { value: exactRegistrationFee } // Use exact fee from contract
-        );
-      } else {
-        setRegistrationStatus('🔄 Calling IdentityRegistry.newAgent()...');
-        
-        tx = await contract.newAgent(
-          formData.agentDomain,
-          formData.agentAddress,
-          { value: exactRegistrationFee } // Use exact fee from contract
-        );
+      if (!response.ok) {
+        throw new Error('Registration failed');
       }
 
-      setTxHash(tx.hash);
-      setRegistrationStatus(`📡 Transaction sent: ${tx.hash.slice(0, 10)}...`);
+      const result = await response.json();
 
-      // Wait for confirmation
-      const receipt = await tx.wait();
-      
-      if (receipt.status === 1) {
-        // Extract agent ID from event logs
-        const agentRegisteredEvent = receipt.logs.find((log: any) => {
-          try {
-            const parsedLog = contract.interface.parseLog(log);
-            return parsedLog?.name === 'AgentRegistered';
-          } catch {
-            return false;
-          }
-        });
+      if (result.success && result.agentId) {
+        setStatus(prev => ({
+          ...prev,
+          isRegistered: true,
+          agentId: result.agentId,
+          error: null
+        }));
 
-        if (agentRegisteredEvent) {
-          const parsedLog = contract.interface.parseLog(agentRegisteredEvent);
-          if (parsedLog) {
-            const agentId = Number(parsedLog.args.agentId);
-            
-            setRegistrationStatus(`✅ Agent registered successfully! Agent ID: ${agentId}`);
-            
-            if (onRegistrationSuccess) {
-              onRegistrationSuccess(agentId);
-            }
-          } else {
-            setRegistrationStatus('✅ Registration completed (Agent ID not found in logs)');
-          }
-        } else {
-          setRegistrationStatus('✅ Registration completed (Agent ID not found in logs)');
+        if (onRegistrationComplete) {
+          onRegistrationComplete(result.agentId);
         }
       } else {
-        setRegistrationStatus('❌ Registration transaction failed');
+        throw new Error(result.error || 'Registration failed');
       }
 
-    } catch (error: any) {
+    } catch (error) {
       console.error('Registration failed:', error);
-      
-      if (error.code === 'INSUFFICIENT_FUNDS') {
-        setRegistrationStatus('❌ Insufficient funds for registration fee and gas');
-      } else if (error.code === 'USER_REJECTED') {
-        setRegistrationStatus('❌ Transaction rejected by user');
-      } else {
-        setRegistrationStatus(`❌ Registration failed: ${error.message || 'Unknown error'}`);
-      }
+      setStatus(prev => ({
+        ...prev,
+        error: error instanceof Error ? error.message : 'Registration failed'
+      }));
     } finally {
       setIsRegistering(false);
     }
   };
 
-  return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">Register New Agent</h3>
-      
-      <div className="space-y-4">
-        {/* Agent Domain */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Agent Domain *
-          </label>
-          <input
-            type="text"
-            placeholder="e.g., my-agent.example.com"
-            value={formData.agentDomain}
-            onChange={(e) => handleInputChange('agentDomain', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            Domain where your agent's AgentCard will be hosted
-          </p>
-        </div>
+  const copyToClipboard = (text: string) => {
+    navigator.clipboard.writeText(text);
+  };
 
-        {/* Agent Address */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">
-            Agent Address *
-          </label>
-          <input
-            type="text"
-            placeholder="0x..."
-            value={formData.agentAddress}
-            onChange={(e) => handleInputChange('agentAddress', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
-          />
-          <p className="text-xs text-gray-500 mt-1">
-            Ethereum address that will control this agent
-          </p>
-        </div>
-
-        {/* TEE Option */}
-        <div>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={formData.useTEE}
-              onChange={(e) => handleInputChange('useTEE', e.target.checked)}
-              className="w-4 h-4 text-blue-600"
-            />
-            <span className="text-sm font-medium text-gray-700">
-              Register with TEE Attestation
-            </span>
-          </label>
-          <p className="text-xs text-gray-500 mt-1 ml-6">
-            Enhanced security with Trusted Execution Environment verification
-          </p>
-        </div>
-
-        {/* Registration Fee */}
-        <div className="bg-blue-50 p-3 rounded-md">
-          <div className="text-sm text-blue-800">
-            <strong>Registration Fee:</strong> {registrationFee} ETH
-          </div>
-          <div className="text-xs text-blue-600 mt-1">
-            This fee is burned to prevent spam registrations
-          </div>
-        </div>
-
-        {/* Registration Status */}
-        {registrationStatus && (
-          <div className="bg-gray-50 p-3 rounded-md">
-            <div className="text-sm text-gray-700">{registrationStatus}</div>
-            {txHash && (
-              <div className="text-xs text-blue-600 mt-1">
-                <a
-                  href={`https://sepolia.basescan.org/tx/${txHash}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline hover:no-underline"
-                >
-                  View on BaseScan →
-                </a>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Registration Button */}
-        <button
-          onClick={registerAgent}
-          disabled={!isWalletConnected || isRegistering}
-          className={`w-full py-3 px-4 rounded-md font-medium transition-colors ${
-            !isWalletConnected || isRegistering
-              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
-          }`}
+  if (isChecking) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8 max-w-md mx-auto text-center"
         >
-          {!isWalletConnected
-            ? 'Connect Wallet to Register'
-            : isRegistering
-            ? 'Registering...'
-            : `Register Agent (${registrationFee} ETH)`
-          }
-        </button>
-
-        {/* Wallet Connection Status */}
-        {!isWalletConnected && (
-          <div className="text-center text-sm text-gray-500">
-            Please connect your MetaMask wallet to register an agent
-          </div>
-        )}
+          <ArrowPathIcon className="h-8 w-8 text-blue-400 animate-spin mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-white mb-2">Checking Registration Status</h3>
+          <p className="text-gray-400 text-sm">Initializing TEE agent...</p>
+        </motion.div>
       </div>
+    );
+  }
+
+  if (status.isRegistered) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-green-500/30 p-8 max-w-md mx-auto text-center"
+        >
+          <CheckCircleIcon className="h-16 w-16 text-green-400 mx-auto mb-6" />
+          <h2 className="text-2xl font-bold text-white mb-4">Agent Ready!</h2>
+          <div className="space-y-3 text-left">
+            <div className="bg-gray-700/50 rounded-lg p-3">
+              <div className="text-gray-400 text-sm">Agent ID</div>
+              <div className="text-white font-mono">{status.agentId}</div>
+            </div>
+            <div className="bg-gray-700/50 rounded-lg p-3">
+              <div className="text-gray-400 text-sm">Wallet Address</div>
+              <div className="text-white font-mono text-xs">{status.walletAddress.slice(0, 20)}...</div>
+            </div>
+            <div className="bg-gray-700/50 rounded-lg p-3">
+              <div className="text-gray-400 text-sm">Environment</div>
+              <div className="text-white flex items-center">
+                <CpuChipIcon className="h-4 w-4 mr-2" />
+                {status.isTEE ? 'TEE Enabled' : 'Standard Mode'}
+              </div>
+            </div>
+          </div>
+          <p className="text-gray-400 text-sm mt-6 mb-4">
+            Your ERC-8004 agent is registered and ready to provide code review services.
+          </p>
+          <p className="text-blue-400 text-sm">
+            Redirecting to main application...
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-6">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8 max-w-lg mx-auto"
+      >
+        <div className="text-center mb-8">
+          <CpuChipIcon className="h-16 w-16 text-purple-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">ERC-8004 Agent Setup</h2>
+          <p className="text-gray-400">Initialize your trustless AI agent</p>
+        </div>
+
+        <div className="space-y-6">
+          {/* Wallet Address */}
+          <div className="bg-gray-700/50 rounded-lg p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-gray-400 text-sm">Wallet Address</span>
+              <button
+                onClick={() => copyToClipboard(status.walletAddress)}
+                className="text-blue-400 hover:text-blue-300 text-xs"
+              >
+                Copy
+              </button>
+            </div>
+            <div className="text-white font-mono text-sm break-all">
+              {status.walletAddress}
+            </div>
+          </div>
+
+          {/* Registration Fee */}
+          <div className="bg-gray-700/50 rounded-lg p-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-gray-400 text-sm">Registration Fee</span>
+                <div className="text-white font-mono">{status.registrationFee} ETH</div>
+              </div>
+              <div className="text-right">
+                <span className="text-gray-400 text-sm">Your Balance</span>
+                <div className={`font-mono ${status.needsFunding ? 'text-red-400' : 'text-green-400'}`}>
+                  {status.balance} ETH
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Status Messages */}
+          <AnimatePresence>
+            {status.needsFunding && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4"
+              >
+                <div className="flex items-start space-x-3">
+                  <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-yellow-400 font-medium mb-1">Funding Required</h4>
+                    <p className="text-yellow-200 text-sm">
+                      Please send {status.registrationFee} ETH to your wallet address above to register your agent.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {status.error && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-red-500/10 border border-red-500/30 rounded-lg p-4"
+              >
+                <div className="flex items-start space-x-3">
+                  <ExclamationTriangleIcon className="h-5 w-5 text-red-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-red-400 font-medium mb-1">Setup Error</h4>
+                    <p className="text-red-200 text-sm">{status.error}</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {status.isTEE && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4"
+              >
+                <div className="flex items-start space-x-3">
+                  <CpuChipIcon className="h-5 w-5 text-blue-400 flex-shrink-0 mt-0.5" />
+                  <div>
+                    <h4 className="text-blue-400 font-medium mb-1">TEE Environment Detected</h4>
+                    <p className="text-blue-200 text-sm">
+                      Running in Trusted Execution Environment with enhanced security.
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Action Button */}
+          <motion.button
+            onClick={handleRegister}
+            disabled={status.needsFunding || isRegistering}
+            className={`
+              w-full py-3 px-6 rounded-lg font-medium transition-all flex items-center justify-center space-x-2
+              ${status.needsFunding || isRegistering
+                ? 'bg-gray-600 cursor-not-allowed'
+                : 'bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600 hover:shadow-lg transform hover:-translate-y-0.5'
+              } text-white
+            `}
+            whileHover={!status.needsFunding && !isRegistering ? { scale: 1.02 } : {}}
+            whileTap={!status.needsFunding && !isRegistering ? { scale: 0.98 } : {}}
+          >
+            {isRegistering ? (
+              <>
+                <ArrowPathIcon className="h-4 w-4 animate-spin" />
+                <span>Registering Agent...</span>
+              </>
+            ) : (
+              <>
+                <CheckCircleIcon className="h-4 w-4" />
+                <span>Register Agent</span>
+              </>
+            )}
+          </motion.button>
+
+          {/* Instructions */}
+          <div className="bg-gray-700/30 rounded-lg p-4">
+            <div className="flex items-start space-x-3">
+              <InformationCircleIcon className="h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5" />
+              <div className="text-gray-300 text-sm">
+                <h4 className="font-medium text-white mb-1">Setup Instructions:</h4>
+                <ol className="list-decimal list-inside space-y-1 text-xs">
+                  <li>Fund your wallet address with {status.registrationFee} ETH</li>
+                  <li>Click "Register Agent" to deploy to blockchain</li>
+                  <li>Your agent will be registered with ERC-8004 contracts</li>
+                  <li>Once registered, the main application will load</li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
-};
-
-export default AgentRegistration;
+}

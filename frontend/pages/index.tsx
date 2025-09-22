@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  CodeBracketIcon, 
-  ShieldCheckIcon, 
+import {
+  CodeBracketIcon,
+  ShieldCheckIcon,
   SparklesIcon,
   ChartBarIcon,
   CpuChipIcon,
@@ -43,6 +43,13 @@ import TransactionStatus from '../components/TransactionStatus';
 import ContractStatusMonitor from '../components/ContractStatusMonitor';
 import AgentRegistration from '../components/AgentRegistration';
 import A2AProtocolDemo from '../components/A2AProtocolDemo';
+
+// Registration guard state
+interface AppState {
+  isAgentRegistered: boolean;
+  agentId: number | null;
+  isCheckingRegistration: boolean;
+}
 
 interface ReviewData {
   review_id: string;
@@ -119,6 +126,13 @@ interface ValidationData {
 }
 
 export default function Home() {
+  // Registration state
+  const [appState, setAppState] = useState<AppState>({
+    isAgentRegistered: false,
+    agentId: null,
+    isCheckingRegistration: true
+  });
+
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('python');
   const [filename, setFilename] = useState('example.py');
@@ -152,6 +166,17 @@ export default function Home() {
   const [currentAIAgent, setCurrentAIAgent] = useState('');
   const [currentTxHash, setCurrentTxHash] = useState<string | null>(null);
   const [pendingTxType, setPendingTxType] = useState<'code_review' | 'validation' | null>(null);
+
+  // Handler for when agent registration is complete
+  const handleRegistrationComplete = (agentId: number) => {
+    console.log(`✅ Agent registration complete with ID: ${agentId}`);
+    setAppState(prev => ({
+      ...prev,
+      isAgentRegistered: true,
+      agentId: agentId,
+      isCheckingRegistration: false
+    }));
+  };
 
   const sampleCode = `import os
 import subprocess
@@ -1356,6 +1381,27 @@ ${reviewData?.issues?.map((issue: any, i: number) => `${i + 1}. ${issue.severity
     setCurrentAIAgent('');
     console.log('🔄 Demo reset - ready for new analysis');
   };
+
+  // Show registration guard if agent is not registered
+  if (appState.isCheckingRegistration) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-gray-800/50 backdrop-blur-sm rounded-2xl border border-gray-700/50 p-8 max-w-md mx-auto text-center"
+        >
+          <div className="h-8 w-8 border-2 border-blue-400 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-white mb-2">Initializing ERC-8004 Agent</h3>
+          <p className="text-gray-400 text-sm">Checking registration status...</p>
+        </motion.div>
+      </div>
+    );
+  }
+
+  if (!appState.isAgentRegistered) {
+    return <AgentRegistration onRegistrationComplete={handleRegistrationComplete} />;
+  }
 
   return (
     <>

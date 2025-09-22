@@ -16,7 +16,13 @@ This ERC extends the Agent‑to‑Agent (A2A) Protocol with a trust layer that a
 
 It introduces three **lightweight, on‑chain registries**—Identity, Reputation, and Validation—and leaves application‑specific logic to off‑chain components.
 
-Trust models are pluggable and tiered, with security proportional to value at risk—from low-stake tasks like ordering pizza to high-stake tasks like medical diagnosis. Developers can choose from three trust models: reputation-based systems using client feedback, stake-secured inference validation (crypto-economics), and attestations for agents running in TEEs (crypto-verifiability).
+Trust models are pluggable and tiered, with security proportional to value at risk—from low-stake tasks like ordering pizza to high-stake tasks like medical diagnosis. Developers can choose from three trust models: 
+
+1. **Reputation-based systems** using client feedback (10-30% trust weight)
+2. **Stake-secured inference validation** through crypto-economic mechanisms (30-70% trust weight)  
+3. **TEE attestations** for agents running in Trusted Execution Environments, providing cryptographic proof of secure execution (50-100% trust weight)
+
+The TEE model offers the highest trustlessness by eliminating economic assumptions—validation is purely cryptographic, based on hardware-rooted attestation that proves code integrity and execution environment security.
 
 ## Motivation
 
@@ -28,7 +34,7 @@ To foster an open, cross-organizational agent economy, we need mechanisms for di
 
 **2\. Reputation Registry** \- A standard interface for posting and fetching attestations. Scoring and aggregation will likely occur off-chain, enabling an ecosystem of specialized services for agent scoring, auditor networks, and insurance pools.
 
-**3\. Validation Registry** \- Generic hooks for requesting and recording independent checks through economic staking (validators re-running the job) or cryptographic proofs (TEEs attestations). The ERC defines only the interface, allowing any validation protocol to integrate seamlessly.
+**3\. Validation Registry** \- Generic hooks for requesting and recording independent checks through economic staking (validators re-running the job) or cryptographic proofs (TEE attestations). The ERC defines only the interface, allowing any validation protocol to integrate seamlessly. For TEE validation, the registry works with a **TEEVerifier contract** that cryptographically validates attestation quotes on-chain, providing trustless verification without economic assumptions.
 
 Payment layers —such as x402— are orthogonal to this protocol and not covered here. However, payment proofs can enrich feedback attestations.
 
@@ -146,10 +152,16 @@ The smart contract stores the tuples `(AgentValidatorID, AgentServerID, DataHash
 * The **DataHash** commits to all information needed to re-run the job, including the input and output to be verified  
 * **AgentValidator** can be a single centralized trusted agent, a threshold committee (k-of-n) managed by a smart contract, a stake-secured service, or any other kind of programmable governance which calls `ValidationResponse` at the end of the validation process
 
-##### **In the crypto-verification scenario:**
+##### **In the crypto-verification scenario (TEE Attestation):**
 
-* The **DataHash** commits to all information needed to create the TEE attestation proof or the zkTLS proof  
-* **AgentValidator** is a verifier smart contract which checks the proof on-chain and calls `ValidationResponse` if successful
+* The **DataHash** commits to all information needed to create the TEE attestation proof, including input data, output data, and execution context
+* **AgentValidator** is a TEE-enabled validator that cryptographically verifies the attestation quote on-chain through the TEEVerifier contract
+* **Trustlessness**: No economic assumptions required - verification is purely cryptographic based on TEE hardware guarantees
+* **Validator Role**: The validator verifies that:
+  1. The TEE attestation quote is cryptographically valid
+  2. The measurement hash matches a trusted enclave measurement
+  3. The report data correctly commits to the input/output pair
+  4. The quote is fresh (not replayed from previous executions)
 
 #### **Validation Requests**
 
@@ -177,11 +189,32 @@ The protocol deliberately delegates complex operations off-chain to enable:
 * Flexible validation protocols with custom incentive mechanisms  
 * Scalable data storage and retrieval systems
 
+**TEE Validation Architecture**
+
+The TEE validation model provides true trustlessness through:
+
+* **Cryptographic Verification**: TEE attestation quotes are verified on-chain using the TEEVerifier contract, eliminating the need for economic assumptions about validator behavior
+* **Hardware Root of Trust**: Intel TDX, AMD SEV, and ARM TrustZone provide hardware-backed guarantees of code integrity and secure execution
+* **Measurement-Based Identity**: Agents with identical TEE measurements share a cryptographically-verified trust baseline, enabling reputation inheritance
+* **Unified Verifier Contract**: A single TEEVerifier contract per chain supports multiple TEE technologies (TDX, SGX, SEV) while maintaining consistent interfaces
+* **Decentralized Validation**: Any party can become a validator by deploying TEE-enabled infrastructure—no central authority controls validator selection
+
+**Trust Model Progression**
+
+The protocol supports three trust tiers that can be combined:
+
+1. **Basic Reputation** (10-30% weight): Traditional feedback without cryptographic verification
+2. **Partial TEE** (50-70% weight): Either TEE attestation OR domain verification  
+3. **Full Verification** (80-100% weight): TEE attestation AND domain verification via RA-TLS certificates
+
+This tiered approach allows agents to choose security levels proportional to the value at risk, from casual task automation to mission-critical AI applications.
+
 **Interoperability**
 
 * CAIP-10 standard ensures chain-agnostic addressing  
 * RFC 8615 compliance enables standard web discovery  
 * Modular design allows integration with existing payment and validation systems
+* TEE measurement compatibility across different hardware vendors and cloud providers
 
 **Possible future directions**
 

@@ -8,6 +8,12 @@
 
 ---
 
+dstack TEE Integration:
+dstack SDK is installed and working
+Base agent uses getKey() for private key generation in TEE environments
+Graceful fallback when not in TEE environment
+No hardcoded private keys needed
+
 ## 🌟 **What You Get**
 
 This is a **complete, deployable template** for building your own Trustless AI protocol:
@@ -46,7 +52,7 @@ docker-compose up -d
 #### **Deploy on Phala Cloud TEE:**
 ```bash
 # Use Phala CLI with your API key
-phala deploy phala-deployment.yml --api-key YOUR_PHALA_API_KEY
+phala deploy docker-compose.yml --api-key YOUR_PHALA_API_KEY
 ```
 
 ---
@@ -135,17 +141,16 @@ RPC_URL=https://lb.drpc.org/base-sepolia/YOUR_DRPC_KEY_HERE
 PRIVATE_KEY=YOUR_PRIVATE_KEY_HERE
 
 # AI APIs
-GROK_API_KEY=YOUR_GROK_API_KEY_HERE
 OPENAI_API_KEY=YOUR_OPENAI_API_KEY_HERE
-ANTHROPIC_API_KEY=YOUR_ANTHROPIC_API_KEY_HERE
 
 # Phala TEE
 PHALA_API_KEY=YOUR_PHALA_API_KEY_HERE
 
 # Deployed Contracts (update after deployment)
-IDENTITY_REGISTRY_ADDRESS=0x...
-REPUTATION_REGISTRY_ADDRESS=0x...
-VALIDATION_REGISTRY_ADDRESS=0x...
+TEE_VERIFIER_ADDRESS=0x1b841e88ba786027f39ecf9Cd160176b22E3603c
+IDENTITY_REGISTRY_ADDRESS=0x000c5A70B7269c5eD4238DcC6576e598614d3f70
+REPUTATION_REGISTRY_ADDRESS=0xa7b860b16a41Aa8b6990EB3Fec0dB34686f7EAde
+VALIDATION_REGISTRY_ADDRESS=0xA455e56CBE75aaa3F692d28d0fBFD1D44B64F70d
 ```
 
 ### **Smart Contract Deployment**

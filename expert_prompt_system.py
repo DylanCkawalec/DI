@@ -3,7 +3,7 @@
 Expert-Level AI Prompt System for ERC-8004 Code Analysis
 
 This module demonstrates sophisticated prompt engineering for professional
-code review using Grok, Claude, and GPT models at expert level.
+code review using OpenAI GPT models at expert level.
 """
 
 import os
@@ -15,31 +15,12 @@ from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
 
-# AI Client imports
+# OpenAI Client imports
 try:
     import openai
     OPENAI_AVAILABLE = True
 except ImportError:
     OPENAI_AVAILABLE = False
-
-try:
-    import anthropic
-    ANTHROPIC_AVAILABLE = True
-except ImportError:
-    ANTHROPIC_AVAILABLE = False
-
-try:
-    from xai_sdk import Client as XAIClient
-    from xai_sdk.chat import user as xai_user, system as xai_system
-    XAI_AVAILABLE = True
-except ImportError:
-    XAI_AVAILABLE = False
-
-try:
-    import httpx
-    GROK_FALLBACK_AVAILABLE = True
-except ImportError:
-    GROK_FALLBACK_AVAILABLE = False
 
 class AnalysisPhase(Enum):
     """Analysis phases for multi-step workflow"""
@@ -74,86 +55,52 @@ class ExpertPromptSystem:
     
     def __init__(self):
         """Initialize the expert prompt system"""
-        self.grok_client = None
-        self.claude_client = None
         self.openai_client = None
-        
+
         # Initialize AI clients
         self._init_ai_clients()
-        
-        # Model configurations (curated for 2025-09)
+
+        # Model configurations using OpenAI models
         self.model_configs = {
-            # Fast triage / initial scan
-            "grok-fast": AIModelConfig(
-                model_name=os.getenv("GROK_FAST_MODEL", "grok-3-mini"),
+            # Fast analysis for initial scan
+            "gpt-4o-mini": AIModelConfig(
+                model_name="gpt-4o-mini",
                 max_tokens=2000,
                 temperature=0.1,
-                use_for_phases=[AnalysisPhase.INITIAL_SCAN],
-                cost_per_1k_tokens=0.001  # Most cost-effective
+                use_for_phases=[AnalysisPhase.INITIAL_SCAN, AnalysisPhase.PERFORMANCE_ANALYSIS],
+                cost_per_1k_tokens=0.0015
             ),
-            # Standard Grok for code work / perf
-            "grok-standard": AIModelConfig(
-                model_name=os.getenv("GROK_STANDARD_MODEL", "grok-3"),
+            # Standard analysis for code improvement
+            "gpt-4o": AIModelConfig(
+                model_name="gpt-4o",
                 max_tokens=4000,
                 temperature=0.15,
-                use_for_phases=[AnalysisPhase.CODE_IMPROVEMENT, AnalysisPhase.PERFORMANCE_ANALYSIS],
-                cost_per_1k_tokens=0.002  # Cost-effective
+                use_for_phases=[AnalysisPhase.CODE_IMPROVEMENT, AnalysisPhase.ARCHITECTURE_REVIEW],
+                cost_per_1k_tokens=0.025
             ),
-            # Claude for deep/security/arch/final
-            "claude": AIModelConfig(
-                # Anthropic recommends Sonnet 4; 3.5 Sonnet is being retired
-                model_name=os.getenv("CLAUDE_MODEL", "claude-3-5-sonnet-20241022"),
+            # Advanced analysis for deep security
+            "gpt-4-turbo": AIModelConfig(
+                model_name="gpt-4-turbo",
                 max_tokens=8000,
                 temperature=0.2,
-                use_for_phases=[
-                    AnalysisPhase.DEEP_SECURITY,
-                    AnalysisPhase.ARCHITECTURE_REVIEW,
-                    AnalysisPhase.FINAL_VALIDATION,
-                ],
-                cost_per_1k_tokens=0.015  # Premium quality
+                use_for_phases=[AnalysisPhase.DEEP_SECURITY],
+                cost_per_1k_tokens=0.1
             ),
         }
         
         print("🧠 Expert AI Prompt System initialized")
-        print(f"   xAI (Grok): {'✅' if self.xai_client else '❌'}")
-        print(f"   Anthropic (Claude): {'✅' if self.claude_client else '❌'}")
-        print(f"   OpenAI fallback: {'✅' if self.openai_client else '⚪ optional'}")
+        print(f"   OpenAI: {'✅' if self.openai_client else '❌'}")
 
     def _init_ai_clients(self):
-        """Initialize AI clients with API keys"""
-        
-        # Initialize XAI SDK for Grok models (using GROK_API_KEY)
-        if XAI_AVAILABLE and (os.getenv('GROK_API_KEY') or os.getenv('XAI_API_KEY')):
-            try:
-                api_key = os.getenv('GROK_API_KEY') or os.getenv('XAI_API_KEY')
-                self.xai_client = XAIClient(api_key=api_key)
-                print("✅ xAI SDK initialized (Grok)")
-            except Exception as e:
-                print(f"⚠️ xAI SDK initialization failed: {e}")
-                self.xai_client = None
-        else:
-            self.xai_client = None
-            
-        # Initialize Claude client
-        if ANTHROPIC_AVAILABLE and os.getenv('ANTHROPIC_API_KEY'):
-            try:
-                self.claude_client = anthropic.Anthropic(
-                    api_key=os.getenv('ANTHROPIC_API_KEY')
-                )
-                print("✅ Claude client initialized")
-            except Exception as e:
-                print(f"⚠️ Claude initialization failed: {e}")
-                self.claude_client = None
-        else:
-            self.claude_client = None
-            
-        # Keep OpenAI as fallback but don't use GPT-4
+        """Initialize OpenAI client with API key"""
+
+        # Initialize OpenAI client
         if OPENAI_AVAILABLE and os.getenv('OPENAI_API_KEY'):
             try:
                 self.openai_client = openai.OpenAI(
                     api_key=os.getenv('OPENAI_API_KEY')
                 )
-                print("✅ OpenAI client available as fallback")
+                print("✅ OpenAI client initialized")
             except Exception as e:
                 print(f"⚠️ OpenAI initialization failed: {e}")
                 self.openai_client = None
@@ -728,93 +675,79 @@ Language: {language}
         )
 
     def _select_optimal_model(self, phase: AnalysisPhase) -> Optional[str]:
-        """Select the optimal AI model for a given analysis phase"""
-        
+        """Select the optimal OpenAI model for a given analysis phase"""
+
         # Check which models are available and suitable for this phase
         available_models = []
-        
+
         for model_name, config in self.model_configs.items():
             if phase in config.use_for_phases:
-                if model_name == "grok-fast" and self.xai_client:
+                if self.openai_client:
                     available_models.append((model_name, config.cost_per_1k_tokens))
-                elif model_name == "grok-standard" and self.xai_client:
-                    available_models.append((model_name, config.cost_per_1k_tokens))
-                elif model_name == "claude" and self.claude_client:
-                    available_models.append((model_name, config.cost_per_1k_tokens))
-        
+
         if not available_models:
             print(f"⚠️ No available models for phase {phase.value}")
             return None
-        
+
         # Smart model selection based on phase requirements
         if phase == AnalysisPhase.INITIAL_SCAN:
-            # Prefer fast Grok for initial scanning
+            # Prefer GPT-4o-mini for initial scanning (fast and cost-effective)
             for model_name, _ in available_models:
-                if model_name == "grok-fast":
+                if model_name == "gpt-4o-mini":
                     return model_name
-                    
-        elif phase in [AnalysisPhase.CODE_IMPROVEMENT, AnalysisPhase.PERFORMANCE_ANALYSIS]:
-            # Prefer standard Grok for code work
+
+        elif phase == AnalysisPhase.PERFORMANCE_ANALYSIS:
+            # Use GPT-4o-mini for performance analysis
             for model_name, _ in available_models:
-                if model_name == "grok-standard":
+                if model_name == "gpt-4o-mini":
                     return model_name
-                    
-        elif phase in [AnalysisPhase.DEEP_SECURITY, AnalysisPhase.ARCHITECTURE_REVIEW, AnalysisPhase.FINAL_VALIDATION]:
-            # Prefer Claude for deep analysis
+
+        elif phase == AnalysisPhase.CODE_IMPROVEMENT:
+            # Use GPT-4o for code improvement
             for model_name, _ in available_models:
-                if model_name == "claude":
+                if model_name == "gpt-4o":
                     return model_name
-        
+
+        elif phase == AnalysisPhase.ARCHITECTURE_REVIEW:
+            # Use GPT-4o for architecture review
+            for model_name, _ in available_models:
+                if model_name == "gpt-4o":
+                    return model_name
+
+        elif phase == AnalysisPhase.DEEP_SECURITY:
+            # Use GPT-4-turbo for deep security analysis
+            for model_name, _ in available_models:
+                if model_name == "gpt-4-turbo":
+                    return model_name
+
         # Fallback to first available model
         return available_models[0][0]
 
-    async def _execute_ai_analysis(self, model_name: str, system_prompt: str, 
+    async def _execute_ai_analysis(self, model_name: str, system_prompt: str,
                                  analysis_prompt: str, phase: AnalysisPhase) -> Tuple[Dict[str, Any], int]:
-        """Execute AI analysis with the specified model"""
-        
-        config = self.model_configs[model_name]
-        
-        try:
-            if model_name in ["grok-fast", "grok-standard"] and self.xai_client:
-                # Use XAI SDK for Grok models (async-safe)
-                def _call_xai():
-                    chat = self.xai_client.chat.create(
-                        model=config.model_name,
-                        temperature=config.temperature,
-                    )
-                    chat.append(xai_system(system_prompt))
-                    chat.append(xai_user(analysis_prompt))
-                    resp = chat.sample()
-                    # SDK returns .content as a string
-                    content = getattr(resp, "content", "") or ""
-                    # Token usage isn't always exposed; estimate roughly by whitespace count
-                    est_tokens = len((system_prompt + analysis_prompt + content).split())
-                    return content, est_tokens
+        """Execute AI analysis using OpenAI"""
 
-                content, token_usage = await asyncio.to_thread(_call_xai)
-                
-            elif model_name == "claude" and self.claude_client:
-                response = await asyncio.to_thread(
-                    self.claude_client.messages.create,
-                    model=config.model_name,
-                    max_tokens=config.max_tokens,
-                    temperature=config.temperature,
-                    system=system_prompt,
-                    messages=[{"role": "user", "content": analysis_prompt}],
-                )
-                
-                # response.content is a list of blocks; join text blocks
-                content = "".join(
-                    block.text for block in getattr(response, "content", []) if getattr(block, "type", "") == "text"
-                )
-                token_usage = 0
-                if hasattr(response, "usage"):
-                    token_usage = int(getattr(response.usage, "input_tokens", 0)) + int(
-                        getattr(response.usage, "output_tokens", 0)
-                    )
-            
-            else:
-                raise Exception(f"Model {model_name} not available or not configured")
+        if not self.openai_client:
+            raise Exception("OpenAI client not available")
+
+        config = self.model_configs[model_name]
+
+        try:
+            response = await asyncio.to_thread(
+                self.openai_client.chat.completions.create,
+                model=config.model_name,
+                max_tokens=config.max_tokens,
+                temperature=config.temperature,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": analysis_prompt}
+                ]
+            )
+
+            content = response.choices[0].message.content or ""
+            token_usage = 0
+            if hasattr(response, "usage") and response.usage:
+                token_usage = int(getattr(response.usage, "total_tokens", 0))
             
             # Parse JSON response (handle markdown code blocks)
             try:

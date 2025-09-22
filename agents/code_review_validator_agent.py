@@ -51,12 +51,6 @@ try:
 except ImportError:
     OPENAI_AVAILABLE = False
 
-try:
-    import anthropic
-    ANTHROPIC_AVAILABLE = True
-except ImportError:
-    ANTHROPIC_AVAILABLE = False
-
 # FastAPI for API endpoints
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -103,15 +97,13 @@ class CodeReviewValidatorAgent(ERC8004BaseAgent):
         print(f"   Domain: {self.agent_domain}")
         print(f"   Address: {self.address}")
         print(f"   OpenAI: {'✅ Available' if self.openai_client else '❌ Not configured'}")
-        print(f"   Anthropic: {'✅ Available' if self.anthropic_client else '❌ Not configured'}")
 
     def _init_ai_clients(self):
         """Initialize AI clients if API keys are available"""
         if OPENAI_AVAILABLE and os.getenv('OPENAI_API_KEY'):
             self.openai_client = openai.OpenAI()
-            
-        if ANTHROPIC_AVAILABLE and os.getenv('ANTHROPIC_API_KEY'):
-            self.anthropic_client = anthropic.Anthropic()
+        else:
+            self.openai_client = None
 
     def _create_api_app(self) -> FastAPI:
         """Create FastAPI application for the validation service"""
@@ -383,17 +375,14 @@ class CodeReviewValidatorAgent(ERC8004BaseAgent):
         }
 
     async def _independent_ai_analysis(self, code: str, language: str) -> Optional[Dict[str, Any]]:
-        """Perform independent AI analysis for validation"""
-        if not (self.openai_client or self.anthropic_client):
+        """Perform independent AI analysis for validation using OpenAI"""
+        if not self.openai_client:
             return self._fallback_validator_ai_analysis()
-        
+
         prompt = self._create_validation_prompt(code, language)
-        
+
         try:
-            if self.anthropic_client:  # Prefer different AI for validation
-                return await self._validate_with_anthropic(prompt)
-            elif self.openai_client:
-                return await self._validate_with_openai(prompt)
+            return await self._validate_with_openai(prompt)
         except Exception as e:
             print(f"⚠️  Validator AI analysis failed: {e}")
             return self._fallback_validator_ai_analysis()
@@ -432,19 +421,6 @@ Provide your analysis as JSON:
 
 Be more conservative than typical code review agents - err on the side of caution.
 """
-
-    async def _validate_with_anthropic(self, prompt: str) -> Dict[str, Any]:
-        """Validate using Anthropic Claude (using cost-effective model)"""
-        response = self.anthropic_client.messages.create(
-            model="claude-3-haiku-20240307",  # Cheaper than Sonnet
-            max_tokens=1500,  # Reduced for cost control
-            messages=[{"role": "user", "content": prompt}]
-        )
-        
-        try:
-            return json.loads(response.content[0].text)
-        except json.JSONDecodeError:
-            return self._parse_validator_response_fallback(response.content[0].text)
 
     async def _validate_with_openai(self, prompt: str) -> Dict[str, Any]:
         """Validate using OpenAI"""

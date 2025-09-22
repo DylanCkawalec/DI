@@ -25,19 +25,6 @@ try:
 except ImportError:
     OPENAI_AVAILABLE = False
 
-try:
-    import anthropic
-    ANTHROPIC_AVAILABLE = True
-except ImportError:
-    ANTHROPIC_AVAILABLE = False
-
-# Grok API support (using OpenAI-compatible interface)
-try:
-    import httpx
-    GROK_AVAILABLE = True
-except ImportError:
-    GROK_AVAILABLE = False
-
 # Code analysis tools
 import ast
 import re
@@ -91,25 +78,13 @@ class CodeReviewServerAgent(ERC8004BaseAgent):
         print(f"   Domain: {self.agent_domain}")
         print(f"   Address: {self.address}")
         print(f"   OpenAI: {'✅ Available' if self.openai_client else '❌ Not configured'}")
-        print(f"   Grok: {'✅ Available' if self.grok_client else '❌ Not configured'}")
-        print(f"   Anthropic: {'✅ Available' if self.anthropic_client else '❌ Not configured'}")
 
     def _init_ai_clients(self):
-        """Initialize AI clients if API keys are available"""
+        """Initialize OpenAI client if API key is available"""
         if OPENAI_AVAILABLE and os.getenv('OPENAI_API_KEY'):
             self.openai_client = openai.OpenAI()
-            
-        if ANTHROPIC_AVAILABLE and os.getenv('ANTHROPIC_API_KEY'):
-            self.anthropic_client = anthropic.Anthropic()
-        
-        # Initialize Grok client (uses OpenAI-compatible interface)
-        if GROK_AVAILABLE and os.getenv('GROK_API_KEY'):
-            self.grok_client = openai.OpenAI(
-                api_key=os.getenv('GROK_API_KEY'),
-                base_url="https://api.x.ai/v1"
-            )
         else:
-            self.grok_client = None
+            self.openai_client = None
 
     def _create_api_app(self) -> FastAPI:
         """Create FastAPI application for the code review service"""
@@ -351,22 +326,15 @@ class CodeReviewServerAgent(ERC8004BaseAgent):
         }
 
     async def _ai_analysis(self, code: str, language: str, focus_areas: List[str]) -> Optional[Dict[str, Any]]:
-        """Perform AI-powered code analysis using available LLMs (prioritize cheapest)"""
-        if not (self.grok_client or self.openai_client or self.anthropic_client):
+        """Perform AI-powered code analysis using OpenAI"""
+        if not self.openai_client:
             return self._fallback_ai_analysis(code, language, focus_areas)
-        
+
         prompt = self._create_analysis_prompt(code, language, focus_areas)
-        
+
         try:
-            # Try Grok first (cheapest and most capable option)
-            if self.grok_client:
-                return await self._analyze_with_grok(prompt)
-            # Then Claude (good balance of cost and quality)
-            elif self.anthropic_client:
-                return await self._analyze_with_anthropic(prompt)
-            # Finally OpenAI (backup)
-            elif self.openai_client:
-                return await self._analyze_with_openai(prompt)
+            # Use OpenAI for AI analysis
+            return await self._analyze_with_openai(prompt)
         except Exception as e:
             print(f"⚠️  AI analysis failed: {e}, falling back to rule-based analysis")
             return self._fallback_ai_analysis(code, language, focus_areas)
@@ -405,53 +373,23 @@ Format your response as JSON with the following structure:
 }}
 """
 
-    async def _analyze_with_grok(self, prompt: str) -> Dict[str, Any]:
-        """Analyze code using Grok (optimized for speed and cost)"""
-        response = self.grok_client.chat.completions.create(
-            model="grok-4-latest",  # Using latest Grok model
-            messages=[
-                {"role": "system", "content": "You are a fast, expert code security reviewer. Respond only with valid JSON. Be concise but thorough."},
-                {"role": "user", "content": prompt}
-            ],
-            temperature=0.1,  # Low temperature for consistency
-            stream=False,
-            max_tokens=1000  # Limit tokens for faster response
-        )
-        
-        try:
-            return json.loads(response.choices[0].message.content)
-        except json.JSONDecodeError:
-            return self._parse_llm_response_fallback(response.choices[0].message.content)
-
     async def _analyze_with_openai(self, prompt: str) -> Dict[str, Any]:
-        """Analyze code using OpenAI GPT models (using cheapest model)"""
+        """Analyze code using OpenAI GPT models"""
         response = self.openai_client.chat.completions.create(
-            model="gpt-3.5-turbo",  # Cheapest OpenAI model
+            model="gpt-4o-mini",  # Cost-effective and capable model
             messages=[
-                {"role": "system", "content": "You are an expert code reviewer specializing in security, performance, and best practices."},
+                {"role": "system", "content": "You are an expert code reviewer specializing in security, performance, and best practices. Respond only with valid JSON."},
                 {"role": "user", "content": prompt}
             ],
-            temperature=0.3
+            temperature=0.1,
+            max_tokens=2000
         )
-        
+
         try:
             return json.loads(response.choices[0].message.content)
         except json.JSONDecodeError:
             # Fallback if JSON parsing fails
             return self._parse_llm_response_fallback(response.choices[0].message.content)
-
-    async def _analyze_with_anthropic(self, prompt: str) -> Dict[str, Any]:
-        """Analyze code using Anthropic Claude (using cheapest model)"""
-        response = self.anthropic_client.messages.create(
-            model="claude-3-haiku-20240307",  # Cheapest Claude model
-            max_tokens=1500,  # Reduce tokens for cost
-            messages=[{"role": "user", "content": prompt}]
-        )
-        
-        try:
-            return json.loads(response.content[0].text)
-        except json.JSONDecodeError:
-            return self._parse_llm_response_fallback(response.content[0].text)
 
     def _fallback_ai_analysis(self, code: str, language: str, focus_areas: List[str]) -> Dict[str, Any]:
         """Fallback analysis when AI APIs are not available"""

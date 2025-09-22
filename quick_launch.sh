@@ -35,34 +35,137 @@ elif [[ "$TEE_MODE" == "production" ]]; then
     echo "✅ TEE environment variables validated"
 fi
 
-# Validate environment variables are available (no hardcoded keys)
-if [[ -z "$PRIVATE_KEY" ]]; then
-    echo "❌ ERROR: PRIVATE_KEY not found in environment"
-    echo "   For local: Ensure .env file exists with PRIVATE_KEY"
-    echo "   For Docker: handled by load_env.sh"
-    echo "   For Phala TEE: set via KMS secrets"
-    exit 1
-fi
-
 # Validate critical environment variables (no fallbacks)
 if [[ -z "$RPC_URL" ]]; then
     echo "❌ ERROR: RPC_URL not found in environment"
     exit 1
 fi
 
-# Check AI API keys availability (informational only)
-ai_providers=0
-[[ -n "$GROK_API_KEY" ]] && ai_providers=$((ai_providers + 1)) && echo "✅ Grok API key available"
-[[ -n "$OPENAI_API_KEY" ]] && ai_providers=$((ai_providers + 1)) && echo "✅ OpenAI API key available"
-[[ -n "$ANTHROPIC_API_KEY" ]] && ai_providers=$((ai_providers + 1)) && echo "✅ Anthropic API key available"
+# Check for TEE environment and generate keys if needed
+if [[ "$TEE_MODE" == "production" || "$PHALA_DEPLOYMENT" == "true" ]]; then
+    echo "🔐 TEE Environment Detected"
 
-if [[ $ai_providers -eq 0 ]]; then
-    echo "⚠️  No AI API keys configured - AI features will use fallback analysis"
+    # Check if dstack socket exists
+    if [[ -S "/var/run/dstack.sock" ]]; then
+        echo "✅ dstack TEE socket found: /var/run/dstack.sock"
+        export DSTACK_SOCKET_PATH="/var/run/dstack.sock"
+    elif [[ -S "/var/run/tappd.sock" ]]; then
+        echo "✅ Legacy tappd TEE socket found: /var/run/tappd.sock"
+        export DSTACK_SOCKET_PATH="/var/run/tappd.sock"
+    else
+        echo "⚠️ WARNING: No TEE socket found"
+        echo "   Expected: /var/run/dstack.sock (current) or /var/run/tappd.sock (legacy)"
+        echo "   TEE features will use simulation mode"
+        export TEE_SIMULATION_MODE="true"
+    fi
+
+    # Generate private key from TEE if not provided
+    if [[ -z "$PRIVATE_KEY" ]]; then
+        echo "🔑 Generating private key from TEE..."
+        if [[ -n "$DSTACK_SOCKET_PATH" ]]; then
+            PRIVATE_KEY=$(echo -n "getKey" | socat - UNIX-CONNECT:"$DSTACK_SOCKET_PATH" 2>/dev/null | tr -d '\n')
+            if [[ -n "$PRIVATE_KEY" && ${#PRIVATE_KEY} -eq 64 ]]; then
+                echo "✅ Private key generated from TEE"
+                export PRIVATE_KEY
+            else
+                echo "❌ ERROR: Failed to generate private key from TEE"
+                echo "   Make sure you're running in a proper TEE environment"
+                exit 1
+            fi
+        else
+            echo "❌ ERROR: No TEE socket available for key generation"
+            exit 1
+        fi
+    else
+        echo "✅ Using provided private key"
+    fi
 else
-    echo "✅ $ai_providers AI provider(s) configured for enhanced analysis"
+    echo "📁 Local Development Mode"
+    # For local development, require PRIVATE_KEY to be set
+    if [[ -z "$PRIVATE_KEY" ]]; then
+        echo "❌ ERROR: PRIVATE_KEY not found in environment"
+        echo "   For local development: Set PRIVATE_KEY in .env file"
+        exit 1
+    fi
+fi
+
+# Check AI API keys availability (informational only)
+if [[ -n "$OPENAI_API_KEY" ]]; then
+    echo "✅ OpenAI API key available"
+    echo "✅ AI provider configured for enhanced analysis"
+else
+    echo "⚠️  No AI API keys configured - AI features will use fallback analysis"
 fi
 
 echo "✅ All required environment variables validated"
+
+# Function to check agent registration status
+check_agent_registration() {
+    echo "🔍 Checking agent registration status..."
+
+    # Wait for backend services to be ready
+    max_attempts=30
+    attempt=0
+
+    while [[ $attempt -lt $max_attempts ]]; do
+        if curl -sf http://localhost:8080/api/agent/info >/dev/null 2>&1; then
+            echo "✅ Backend API is ready"
+
+            # Check registration status
+            registration_status=$(curl -s http://localhost:8080/api/registration/status 2>/dev/null || echo '{"isRegistered": false}')
+
+            if [[ $(echo "$registration_status" | jq -r '.isRegistered' 2>/dev/null) == "true" ]]; then
+                agent_id=$(echo "$registration_status" | jq -r '.agentId' 2>/dev/null)
+                echo "✅ Agent already registered with ID: $agent_id"
+                return 0
+            else
+                echo "ℹ️ Agent not registered, attempting registration..."
+                return 1
+            fi
+        fi
+
+        attempt=$((attempt + 1))
+        echo "   Waiting for backend services... (attempt $attempt/$max_attempts)"
+        sleep 2
+    done
+
+    echo "❌ ERROR: Backend services not ready after ${max_attempts} attempts"
+    return 1
+}
+
+# Function to register agent
+register_agent() {
+    echo "🔐 Registering agent with ERC-8004 registry..."
+
+    # Attempt registration
+    max_attempts=3
+    attempt=0
+
+    while [[ $attempt -lt $max_attempts ]]; do
+        echo "   Attempting registration (attempt $((attempt + 1))/$max_attempts)..."
+
+        # Try to register
+        response=$(curl -s -X POST http://localhost:8080/api/register \
+            -H "Content-Type: application/json" \
+            -d '{"useTEE": true}' 2>/dev/null)
+
+        if [[ $? -eq 0 && $(echo "$response" | jq -r '.success' 2>/dev/null) == "true" ]]; then
+            agent_id=$(echo "$response" | jq -r '.agentId' 2>/dev/null)
+            echo "✅ Agent registered successfully with ID: $agent_id"
+            return 0
+        fi
+
+        attempt=$((attempt + 1))
+
+        if [[ $attempt -lt $max_attempts ]]; then
+            echo "   Registration failed, retrying in 5 seconds..."
+            sleep 5
+        fi
+    done
+
+    echo "❌ ERROR: Agent registration failed after $max_attempts attempts"
+    return 1
+}
 
 # TEE Socket Detection (critical for dstack SDK)
 if [[ "$TEE_MODE" == "production" || "$PHALA_DEPLOYMENT" == "true" ]]; then
@@ -163,6 +266,31 @@ if wait_for_service "http://localhost:3000" "Frontend Application" 25; then
 else
     echo "⚠️ Frontend startup taking longer than expected..."
     echo "   This is normal for Next.js development server"
+fi
+
+# Check and handle agent registration
+echo
+echo "🔐 AGENT REGISTRATION"
+echo "===================="
+
+if check_agent_registration; then
+    echo "✅ Agent is registered and ready"
+else
+    echo "🔄 Attempting agent registration..."
+    if register_agent; then
+        echo "✅ Agent registration completed successfully"
+    else
+        echo "❌ Agent registration failed"
+        echo ""
+        echo "🔧 TROUBLESHOOTING:"
+        echo "   1. Check if your wallet has sufficient ETH for registration fee (~0.005 ETH)"
+        echo "   2. Ensure the ERC-8004 contracts are deployed and accessible"
+        echo "   3. Verify RPC_URL is pointing to a working Base Sepolia endpoint"
+        echo "   4. Check logs/api.log and logs/validator.log for detailed errors"
+        echo ""
+        echo "💡 The application will still run, but blockchain features will be limited"
+        echo "   until the agent is properly registered."
+    fi
 fi
 
 echo

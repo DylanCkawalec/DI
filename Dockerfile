@@ -117,4 +117,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
 USER root
 
 # Startup command
-CMD ["./load_env.sh", "./quick_launch.sh"]
+CMD  "./quick_launch.sh"

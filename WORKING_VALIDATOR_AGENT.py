@@ -58,17 +58,7 @@ class WorkingValidatorAgent:
     def init_ai_clients(self) -> bool:
         """Initialize AI clients safely"""
         try:
-            # Try Claude first
-            if os.getenv('ANTHROPIC_API_KEY'):
-                import anthropic
-                self.claude_client = anthropic.Anthropic(api_key=os.getenv('ANTHROPIC_API_KEY'))
-                print("   ✅ Claude AI connected")
-                return True
-        except Exception as e:
-            print(f"   ⚠️ Claude failed: {e}")
-        
-        try:
-            # Try OpenAI as backup
+            # Use OpenAI as primary AI provider
             if os.getenv('OPENAI_API_KEY'):
                 import openai
                 self.openai_client = openai.OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
@@ -232,20 +222,8 @@ Respond ONLY with JSON:
 """
         
         try:
-            # Try Claude first
-            if hasattr(self, 'claude_client'):
-                response = self.claude_client.messages.create(
-                    model="claude-3-haiku-20240307",
-                    max_tokens=200,
-                    messages=[{"role": "user", "content": prompt}]
-                )
-                
-                result = json.loads(response.content[0].text)
-                print(f"   ✅ Claude validation complete")
-                return result
-                
-            # Try OpenAI
-            elif hasattr(self, 'openai_client'):
+            # Use OpenAI for AI analysis
+            if hasattr(self, 'openai_client'):
                 response = self.openai_client.chat.completions.create(
                     model="gpt-4o-mini",
                     messages=[
@@ -255,7 +233,7 @@ Respond ONLY with JSON:
                     temperature=0.1,
                     max_tokens=200
                 )
-                
+
                 result = json.loads(response.choices[0].message.content)
                 print(f"   ✅ OpenAI validation complete")
                 return result

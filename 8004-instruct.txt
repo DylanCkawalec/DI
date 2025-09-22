@@ -1,0 +1,50 @@
+Here's the exact flow we've used before (e.g., in your agent8004 project) to build a Docker image that satisfies dstack TEE requirements and deploy/update on Phala Cloud.
+
+What matters for dstack TEE
+•  Build for linux/amd64 (add arm64 to avoid manifest issues).
+•  Container must listen on port 80 and your gateway URL should include -80 when needed.
+•  Use a compose file that:
+◦  Mounts /var/run/tappd.sock (TEE adapter socket).
+◦  Uses environment mapping (key: value), not list-style env.
+•  Provide env via an .env file; the Phala CLI encrypts values into the TEE.
+•  Keep CVM names short (≤ 20 chars).
+
+A) Build and push the Docker image (multi-arch)
+•  Make sure you're logged in to your container registry (Docker Hub in prior use).
+•  Build and push a multi-arch image so Phala can pull a matching manifest.
+bash
+Tip: Also tag a version when you cut a release:
+bash
+B) Prepare .env for TEE (passed securely)
+bash
+C) Compose file for dstack/TEE
+•  Note the tappd socket mount and explicit 80:80 mapping.
+•  Use key: value env mapping (not list form).
+yaml
+D) New deployment on Phala Cloud (two ways)
+
+Option 1 — Template (fast path, as used in README)
+bash
+Option 2 — Compose + env-file (recommended when customizing)
+bash
+E) Updating an existing CVM (what we've done in the past)
+•  After pushing a new image tag (or updating :latest), trigger a restart:
+bash
+F) Verify post-deploy
+•  Your URL will look like:
+◦  https://<uuid>-80.dstack-<region>.phala.network/
+•  Health check:
+bash
+G) Common pitfalls we've avoided
+•  "no matching manifest for linux/amd64": always use buildx with linux/amd64 (add arm64 too).
+•  Wrong port: set PORT=80 and map 80:80 in compose.
+•  Env not applied: always provide --env-file ./.env to the CLI (it encrypts the values for the TEE).
+•  Long CVM names: keep ≤ 20 characters.
+•  Gateway URL: if the base domain form doesn't respond while booting, use the -80 form.
+
+This matches how agent8004 is set up:
+•  Multi-stage Dockerfile builds the Go binary and serves the Node app on port 80.
+•  docker-compose.yml mounts /var/run/tappd.sock and uses env mapping.
+•  README outlines the "Phala/dstack compose and env preflight," multi-arch buildx command, and CLI deploy/update flows.
+
+If you want, I can tailor the exact commands with your Docker Hub org and the specific CVM UUID you're updating.
