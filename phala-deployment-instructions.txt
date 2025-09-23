@@ -18,8 +18,11 @@ bash
 B) Prepare .env for TEE (passed securely)
 bash
 C) Compose file for dstack/TEE
+•  Remove version field (obsolete in newer Docker Compose)
 •  Note the tappd socket mount and explicit 80:80 mapping.
 •  Use key: value env mapping (not list form).
+•  Use simple "build: ." format (not context/dockerfile specification).
+•  Don't specify image field when building from Dockerfile.
 yaml
 D) New deployment on Phala Cloud (two ways)
 
@@ -41,6 +44,10 @@ G) Common pitfalls we've avoided
 •  Env not applied: always provide --env-file ./.env to the CLI (it encrypts the values for the TEE).
 •  Long CVM names: keep ≤ 20 characters.
 •  Gateway URL: if the base domain form doesn't respond while booting, use the -80 form.
+•  "version obsolete": Remove version field from docker-compose.yml.
+•  "failed to read dockerfile": Ensure Dockerfile is in the build context root.
+•  "unauthorized environment variable": Some env vars are managed by TEE system, don't include them in .env.
+•  CVM stuck in "starting": Check logs via Phala dashboard, may need to restart or redeploy.
 
 This matches how agent8004 is set up:
 •  Multi-stage Dockerfile builds the Go binary and serves the Node app on port 80.

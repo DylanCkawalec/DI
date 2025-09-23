@@ -12,14 +12,9 @@
 #
 # Usage: cp env.production.template .env && docker-compose up -d
 
-version: '3.8'
-
 services:
   # ERC-8004 Trustless AI Agent - Main Application
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
     image: dylanckawalec/trustless-ai-erc-8004:latest
     container_name: trustless-Decrypt-A2a
     

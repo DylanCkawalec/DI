@@ -3,6 +3,7 @@
 # Bulletproof multi-platform build optimized for reliability
 
 # Frontend build stage
+ARG BUILDPLATFORM=linux/amd64
 FROM --platform=$BUILDPLATFORM node:22-alpine AS frontend-builder
 
 WORKDIR /app/frontend
@@ -23,6 +24,7 @@ RUN mkdir -p public
 RUN npm run build
 
 # Production stage
+ARG TARGETPLATFORM=linux/amd64
 FROM --platform=$TARGETPLATFORM python:3.11-slim AS production
 
 # Install system dependencies in single layer
