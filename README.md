@@ -1,4 +1,7 @@
-# ERC-8004 TEE Agent
+# ERC-8004 TEE Agent **ARCHIVED**
+
+> This repository is not longer in sync with the latest efforts in ERC-8004. If you are looking for the latest, check out https://github.com/Phala-Network/erc-8004-tee-agent. if you are wanting more support for real TEE deployments utilizing ERC-8004 please reach out to the dAI team as they have an opinion on TEEs that may not align with the work done in this working solution that has real TEE validation end to end. I will no longer maintain any work around ERC-8004 individually, but I will publish updates to the mentioned repo above if requested through Phala. Thank you.
+
 
 Trustless AI agents with Intel TDX attestation on Base Sepolia.
 
